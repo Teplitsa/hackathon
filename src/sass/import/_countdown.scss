@@ -1,0 +1,14 @@
+/**
+ * Countdown
+ */
+.hms-countdown {
+	.countdown-section {
+		+ .countdown-section {
+			margin-left: 5px;
+		}
+	}
+
+	.countdown-period {
+		font-size: 13px;
+	}
+}

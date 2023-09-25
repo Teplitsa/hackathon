@@ -1,0 +1,17 @@
+/**
+ * Page
+ */
+
+.hms-main {
+	display: flex;
+	min-height: calc(100vh - 32px);
+	overflow: hidden;
+	position: relative;
+}
+
+.hms-wrap {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding: var(--hms-gap);
+}

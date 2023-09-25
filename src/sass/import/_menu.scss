@@ -1,0 +1,62 @@
+/**
+ * Menu
+ */
+
+.hms-menu {
+
+	&-badge {
+		font-weight: bold;
+		font-size: var(--hms-font-size-normal);
+		min-width: 22px;
+		height: 22px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0 5px;
+		border-radius: 50rem;
+		background-color: var(--hms-blue-500);
+	}
+
+	> li {
+		> a {
+			display: flex;
+			align-items: center;
+			padding: 20px 30px 20px 35px;
+			text-decoration: none;
+			color: var(--hms-white);
+			font-weight: bold;
+
+			&:hover {
+				background-color: var(--hms-blue-500);
+
+				.hms-menu-badge {
+					background-color: var(--hms-grey-900);
+				}
+			}
+
+			.hms-icon {
+				fill: currentColor;
+			}
+		}
+
+		&.current {
+			> a {
+				background-color: var(--hms-blue-500);
+
+				.hms-menu-badge {
+					background-color: var(--hms-grey-900);
+				}
+			}
+		}
+	}
+
+	&-icon {
+		margin-right: 20px;
+		width: 18px;
+	}
+
+	&-name {
+		flex: 1;
+	}
+
+}

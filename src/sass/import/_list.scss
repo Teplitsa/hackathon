@@ -1,0 +1,160 @@
+/**
+ * List
+ */
+
+.hms-list {
+
+	&-item {
+		display: flex;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		transition: border-color .3s;
+
+		&:first-child {
+			padding-top: 10px;
+		}
+
+		&:last-child {
+			padding-bottom: 10px;
+		}
+
+		&:not(:last-child) {
+			border-bottom: 1px solid var(--hms-grey-100);
+		}
+
+		&:hover {
+			border-bottom-color: var(--hms-grey-200);
+		}
+	}
+
+	& &-figure {
+		color: #fff;
+		text-decoration: none;
+		margin-right: 15px;
+		width: 50px;
+		height: 50px;
+		flex: 0 0 50px;
+		border: 1px solid var(--hms-grey-200);
+		border-radius: 8px;
+		overflow: hidden;
+
+		> img {
+			display: block;
+			transition: all .3s;
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+		}
+
+		&-text {
+			border-radius: 8px;
+			width: 50px;
+			height: 50px;
+			background-color: var(--hms-blue-500);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: var(--hms-font-size-normal);
+			font-weight: normal;
+			text-transform: uppercase;
+			text-align: center;
+			line-height: 1.1;
+		}
+
+		&:hover {
+			> img {
+				filter: grayscale(1);
+			}
+
+			.hms-list-figure-text {
+				background-color: var(--hms-blue-600);
+			}
+		}
+	}
+
+	&-title {
+		font-size: var(--hms-font-size-medium);
+		font-weight: bold;
+		margin-top: 6px;
+		margin-bottom: 6px;
+
+		&:first-child {
+			margin-top: 0;
+		}
+
+		> a {
+			color: var(--hms-dark);
+			text-decoration: none;
+
+			&:hover {
+				color: var(--hms-blue-600);
+			}
+		}
+	}
+
+	&-content {
+		flex: 1;
+	}
+
+	&-text {
+		font-size: var(--hms-font-size-normal);
+		line-height: 1.5;
+	}
+
+	&-line {
+		font-size: var(--hms-font-size-normal);
+		display: flex;
+
+		&-item {
+			display: flex;
+			color: var(--hms-grey-500);
+
+			&:not(:first-child) {
+				margin-left: 30px;
+			}
+
+		}
+
+		@media (max-width: 767px) {
+			flex-direction: column;
+
+			&-item:not(:first-child) {
+				margin-left: 0;
+				margin-top: 5px;
+			}
+		}
+	}
+
+	&-value {
+		display: flex;
+		color: var(--hms-dark);
+		align-items: center;
+
+		&:not(:first-child) {
+			margin-left: 4px;
+		}
+
+		a {
+			font-weight: 500;
+			text-decoration: none;
+
+			&:hover {
+				color: var(--hms-blue-600);
+			}
+		}
+
+		strong {
+			font-weight: bold;
+		}
+
+		.hms-card-status-icon {
+			width: 10px;
+			height: 10px;
+			margin-right: 5px;
+		}
+	}
+
+	&-star {
+		margin-left: 4px;
+	}
+}

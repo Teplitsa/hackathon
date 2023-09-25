@@ -1,0 +1,12 @@
+/**
+ * Admin
+ */
+#wp-admin-bar-hms .ab-item svg {
+	position: relative;
+	top: 1px;
+	fill: #a7aaad;
+}
+
+#wp-admin-bar-hms .ab-item:hover svg {
+	fill: currentColor;
+}

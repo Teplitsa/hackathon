@@ -1,0 +1,46 @@
+/**
+ * Variables
+ */
+:root {
+	--hms-blue-700: #004fc3;
+	--hms-blue-600: #046dcc;
+	--hms-blue-500: #178bff;
+	--hms-blue-300: #b1e7ff;
+	--hms-dark: #0e2336;
+	--hms-grey-900: #1a2d3e;
+	--hms-grey-700: #435261;
+	--hms-grey-500: #7a8692;
+	--hms-grey-200: #dce2e7;
+	--hms-grey-100: #f3f6f8;
+	--hms-white: #fff;
+
+	--hms-font-size-xs: 10px;
+	--hms-font-size-small: 12px;
+	--hms-font-size-normal: 14px;
+	--hms-font-size-medium: 16px;
+	--hms-font-size-large: 20px;
+	--hms-font-size-huge: 32px;
+
+
+	--hms-success-color: #00a32a;
+	--hms-warning-color: #dba617;
+	--hms-error-color: #d63638;
+	--hml-info-color: #72aee6;
+
+	--hms-base-color: #1d2327; // primary, tertiary
+	--hms-secondary-color: #2c3338;
+	--hms-highlight-color: #2271b1;
+	--hms-notification-color: #d63638;
+
+	--hms-font-family: 'Mulish', sans-serif;
+
+	--hms-border-radius: 10px;
+	--hms-gap: 30px;
+	--hms-sidebar-width: 340px;
+	--hms-inner-sidebar-width: 400px;
+	--hms-adminbar-height: 32px;
+
+	@media (max-width: 991px) {
+		--hms-adminbar-height: 44px;
+	}
+}

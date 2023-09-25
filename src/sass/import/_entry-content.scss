@@ -1,0 +1,22 @@
+/**
+ * Entry content
+ */
+
+.hms-entry-content {
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-size: 17px;
+	}
+
+	ul {
+		list-style: initial;
+	}
+
+	ul,
+	ol {
+		margin-left: 22px;
+	}
+}

@@ -1,0 +1,275 @@
+/**
+ * Modal
+ */
+.hms-modal {
+	display: none;
+	background-color: rgba(0,0,0,.5);
+	position: fixed;
+	z-index: 11;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	padding: 0 30px;
+
+	&-close {
+		cursor: pointer;
+
+		&:hover {
+			opacity: 1;
+		}
+
+		> svg {
+			pointer-events: none;
+		}
+
+		.hms-widget-heading & {
+			opacity: .5;
+		}
+	}
+
+	.hms-modal-body {
+		height: calc(100% - 160px);
+		max-width: 800px;
+		margin: 80px auto;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.hms-widget {
+		max-height: 100%;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 0;
+
+		&-content {
+			overflow-y: auto;
+			position: relative;
+			flex: 1 1 auto;
+			padding: 1rem;
+		}
+
+		&-title {
+			position: relative;
+
+			.dashicons {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				width: 40px;
+				height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				cursor: pointer;
+				opacity: .5;
+
+				&:hover {
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	.hms-widget-content {
+		overflow-y: auto;
+		position: relative;
+		flex: 1 1 auto;
+		padding: 1rem;
+	}
+
+	/* Modal Chat */
+
+	&-chat {
+		overflow-y: auto;
+
+		.hms-modal-body {
+			min-height: 500px;
+		}
+
+		.hms-widget-content {
+			background-color: var(--hms-grey-100);
+			border-radius: var(--hms-border-radius);
+			margin-left: 1rem;
+			margin-right: 1rem;
+			min-height: 200px;
+			border: 1px solid var(--hms-grey-200);
+		}
+
+		.hms-widget {
+			min-height: 100%;
+		}
+
+		.hms-chat {
+			&.is-loading {
+				&:after {
+					content: '';
+					display: inline-block;
+					border-radius: 50%;
+					width: 1em;
+					height: 1em;
+					border: 2px solid currentColor;
+					border-left-color: transparent;
+					margin: -0.1em 0 0 -0.1em;
+					vertical-align: middle;
+					animation: rotation 1s infinite linear;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+				}
+			}
+		}
+
+		.hms-chat-form {
+			padding: 15px;
+		}
+
+		.hms-form-row-submit {
+			margin-top: 15px;
+		}
+
+		.hms-form-row:not(:last-child) {
+			margin-bottom: 15px;
+		}
+
+		.hms-form-input {
+			&.error {
+				border-color: #d63638;
+			}
+
+			&[disabled] {
+				opacity: .5;
+			}
+		}
+
+		@media (max-width: 767px) {
+			.hms-widget-actions {
+				width: initial;
+			}
+		}
+
+		.hms-chat-list {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+
+			&-item {
+				border-radius: var(--hms-border-radius);
+				background-color: #fff;
+				padding: 7px 15px;
+				border: 1px solid var(--hms-grey-200);
+				min-width: 40%;
+
+				&:not(:last-child) {
+					margin-bottom: 15px;
+				}
+
+				&.focus {
+					border-color: var(--hms-blue-500);
+					box-shadow: 0 0 25px 0 rgba(23, 139, 255, 0.25);
+				}
+
+				&-current {
+					margin-left: auto;
+				}
+			}
+
+			&-heading {
+				font-size: var(--hms-font-size-small);
+				color: var(--hms-grey-500);
+				padding-bottom: 5px
+			}
+
+			&-footer {
+				font-size: var(--hms-font-size-small);
+				color: #b4bdc7;
+				padding-top: 10px;
+				text-align: right;
+			}
+
+			&-date {
+				
+			}
+
+			&-author {
+				color: var(--hms-blue-500);
+			}
+
+			&-text {
+				word-break: break-word;
+			}
+		}
+	}
+}
+
+.hackathon-modal {
+	display: none;
+	background-color: rgba(0,0,0,.5);
+	position: fixed;
+	z-index: 11;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	padding: 0 30px;
+
+	.hackathon-modal-body {
+		height: calc(100% - 160px);
+		max-width: 800px;
+		margin: 80px auto;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.hackathon-widget {
+		max-height: 100%;
+		max-height: 100%;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+
+		&-content {
+			overflow-y: auto;
+			position: relative;
+			flex: 1 1 auto;
+			padding: 1rem;
+		}
+
+		&-title {
+			position: relative;
+
+			.dashicons {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				width: 40px;
+				height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				cursor: pointer;
+				opacity: .5;
+
+				&:hover {
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	.hackathon-widget-content {
+		overflow-y: auto;
+		position: relative;
+		flex: 1 1 auto;
+		padding: 1rem;
+	}
+}

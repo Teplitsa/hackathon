@@ -1,0 +1,181 @@
+/**
+ * Login
+ */
+
+.hms-login {
+	background-color: var(--hms-grey-100);
+	min-height: 100vh;
+	padding: 15px;
+
+	@media (min-width: 768px) {
+		padding: 60px;
+	}
+
+	&-container {
+		width: 600px;
+		max-width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		border-radius: 17px;
+		background-color: #fff;
+		border: 1px solid var(--hms-grey-200);
+		padding: 30px;
+
+		@media (min-width: 576px) {
+			padding: 40px;
+		}
+	}
+
+	&-figure {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		> img {
+			display: block;
+			max-height: 120px;
+			max-width: 340px;
+		}
+	}
+
+	&-title {
+		h1 {
+			text-align: left;
+			font-size: var(--hms-font-size-large);
+			line-height: 1.2;
+			font-weight: 800;
+			color: var(--hms-dark);
+			padding: 0;
+			margin-top: 10px;
+
+			@media (min-width: 576px) {
+				font-size: var(--hms-font-size-huge);
+			}
+		}
+
+		+ .message {
+			margin-top: 30px;
+		}
+	}
+
+	&-desc {
+		color: var(--hms-grey-700);
+		font-size: var(--hms-font-size-small);
+		margin-top: 15px;
+	}
+
+	.hms-form {
+		padding: 0;
+		box-shadow: none;
+		border: 0;
+		overflow: visible;
+	}
+
+	#login_error {
+		position: fixed;
+		top: 60px;
+		right: 20px;
+		border-raidus: 10px;
+	}
+}
+
+.login {
+	background-color: var(--hms-grey-100);
+
+	&:not(.hackathon-page) {
+		font-size: 13px;
+		padding: 15px;
+
+		@media (min-width: 768px) {
+			padding: 60px;
+		}
+	}
+
+	#nav,
+	#backtoblog {
+		padding: 0;
+	}
+
+	#backtoblog:last-child {
+		margin-bottom: 0;
+	}
+
+	h1 a {
+		background-size: contain;
+		width: 100%;
+		background-position: center center;
+		height: 120px;
+		width: 340px;
+	}
+
+	.language-switcher {
+		margin-top: 30px;
+	}
+
+	form {
+		padding-left: 0;
+		padding-right: 0;
+		padding-top: 0;
+		border: 0;
+		overflow: visible;
+		box-shadow: none;
+	}
+}
+
+#login {
+	width: 422px;
+	max-width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 17px;
+	background-color: #fff;
+	border: 1px solid var(--hms-grey-200);
+	padding: 30px;
+
+	@media (min-width: 576px) {
+		padding: 40px;
+	}
+
+	.button {
+		border-color: var(--hms-blue-500);
+		color: var(--hms-blue-500);
+		display: inline-flex;
+		background-color: #fff;
+		font-weight: bold;
+		font-size: var(--hms-font-size-normal);
+	}
+
+	.submit .button,
+	[type="submit"] {
+		padding: 5px 20px;
+	}
+
+	.button-primary {
+		background: var(--hms-blue-500);
+		border-color: var(--hms-blue-500);
+		color: #fff;
+
+		&:hover {
+			background: var(--hms-blue-600);
+			border-color: var(--hms-blue-600);
+		}
+	}
+
+	label {
+		font-weight: bold;
+		font-size: var(--hms-font-size-medium);
+		margin-bottom: 6px;
+	}
+
+	form .input {
+		border-color: var(--hms-grey-200);
+
+		&:focus {
+			border-color: var(--hms-blue-500);
+			color: var(--hms-dark);
+			box-shadow: 0 0 0 1px var(--hms-blue-500);
+		}
+	}
+}

@@ -1,1 +1,3 @@
 # hackathon
+
+Hackathon Management System

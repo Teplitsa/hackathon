@@ -1,0 +1,156 @@
+/**
+ * Custom
+ */
+
+.hackathon-page-register {
+	#login {
+		width: initial;
+		max-width: 720px;
+		padding-bottom: 40px;
+	}
+}
+
+.hackathon-avatar {
+	border-radius: 2px;
+}
+
+.hackathon-form-table,
+.hms-table {
+	margin-top: 0;
+
+	tr:not(:last-child) {
+		border-bottom: 1px solid #f0f0f1;
+	}
+
+	.hackathon-avatar {
+		display: block;
+		max-height: 200px;
+		height: auto;
+		max-width: 100%;
+		width: auto;
+		border-radius: 4px;
+	}
+
+	.hackathon-image-field {
+		display: inline-flex;
+		flex-direction: column;
+		align-items: flex-start;
+
+		.button,
+		.hms-button {
+			margin-top: 15px;
+		}
+	}
+
+	.hackathon-avatar-custom ~ .hackathon-upload-avatar {
+		display: none;
+	}
+
+	.hackathon-avatar:not(.hackathon-avatar-custom) ~ .hackathon-remove-avatar {
+		display: none;
+	}
+
+	.spinner {
+		float: none;
+		margin-top: 0;
+	}
+
+}
+
+.form-table-materials {
+	td {
+		vertical-align: top;
+	}
+}
+
+.hackathon-page p.submit {
+	margin-top: 15px;
+	margin-bottom: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.hackathon-media-modal {
+	width: calc( 100% - 60px );
+	max-width: 700px;
+	left: calc( 50% - 350px) !important;
+	right: auto !important;
+	bottom: auto !important;
+	min-height: 400px;
+
+	.attachments-browser.has-load-more .attachments-wrapper {
+		top: 3px;
+		right: 0;
+	}
+
+	.uploader-inline-content {
+		top: 3px;
+		padding-top: 15px;
+	}
+
+	.media-sidebar {
+		display: none;
+	}
+
+	.media-sidebar,
+	.attachments-browser {
+		.media-toolbar {
+			display: none;
+		}
+
+	}
+
+	.attachments-browser {
+		.uploader-inline {
+			right: 0;
+			top: 0;
+			margin-bottom: 0;
+		}
+	}
+}
+
+.wp-core-ui .button.hackathon-upload-image {
+	background-color: #f0f0f1;
+	color: #2c3338;
+	border: 1px dashed #c3c4c7;
+}
+
+.hackathon-image {
+	&-field {
+		display: flex;
+		align-items: center;
+	}
+
+	&-figure {
+		img {
+			max-height: 120px;
+			width: auto;
+			max-width: 100%;
+			display: block;
+
+			&[src$=".svg"] {
+				height: 120px;
+			}
+		}
+	}
+}
+
+.hackathon-files-list .hackathon-card:last-child {
+	margin-bottom: 15px;
+}
+
+.hms-error-color {
+	color: var(--hms-error-color);
+}
+
+.button-link.hms-clipboard {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 100%;
+	font-size: 14px;
+
+	&:hover {
+		width: auto;
+	}
+}

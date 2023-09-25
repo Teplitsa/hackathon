@@ -1,0 +1,51 @@
+/**
+ * Accordion
+ */
+.hms-cards-accordion {
+
+	.hms-card {
+
+		&-content {
+			cursor: pointer;
+			position: relative;
+			padding-right: 40px;
+		}
+
+		&-toggle {
+			position: absolute;
+			top: 50%;
+			right: 0px;
+
+			&:after {
+				content: '';
+				display: block;
+				border: solid #50575e;
+				border-width: 0 2px 2px 0;
+				height: 0.5rem;
+				pointer-events: none;
+				position: absolute;
+				right: 15px;
+				top: 50%;
+				transform: translateY(-70%) rotate(45deg);
+				width: 0.5rem;
+				transition: all .3s;
+			}
+		}
+
+		&.open:not(.closing),
+		&.opening {
+			.hms-card-toggle:after {
+				transform: translateY(-25%) rotate(-135deg);
+			}
+		}
+
+		&-hidden {
+			display: none;
+		}
+
+		&.open .hms-card-hidden {
+			display: block;
+		}
+
+	}
+}

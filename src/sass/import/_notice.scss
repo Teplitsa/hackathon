@@ -1,0 +1,78 @@
+/**
+ * Notice
+ */
+.hms-notice {
+	margin: 0;
+
+	padding: 8px 12px;
+	border-top: 0;
+	border-bottom: 0;
+	border-right: 0;
+
+	> a {
+		float: right;
+	}
+}
+
+.hackathon-notice {
+	padding: 8px 12px;
+	border-top: 0;
+	border-bottom: 0;
+	border-right: 0;
+
+	> a {
+		float: right;
+	}
+}
+
+.notice-inline {
+	display: inline-block;
+}
+
+.notice-purple {
+	border-left-color: #826eb4;
+
+	&.notice-alt {
+		background-color: #f3f1f8;
+	}
+}
+.notice-dark {
+	border-left-color: #606A73;
+
+	&.notice-alt {
+		background-color: #f3f4f5;
+	}
+}
+
+.notice {
+	&-received {
+		border-color: #e0e0e0;
+		background-color: #f5f5f7;
+	}
+
+	&-approved {
+		border-color: var(--hms-success-color);
+		background-color: #edfaef;
+	}
+
+	&-processing {
+		border-color: #72aee6;
+		background-color: #f0f6fc;
+	}
+
+	&-waitinglist {
+		border-color: #dba617;
+		background-color: #fcf9e8;
+	}
+
+	&-rejected {
+		border-color: #d63638;
+		background-color: #fcf0f1;
+	}
+
+	&-cancelled {
+		border-color: #1d2327;
+		background-color: #f3f4f5;
+	}
+
+}
