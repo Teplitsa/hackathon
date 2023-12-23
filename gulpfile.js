@@ -12,6 +12,7 @@ var basePaths = { // Paths for source and bundled parts of app
 	bourbon = require( 'node-bourbon' ),
 	path = require( 'relative-path' ),
 	runSequence = require( 'run-sequence' ),
+	lec = require( 'gulp-line-ending-corrector' ),
 	plugins = require( 'gulp-load-plugins' )({ // Plugins - load gulp-* plugins without direct calls
 		pattern: [ 'gulp-*', 'gulp.*' ], replaceString: /\bgulp[\-.]/
 	}),
@@ -182,6 +183,13 @@ gulp.task( 'watch', () => {
 	);
 });
 
+// check encoding + line-endings
+gulp.task('lec', function() {
+    gulp.src(['./**/*', '!node_modules/**', '!vendor/**'])
+        .pipe(lec({verbose: true, eolc: 'LF', encoding: 'utf8'}))
+        .pipe(gulp.dest('./'));
+});
+
 // Default
 gulp.task( 'default', gulp.series( 'full-build', 'watch' ) );
 
@@ -192,6 +200,7 @@ gulp.task('zip', function(){
 		'**',
 		'!src/**',
 		'!node_modules/**',
+		'!vendor/**',
 		'!TEMP/**',
 		'!.gitignore',
 		'!gulpfile.js',
@@ -201,6 +210,9 @@ gulp.task('zip', function(){
 		'!CHANGELOG.md',
 		'!package.json',
 		'!package-lock.json',
+		'!composer.json',
+		'!composer.lock',
+		'!phpcs.xml',
 		'!**.zip'
 	];
 

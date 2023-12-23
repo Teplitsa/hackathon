@@ -46,5 +46,8 @@
     "node-sass": "^4.14.1",
     "relative-path": "^1.0.0",
     "run-sequence": "^1.2.2"
+  },
+  "dependencies": {
+    "gulp-line-ending-corrector": "^1.0.3"
   }
 }
