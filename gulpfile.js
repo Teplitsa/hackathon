@@ -12,7 +12,7 @@ var basePaths = { // Paths for source and bundled parts of app
 	bourbon = require( 'node-bourbon' ),
 	path = require( 'relative-path' ),
 	runSequence = require( 'run-sequence' ),
-	lec = require( 'gulp-line-ending-corrector' ),
+	eol = require( 'gulp-line-ending-corrector' ),
 	plugins = require( 'gulp-load-plugins' )({ // Plugins - load gulp-* plugins without direct calls
 		pattern: [ 'gulp-*', 'gulp.*' ], replaceString: /\bgulp[\-.]/
 	}),
@@ -184,10 +184,10 @@ gulp.task( 'watch', () => {
 });
 
 // check encoding + line-endings
-gulp.task('lec', function() {
-    gulp.src(['./**/*', '!node_modules/**', '!vendor/**'])
-        .pipe(lec({verbose: true, eolc: 'LF', encoding: 'utf8'}))
-        .pipe(gulp.dest('./'));
+gulp.task('eol', function() {
+    gulp.src(['./src/**' ])
+        .pipe(eol({verbose: true, eolc: 'LF', encoding: 'utf8'}))
+        .pipe(gulp.dest('./src/'));
 });
 
 // Default
