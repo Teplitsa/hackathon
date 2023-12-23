@@ -10,6 +10,8 @@
  * Author URI: https://te-st.org
  * License: GPL v3
  * Text Domain: hms
+ *
+ * @package hackathon
  */
 
 /* Define Plugin Constants */
