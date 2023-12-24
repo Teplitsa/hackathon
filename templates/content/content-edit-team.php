@@ -4,7 +4,7 @@
  */
 
 $current_user_id = get_current_user_id();
-$team_id = -1;
+$team_id         = -1;
 if ( get_query_var( 'hms_subsubpage' ) ) {
 	$team_id = get_query_var( 'hms_subsubpage' );
 }
@@ -19,7 +19,8 @@ if ( ! $team ) {
 	<a href="<?php echo esc_url( hms_get_url( 'teams' ) ); ?>" class="button"><?php esc_html_e( 'Go to teams', 'hackathon' ); ?></a>
 </div>
 
-<?php } else {
+	<?php
+} else {
 
 	$team_status = get_post_meta( $team_id, '_team_status', true );
 	?>
@@ -73,9 +74,11 @@ if ( ! $team ) {
 										<?php if ( wp_get_attachment_image( get_post_meta( $team_id, '_team_logo', true ) ) ) { ?>
 											<?php hms_team_logo( $team_id ); ?>
 											<?php $upload_class = ' hidden'; ?>
-										<?php } else {
+											<?php
+										} else {
 											$remove_class = ' hidden';
-										} ?>
+										}
+										?>
 										</div>
 										<button type="button" class="button hackathon-remove-image<?php echo esc_attr( $remove_class ); ?>" data-input="team_logo"><?php esc_html_e( 'Remove logo', 'hackathon' ); ?></button>
 										<button type="button" class="button hackathon-upload-image<?php echo esc_attr( $upload_class ); ?>" data-title="<?php esc_attr_e( 'Select logo', 'hackathon' ); ?>" data-button="<?php esc_attr_e( 'Select', 'hackathon' ); ?>" data-input="team_logo"><?php esc_html_e( 'Add logo', 'hackathon' ); ?></button>
@@ -93,7 +96,7 @@ if ( ! $team ) {
 								<tr>
 									<th><label for="team_name"><?php esc_html_e( 'Team name history', 'hackathon' ); ?></label></th>
 									<td>
-										<?php foreach( get_post_meta( $team_id, '_team_titles' ) as $item ) { ?>
+										<?php foreach ( get_post_meta( $team_id, '_team_titles' ) as $item ) { ?>
 											<?php echo esc_html( $item ); ?><br>
 										<?php } ?>
 									</td>
@@ -121,5 +124,5 @@ if ( ! $team ) {
 
 </div>
 
-<?php
+	<?php
 }

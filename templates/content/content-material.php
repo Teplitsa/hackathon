@@ -16,14 +16,15 @@ if ( ! $material_id ) {
 	<a href="<?php echo esc_url( hms_get_url( 'materials' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Go to materials', 'hackathon' ); ?></a>
 </div>
 
-<?php } else {
+	<?php
+} else {
 
-$type    = get_post_meta( $material_id, 'type', true );
-$team_id = get_post_meta( $material_id, 'team_id', true );
-$user_id = get_post_field( 'post_author', $material_id );
-$fields  = get_post_meta( $material_id, '_fields', true );
+	$type    = get_post_meta( $material_id, 'type', true );
+	$team_id = get_post_meta( $material_id, 'team_id', true );
+	$user_id = get_post_field( 'post_author', $material_id );
+	$fields  = get_post_meta( $material_id, '_fields', true );
 
-?>
+	?>
 <header class="hms-header">
 	<div class="hms-header-content">
 		<h1 class="hms-header-title">
@@ -41,7 +42,7 @@ $fields  = get_post_meta( $material_id, '_fields', true );
 				<div class="hms-widget-icon">
 					<?php hms_icon( 'materials' ); ?>
 				</div>
-				<h3 class="hms-widget-title"><?php esc_html_e( 'Published on:', 'hackathon' ); ?> <?php echo get_the_date( 'F j, Y - H:i'); ?></h3>
+				<h3 class="hms-widget-title"><?php esc_html_e( 'Published on:', 'hackathon' ); ?> <?php echo get_the_date( 'F j, Y - H:i' ); ?></h3>
 			</div>
 
 			<div class="hms-widget-content">
@@ -63,7 +64,7 @@ $fields  = get_post_meta( $material_id, '_fields', true );
 						</div>
 						<div class="hms-table-col">
 							<span class="hms-table-value">
-								<a href="<?php hms_url('team/' . $team_id ); ?>"><?php echo get_the_title( get_post_meta( $material_id, 'team_id', true ) );?></a>
+								<a href="<?php hms_url( 'team/' . $team_id ); ?>"><?php echo get_the_title( get_post_meta( $material_id, 'team_id', true ) ); ?></a>
 							</span>
 						</div>
 					</div>
@@ -92,11 +93,11 @@ $fields  = get_post_meta( $material_id, '_fields', true );
 						</div>
 					<?php } ?>
 
-					<?php if( 'initial_presentation' === $type ) { ?>
+					<?php if ( 'initial_presentation' === $type ) { ?>
 
-					<?php } else if( 'checkpoint_report' === $type ) { ?>
+					<?php } elseif ( 'checkpoint_report' === $type ) { ?>
 
-					<?php } else if ( 'final_presentation' === $type ) { ?>
+					<?php } elseif ( 'final_presentation' === $type ) { ?>
 
 						<div class="hms-table-row">
 							<div class="hms-table-col">
@@ -107,7 +108,7 @@ $fields  = get_post_meta( $material_id, '_fields', true );
 									<div class="hms-list-files">
 										<?php
 										$files = explode( ',', get_post_meta( $material_id, 'final_files', true ) );
-										foreach( $files as $file_id ) {
+										foreach ( $files as $file_id ) {
 											$file          = get_attached_file( $file_id );
 											$file_basename = wp_basename( $file );
 											$file_url      = wp_get_attachment_url( $file_id );
@@ -139,4 +140,5 @@ $fields  = get_post_meta( $material_id, '_fields', true );
 
 </div>
 
-<?php }
+	<?php
+}

@@ -5,13 +5,13 @@
 
 $subpage = get_query_var( 'hms_subsubpage' );
 
-$form_id     = $subpage;
+$form_id = $subpage;
 if ( ! $form_id ) {
 	$form_id = hms_get_option( 'defaultform' );
 }
-$form        = get_post( $form_id );
-$form_name   = $form->post_title;
-$form_slug   = get_post_meta( $form_id, '_form_slug', true );
+$form      = get_post( $form_id );
+$form_name = $form->post_title;
+$form_slug = get_post_meta( $form_id, '_form_slug', true );
 if ( ! $form_slug ) {
 	$form_slug = 'register';
 }
@@ -74,7 +74,7 @@ if ( ! $form_id ) {
 
 				<div class="hms-field-list-footer">
 					<?php hms_button( esc_html__( 'Add field', 'hackathon' ), '#', 'outline', array( 'class' => 'hms-field-add-new' ) ); ?>
-					<?php hms_button( esc_html__( 'Cancel', 'hackathon' ), hms_get_url('forms'), 'link' ); ?>
+					<?php hms_button( esc_html__( 'Cancel', 'hackathon' ), hms_get_url( 'forms' ), 'link' ); ?>
 					<?php hms_button( esc_html__( 'Save', 'hackathon' ), '#', 'primary', array( 'class' => 'hms-update-form' ) ); ?>
 				</div>
 

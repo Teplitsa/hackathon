@@ -8,19 +8,19 @@
  */
 function hms_register_post_type_material() {
 	$labels = array(
-		'name'                  => __( 'Materials', 'hackathon' ),
-		'singular_name'         => __( 'Material', 'hackathon' ),
-		'menu_name'             => __( 'Materials', 'hackathon' ),
-		'name_admin_bar'        => __( 'Material', 'hackathon' ),
-		'add_new'               => __( 'Add New', 'hackathon' ),
-		'add_new_item'          => __( 'Add New Material', 'hackathon' ),
-		'new_item'              => __( 'New Material', 'hackathon' ),
-		'edit_item'             => __( 'Edit Material', 'hackathon' ),
-		'view_item'             => __( 'View Material', 'hackathon' ),
-		'all_items'             => __( 'All Materials', 'hackathon' ),
-		'search_items'          => __( 'Search Material', 'hackathon' ),
-		'not_found'             => __( 'No Material found.', 'hackathon' ),
-		'not_found_in_trash'    => __( 'No materials found in Trash.', 'hackathon' ),
+		'name'               => __( 'Materials', 'hackathon' ),
+		'singular_name'      => __( 'Material', 'hackathon' ),
+		'menu_name'          => __( 'Materials', 'hackathon' ),
+		'name_admin_bar'     => __( 'Material', 'hackathon' ),
+		'add_new'            => __( 'Add New', 'hackathon' ),
+		'add_new_item'       => __( 'Add New Material', 'hackathon' ),
+		'new_item'           => __( 'New Material', 'hackathon' ),
+		'edit_item'          => __( 'Edit Material', 'hackathon' ),
+		'view_item'          => __( 'View Material', 'hackathon' ),
+		'all_items'          => __( 'All Materials', 'hackathon' ),
+		'search_items'       => __( 'Search Material', 'hackathon' ),
+		'not_found'          => __( 'No Material found.', 'hackathon' ),
+		'not_found_in_trash' => __( 'No materials found in Trash.', 'hackathon' ),
 	);
 
 	$args = array(
@@ -46,14 +46,14 @@ add_action( 'init', 'hms_register_post_type_material' );
 /**
  * Ajax request actions
  */
-if( wp_doing_ajax() ){
+if ( wp_doing_ajax() ) {
 	require_once HMS_PATH . 'inc/ajax/materials.php';
 }
 
 /**
  * Matrial types
  */
-function hms_get_material_type_name( $type = '' ){
+function hms_get_material_type_name( $type = '' ) {
 	if ( ! $type ) {
 		return false;
 	}
@@ -108,26 +108,26 @@ function hms_card_materials( $args = '' ) {
 
 	$parsed_args = wp_parse_args( $args, $defaults );
 
-	$output       = '';
+	$output = '';
 
 	$query = new WP_Query( $parsed_args );
 
 	if ( $query->have_posts() ) {
 		$output .= '<div class="hms-cards">';
-			while ( $query->have_posts() ) {
-				$query->the_post();
+		while ( $query->have_posts() ) {
+			$query->the_post();
 
-				$team_id = get_post_meta( get_the_ID(), 'team_id', true );
-				$user_id = get_post_field( 'post_author', get_the_ID() );
-				$type    = get_post_meta( get_the_ID(), 'type', true );
+			$team_id = get_post_meta( get_the_ID(), 'team_id', true );
+			$user_id = get_post_field( 'post_author', get_the_ID() );
+			$type    = get_post_meta( get_the_ID(), 'type', true );
 
-				$output .= '<div class="hms-card">
+			$output .= '<div class="hms-card">
 					<div class="hms-card-content">
 
 						<div class="hms-card-line">
 							<div class="hms-card-line-item">
 								<div class="hms-card-label">
-									' . get_the_date( 'F j, Y - H:i:s') . '
+									' . get_the_date( 'F j, Y - H:i:s' ) . '
 								</div>
 							</div>
 						</div>
@@ -164,7 +164,7 @@ function hms_card_materials( $args = '' ) {
 						</div>
 					</div>
 				</div>';
-			}
+		}
 		$output .= '</div>';
 	} else {
 		$output .= esc_html__( 'No materials', 'hackathon' );
@@ -178,7 +178,6 @@ function hms_card_materials( $args = '' ) {
 	} else {
 		return $html;
 	}
-
 }
 
 /**
@@ -193,21 +192,21 @@ function hms_list_materials( $args = '' ) {
 
 	$parsed_args = wp_parse_args( $args, $defaults );
 
-	$output       = '';
+	$output = '';
 
 	$query = new WP_Query( $parsed_args );
 
 	if ( $query->have_posts() ) {
 		$output .= '<div class="hms-list">';
-			while ( $query->have_posts() ) {
-				$query->the_post();
-				$users_count = hms_get_team_users_count( get_the_ID() );
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			$users_count = hms_get_team_users_count( get_the_ID() );
 
-				$team_id = get_post_meta( get_the_ID(), 'team_id', true );
-				$user_id = get_post_field( 'post_author', get_the_ID() );
-				$type    = get_post_meta( get_the_ID(), 'type', true );
+			$team_id = get_post_meta( get_the_ID(), 'team_id', true );
+			$user_id = get_post_field( 'post_author', get_the_ID() );
+			$type    = get_post_meta( get_the_ID(), 'type', true );
 
-				$output .= '<div class="hms-list-item">
+			$output .= '<div class="hms-list-item">
 					<div class="hms-list-content">
 						<h4 class="hms-list-title">
 							<a href="' . esc_url( hms_get_url( 'material/' . get_the_ID() ) ) . '">' . hms_get_material_type_name( $type ) . '</a>
@@ -234,7 +233,7 @@ function hms_list_materials( $args = '' ) {
 						</div>
 					</div>
 				</div>';
-			}
+		}
 		$output .= '</div>';
 	} else {
 		$output .= esc_html__( 'No materials', 'hackathon' );
@@ -248,5 +247,4 @@ function hms_list_materials( $args = '' ) {
 	} else {
 		return $html;
 	}
-
 }

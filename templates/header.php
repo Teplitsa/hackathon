@@ -8,7 +8,7 @@ $body_class = 'wp-core-ui login hackathon-page';
 if ( is_user_logged_in() ) {
 	$body_class = 'wp-admin wp-core-ui admin-bar admin-color-fresh no-customize-support hackathon-page hms-page';
 
-	if ( isset( $_GET['preview']) ) {
+	if ( isset( $_GET['preview'] ) ) {
 		$body_class .= ' login';
 	}
 }
@@ -17,7 +17,7 @@ if ( get_query_var( 'hms_subpage' ) ) {
 	$page_slug     = get_query_var( 'hms_subpage' );
 	$subpage_class = '';
 	if ( get_query_var( 'hms_subsubpage' ) ) {
-		$subpage_slug      = get_query_var( 'hms_subsubpage' );
+		$subpage_slug   = get_query_var( 'hms_subsubpage' );
 		$subpage_class .= ' hackathon-page-' . $page_slug . '-' . $subpage_slug;
 	}
 

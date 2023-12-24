@@ -66,7 +66,7 @@ function hms_localize_countdown() {
 				_x( 'm', 'countdown', 'hackathon' ),
 				_x( 'w', 'countdown', 'hackathon' ),
 				_x( 'd', 'countdown', 'hackathon' ),
-			)
+			),
 		)
 	);
 
@@ -102,7 +102,7 @@ function hms_localize_validate() {
 /**
  * Register styles
  */
-function hms_register_styles(){
+function hms_register_styles() {
 	global $wp_version;
 
 	$dependencies = array(
@@ -170,9 +170,9 @@ function hms_register_styles(){
 	}
 
 	wp_register_style( 'hms-common', HMS_URL . 'assets/css/common.min.css' );
-	wp_register_style( 'hms-dashicons', includes_url('css') . '/dashicons.min.css' );
+	wp_register_style( 'hms-dashicons', includes_url( 'css' ) . '/dashicons.min.css' );
 	wp_register_style( 'hms-forms', HMS_URL . 'assets/css/forms.min.css' );
-	wp_register_style( 'hms-buttons', includes_url('css') . '/buttons.min.css' );
+	wp_register_style( 'hms-buttons', includes_url( 'css' ) . '/buttons.min.css' );
 	wp_register_style( 'hms-login', HMS_URL . 'assets/css/login.min.css' );
 	wp_register_style( 'hms-jquery-ui', HMS_URL . 'assets/css/jquery-ui.css', array(), '1.0.0' );
 	wp_register_style( 'hms-style', HMS_URL . 'assets/css/style.css', $dependencies, HMS_VER );
@@ -181,14 +181,13 @@ function hms_register_styles(){
 		$custom_css = '.login h1 a {background-image: url(' . wp_get_attachment_image_url( hms_option( 'event_logo' ) ) . ')}';
 		wp_add_inline_style( 'hms-style', apply_filters( 'hms_inline_style', $custom_css ) );
 	}
-
 }
 add_action( 'template_redirect', 'hms_register_styles' );
 
 /**
  * Login scripts
  */
-function hms_login_enqueue_scripts(){
+function hms_login_enqueue_scripts() {
 	$custom_css = '.login h1 a {background-image: url(' . esc_url( hms_get_logo_url() ) . ')}';
 	wp_enqueue_style( 'hms-style', HMS_URL . 'assets/css/style.css', array( 'login' ), HMS_VER );
 	wp_add_inline_style( 'hms-style', apply_filters( 'hms_inline_style', $custom_css ) );
@@ -198,33 +197,33 @@ add_action( 'login_enqueue_scripts', 'hms_login_enqueue_scripts' );
 /**
  * Scripts
  */
-function hms_register_scripts(){
+function hms_register_scripts() {
 
-	$dependencies = array('jquery-core');
+	$dependencies = array( 'jquery-core' );
 
 	$vars = array(
-		'ajaxurl'     => admin_url( 'admin-ajax.php' ), 
+		'ajaxurl'     => admin_url( 'admin-ajax.php' ),
 		'date_format' => hms_js_date_format(),
 		'time_format' => hms_js_time_format(),
 		'i18n'        => array(
-			'timeText'    => esc_html__( 'Time', 'hackathon' ),
-			'currentText' => esc_html__( 'Now', 'hackathon' ),
-			'closeText'   => esc_html__( 'Done', 'hackathon' ),
-			'successCopy' => esc_html__( 'Text successfully copied to clipboard!', 'hackathon' ),
+			'timeText'      => esc_html__( 'Time', 'hackathon' ),
+			'currentText'   => esc_html__( 'Now', 'hackathon' ),
+			'closeText'     => esc_html__( 'Done', 'hackathon' ),
+			'successCopy'   => esc_html__( 'Text successfully copied to clipboard!', 'hackathon' ),
 			'availableTags' => esc_html__( 'Available {tags}', 'hackathon' ),
 		),
 	);
 
 	if ( is_user_logged_in() ) {
 		$user_id = get_current_user_id();
-		if( 'edit-user' === get_query_var( 'hms_subpage' ) && get_query_var( 'hms_subsubpage' ) ) {
+		if ( 'edit-user' === get_query_var( 'hms_subpage' ) && get_query_var( 'hms_subsubpage' ) ) {
 			$user_id = get_query_var( 'hms_subsubpage' );
-		};
-		$vars['nonce_reset'] = wp_create_nonce( 'reset-password-for-' . $user_id );
-		$vars['nonce'] = wp_create_nonce( 'hackathon-nonce' );
-		$vars['user_id'] = $user_id;
-		$dependencies[] = 'clipboard';
-		$vars['avatar_url'] = get_avatar_url( $user_id, array( 'size' => '200' ) );
+		}
+		$vars['nonce_reset']      = wp_create_nonce( 'reset-password-for-' . $user_id );
+		$vars['nonce']            = wp_create_nonce( 'hackathon-nonce' );
+		$vars['user_id']          = $user_id;
+		$dependencies[]           = 'clipboard';
+		$vars['avatar_url']       = get_avatar_url( $user_id, array( 'size' => '200' ) );
 		$vars['default_logo_url'] = hms_get_default_logo_url();
 
 		$dependencies = array(
@@ -268,9 +267,9 @@ function hms_register_scripts(){
 			'posts_per_page' => 1,
 			'post_status'    => 'any',
 		);
-		$form = get_posts( $form_args );
+		$form      = get_posts( $form_args );
 		if ( $form ) {
-			$form_id = $form[0]->ID;
+			$form_id      = $form[0]->ID;
 			$vars['form'] = get_post_meta( $form_id, '_form_fields', true );
 		}
 	}
@@ -283,15 +282,15 @@ add_action( 'template_redirect', 'hms_register_scripts' );
 /**
  * Enqueue styles
  */
-function hms_enqueue_styles(){
-	wp_print_styles( array( 'hms-style') );
+function hms_enqueue_styles() {
+	wp_print_styles( array( 'hms-style' ) );
 }
 add_action( 'hms_head', 'hms_enqueue_styles' );
 
 /**
  * Enqueue scripts
  */
-function hms_enqueue_scripts(){
+function hms_enqueue_scripts() {
 	wp_footer();
 	wp_print_scripts( 'hms-scripts' );
 }
@@ -300,7 +299,7 @@ add_action( 'hms_footer', 'hms_enqueue_scripts' );
 /**
  * Admin scripts
  */
-function hms_admin_enqueue_scripts(){
+function hms_admin_enqueue_scripts() {
 	wp_enqueue_style( 'hms-admin', HMS_URL . 'assets/css/admin.css', array(), HMS_VER );
 }
 add_action( 'admin_enqueue_scripts', 'hms_admin_enqueue_scripts' );

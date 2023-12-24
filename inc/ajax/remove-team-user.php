@@ -2,7 +2,6 @@
 /**
  * Remove Team User
  */
-
 function hms_ajax_remove_team_user() {
 
 	check_ajax_referer( 'hackathon-nonce', 'nonce' );
@@ -22,7 +21,5 @@ function hms_ajax_remove_team_user() {
 	}
 
 	wp_send_json_error( $data );
-
 }
 add_action( 'wp_ajax_hms_remove_team_user', 'hms_ajax_remove_team_user' );
-

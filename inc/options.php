@@ -6,7 +6,7 @@
 /**
  * Option name
  */
-function hms_option_name(){
+function hms_option_name() {
 	$option_name = 'hms_options';
 	return apply_filters( 'hms_option_name', $option_name );
 }
@@ -14,7 +14,7 @@ function hms_option_name(){
 /**
  * Get all options
  */
-function hms_get_options(){
+function hms_get_options() {
 	$option_name = hms_option_name();
 	$options     = get_option( $option_name );
 	return (array) $options;
@@ -23,7 +23,7 @@ function hms_get_options(){
 /**
  * Get option
  */
-function hms_get_option( $option = '', $default = false ){
+function hms_get_option( $option = '', $default = false ) {
 	$options = hms_get_options();
 	$value   = $default;
 	if ( isset( $options[ $option ] ) ) {
@@ -35,7 +35,7 @@ function hms_get_option( $option = '', $default = false ){
 /**
  * Get option
  */
-function hms_option( $option = '', $default = false ){
+function hms_option( $option = '', $default = false ) {
 	$options = hms_get_options();
 	$value   = $default;
 	if ( isset( $options[ $option ] ) ) {
@@ -47,7 +47,7 @@ function hms_option( $option = '', $default = false ){
 /**
  * Update option
  */
-function hms_update_option( $option = '', $value = '', $type = 'text' ){
+function hms_update_option( $option = '', $value = '', $type = 'text' ) {
 	if ( $value ) {
 		$options            = hms_get_options();
 		$option_name        = hms_option_name();
@@ -60,7 +60,7 @@ function hms_update_option( $option = '', $value = '', $type = 'text' ){
 /**
  * Delete option
  */
-function hms_delete_option( $option = '' ){
+function hms_delete_option( $option = '' ) {
 	$options     = hms_get_options();
 	$option_name = hms_option_name();
 	if ( isset( $options[ $option ] ) ) {
@@ -69,10 +69,10 @@ function hms_delete_option( $option = '' ){
 	}
 }
 
-function hms_option_form( $option_name = '', $group = '', $field = '', $default = false ){
-	$option = false;
+function hms_option_form( $option_name = '', $group = '', $field = '', $default = false ) {
+	$option      = false;
 	$form_option = hms_option( $option_name );
-	if( $form_option ) {
+	if ( $form_option ) {
 		if ( isset( $form_option[ $group ] ) && isset( $form_option[ $group ][ $field ] ) ) {
 			$option = $form_option[ $group ][ $field ];
 		}
@@ -83,7 +83,7 @@ function hms_option_form( $option_name = '', $group = '', $field = '', $default 
 }
 
 
-if( wp_doing_ajax() ){
+if ( wp_doing_ajax() ) {
 
 	// Update options.
 	require_once HMS_PATH . 'inc/ajax/update-options.php';

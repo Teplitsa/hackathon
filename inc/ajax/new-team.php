@@ -2,7 +2,6 @@
 /**
  * New team
  */
-
 function hms_ajax_new_team() {
 
 	check_ajax_referer( 'hackathon-nonce', 'nonce' );
@@ -12,9 +11,9 @@ function hms_ajax_new_team() {
 	if ( isset( $_POST['team_name'] ) && $_POST['team_name'] ) {
 
 		$team_data = array(
-			'post_type'    => 'hms_team',
-			'post_title'   => sanitize_text_field( $_POST['team_name'] ),
-			'post_status'  => 'publish',
+			'post_type'   => 'hms_team',
+			'post_title'  => sanitize_text_field( $_POST['team_name'] ),
+			'post_status' => 'publish',
 		);
 
 		$team_id = wp_insert_post( $team_data );
@@ -37,6 +36,5 @@ function hms_ajax_new_team() {
 		$data['message'] = esc_html__( 'Team name can\'t be empty', 'hackathon' );
 		wp_send_json_error( $data );
 	}
-
 }
 add_action( 'wp_ajax_hackathon_new_team', 'hms_ajax_new_team' );

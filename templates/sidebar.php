@@ -21,7 +21,8 @@ $user_id      = get_query_var( 'current_user_id' );
 		</div>
 
 		<ul class="hms-menu">
-			<?php foreach( hms_pages_content() as $slug => $item ) {
+			<?php
+			foreach ( hms_pages_content() as $slug => $item ) {
 
 				if ( isset( $item['caps'] ) && ! in_array( hms_get_current_user_role(), $item['caps'] ) ) {
 					continue;
@@ -36,14 +37,14 @@ $user_id      = get_query_var( 'current_user_id' );
 					$slug = '';
 				}
 
-				$children = isset( $item['children'] ) && is_array( $item['children'] ) && $item['children'] ? $item['children'] : array();
+				$children     = isset( $item['children'] ) && is_array( $item['children'] ) && $item['children'] ? $item['children'] : array();
 				$has_children = false;
 				if ( $children ) {
-					foreach( $children as $childslug => $child ) {
+					foreach ( $children as $childslug => $child ) {
 						if ( ! isset( $child['caps'] ) ) {
 							$has_children = true;
 							break;
-						} else if ( in_array( hms_get_current_user_role(), $child['caps'] ) ) {
+						} elseif ( in_array( hms_get_current_user_role(), $child['caps'] ) ) {
 							$has_children = true;
 							break;
 						}
@@ -51,17 +52,17 @@ $user_id      = get_query_var( 'current_user_id' );
 				}
 
 				$item_class = 'menu-top';
-				if ( $has_children ){
+				if ( $has_children ) {
 					$item_class .= ' wp-has-submenu wp-menu-open';
 
 					$has_current_submenu = false;
 					if ( $slug === $page_slug ) {
-						$item_class .= ' wp-has-current-submenu';
+						$item_class         .= ' wp-has-current-submenu';
 						$has_current_submenu = true;
 					} else {
-						foreach( $item['children'] as $childslug => $child ) {
+						foreach ( $item['children'] as $childslug => $child ) {
 							if ( $childslug === $page_slug ) {
-								$item_class .= ' wp-has-current-submenu';
+								$item_class         .= ' wp-has-current-submenu';
 								$has_current_submenu = true;
 							}
 						}
@@ -69,7 +70,6 @@ $user_id      = get_query_var( 'current_user_id' );
 					if ( ! $has_current_submenu ) {
 						$item_class .= ' wp-not-current-submenu';
 					}
-
 				} else {
 					if ( $slug === $page_slug || array_key_exists( $page_slug, $children ) ) {
 						$item_class .= ' current';
@@ -83,7 +83,6 @@ $user_id      = get_query_var( 'current_user_id' );
 							$item_class .= ' current';
 						}
 					}
-
 				}
 
 				?>

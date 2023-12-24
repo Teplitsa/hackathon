@@ -32,7 +32,7 @@ if ( is_user_logged_in() && ! isset( $_GET['preview'] ) ) {
 	if ( hms_is_administrator() ) {
 		if ( isset( $_GET['login_as'] ) && get_current_user_id() != $_GET['login_as'] ) {
 			$user_id = sanitize_text_field( $_GET['login_as'] );
-			$user = get_user_by( 'id', $user_id ); 
+			$user    = get_user_by( 'id', $user_id );
 			if ( $user ) {
 				wp_set_current_user( $user_id, $user->user_login );
 				wp_set_auth_cookie( $user_id );
@@ -49,6 +49,6 @@ if ( is_user_logged_in() && ! isset( $_GET['preview'] ) ) {
 	}
 	load_template( HMS_PATH . '/templates/content.php' );
 
-} else if ( in_array( $is_subpage, hms_get_forms_slugs() ) ) {
+} elseif ( in_array( $is_subpage, hms_get_forms_slugs() ) ) {
 	load_template( HMS_PATH . '/templates/register.php' );
 }

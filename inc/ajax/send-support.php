@@ -2,7 +2,6 @@
 /**
  * Send support email
  */
-
 function hms_ajax_hackathon_send_support() {
 
 	check_ajax_referer( 'hackathon-nonce', 'nonce' );
@@ -10,12 +9,12 @@ function hms_ajax_hackathon_send_support() {
 	$data = map_deep( $_REQUEST, 'sanitize_text_field' );
 
 	if ( ! isset( $_POST['message_title'] ) || ( isset( $_POST['message_title'] ) && empty( $_POST['message_title'] ) ) ) {
-		$data['message']= esc_html__( 'Message title cannot be empty', 'hackathon' );
+		$data['message'] = esc_html__( 'Message title cannot be empty', 'hackathon' );
 		wp_send_json_error( $data );
 	}
 
 	if ( ! isset( $_POST['message_content'] ) || ( isset( $_POST['message_content'] ) && empty( $_POST['message_content'] ) ) ) {
-		$data['message']= esc_html__( 'Message content cannot be empty', 'hackathon' );
+		$data['message'] = esc_html__( 'Message content cannot be empty', 'hackathon' );
 		wp_send_json_error( $data );
 	}
 
@@ -31,7 +30,7 @@ function hms_ajax_hackathon_send_support() {
 		$page_url        = isset( $_POST['page_url'] ) ? sanitize_text_field( $_POST['page_url'] ) : '';
 
 		$content = __(
-'Howdy,
+			'Howdy,
 
 Username: ###USERNAME###
 
@@ -44,8 +43,9 @@ Title: ###MESSAGETITLE###
 Message:
 ###MESSAGECONTENT###
 
-From page: ###PAGEURL###'
-, 'hackathon' );
+From page: ###PAGEURL###',
+			'hackathon'
+		);
 
 		$subject = sprintf( __( 'Support request from [%s]', 'hackathon' ), $username );
 
@@ -59,17 +59,15 @@ From page: ###PAGEURL###'
 		$email_sent = wp_mail( get_option( 'admin_email' ), $subject, $content );
 
 		if ( $email_sent ) {
-			$data['message']= esc_html__( 'Support request sent successfully', 'hackathon' );
+			$data['message'] = esc_html__( 'Support request sent successfully', 'hackathon' );
 			wp_send_json_success( $data );
 		} else {
-			$data['message']= esc_html__( 'Something went wrong.', 'hackathon' );
+			$data['message'] = esc_html__( 'Something went wrong.', 'hackathon' );
 			wp_send_json_error( $data );
 		}
-
 	}
 
-	$data['message']= esc_html__( 'Something went wrong.', 'hackathon' );
+	$data['message'] = esc_html__( 'Something went wrong.', 'hackathon' );
 	wp_send_json_error( $data );
-
 }
 add_action( 'wp_ajax_hackathon_send_support', 'hms_ajax_hackathon_send_support' );

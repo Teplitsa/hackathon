@@ -16,10 +16,12 @@ function hms_admin_page() {
 		'hms_admin_page_callback'
 	);
 
-	add_action( 'admin_head', function() {
-		remove_submenu_page( 'options-general.php', 'hackathon' );
-	} );
-
+	add_action(
+		'admin_head',
+		function () {
+			remove_submenu_page( 'options-general.php', 'hackathon' );
+		}
+	);
 }
 add_action( 'admin_menu', 'hms_admin_page' );
 
@@ -27,7 +29,7 @@ add_action( 'admin_menu', 'hms_admin_page' );
  * Admin Page Callback
  */
 function hms_admin_page_callback() {
-?>
+	?>
 
 <div class="wrap">
 	<h1><?php echo get_admin_page_title(); ?></h1>
@@ -48,5 +50,5 @@ function hms_admin_page_callback() {
 		<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=hms_material' ) ); ?>"><?php esc_html_e( 'Edit Materials', 'hackathon' ); ?></a>
 	</p>
 </div>
-<?php
+	<?php
 }

@@ -6,14 +6,14 @@
 /**
  * Get user
  */
-function hms_get_userdata( $user_id = null ){
+function hms_get_userdata( $user_id = null ) {
 	return get_userdata( $user_id );
 }
 
 /**
  * Get user email
  */
-function hms_get_user_email( $user_id = null ){
+function hms_get_user_email( $user_id = null ) {
 	$user_data = hms_get_userdata( $user_id );
 	if ( ! $user_data ) {
 		return false;
@@ -24,7 +24,7 @@ function hms_get_user_email( $user_id = null ){
 /**
  * Get user login
  */
-function hms_get_user_login( $user_id = null ){
+function hms_get_user_login( $user_id = null ) {
 	$user_data = hms_get_userdata( $user_id );
 	if ( ! $user_data ) {
 		return false;
@@ -37,11 +37,11 @@ function hms_get_user_login( $user_id = null ){
  */
 function hms_get_user_role( $user_id = null ) {
 	if ( $user_id ) {
-		$user_meta  = get_userdata( $user_id );
+		$user_meta = get_userdata( $user_id );
 		if ( $user_meta ) {
 			if ( $user_meta->roles ) {
 				$user_roles = $user_meta->roles;
-				$user_role   = $user_roles[0];
+				$user_role  = $user_roles[0];
 			} else {
 				return false;
 			}
@@ -160,7 +160,7 @@ function hms_user_exists( $user_id = null ) {
 /**
  * Check if user approved
  */
-function hms_is_user_approved( $user_id = '' ){
+function hms_is_user_approved( $user_id = '' ) {
 	if ( ! $user_id ) {
 		$user_id = get_current_user_id();
 	}
@@ -177,10 +177,10 @@ function hms_is_user_approved( $user_id = '' ){
 		return true;
 	}
 
-	$args = array(
+	$args    = array(
 		'post_type'      => 'hms_request',
-		'author'         =>  $user_id,
-		'posts_per_page' => 1
+		'author'         => $user_id,
+		'posts_per_page' => 1,
 	);
 	$request = get_posts( $args );
 
@@ -191,9 +191,9 @@ function hms_is_user_approved( $user_id = '' ){
 	$request_id = $request[0]->ID;
 
 	$status = get_post_meta( $request_id, 'status', true );
-	if ( 'approved' === $status ){
+	if ( 'approved' === $status ) {
 		return true;
-	};
+	}
 
 	return false;
 }
@@ -201,7 +201,7 @@ function hms_is_user_approved( $user_id = '' ){
 /**
  * Get user status
  */
-function hms_get_user_status( $user_id = '' ){
+function hms_get_user_status( $user_id = '' ) {
 
 	if ( ! $user_id ) {
 		$user_id = get_current_user_id();
@@ -209,10 +209,10 @@ function hms_get_user_status( $user_id = '' ){
 
 	$status = 'received';
 
-	$args = array(
+	$args    = array(
 		'post_type'      => 'hms_request',
-		'author'         =>  $user_id,
-		'posts_per_page' => 1
+		'author'         => $user_id,
+		'posts_per_page' => 1,
 	);
 	$request = get_posts( $args );
 
@@ -230,16 +230,16 @@ function hms_get_user_status( $user_id = '' ){
 /**
  * Get user status
  */
-function hms_get_user_request_id( $user_id = '' ){
+function hms_get_user_request_id( $user_id = '' ) {
 
 	if ( ! $user_id ) {
 		return false;
 	}
 
-	$args = array(
+	$args    = array(
 		'post_type'      => 'hms_request',
-		'author'         =>  $user_id,
-		'posts_per_page' => 1
+		'author'         => $user_id,
+		'posts_per_page' => 1,
 	);
 	$request = get_posts( $args );
 
@@ -257,9 +257,9 @@ function hms_get_user_request_id( $user_id = '' ){
  */
 function hms_get_user_teams( $user_id = null, $fields = 'all' ) {
 	$teams_args = array(
-		'post_type'   => 'hms_team',
-		'fields'      => $fields,
-		'meta_query'  => array(
+		'post_type'  => 'hms_team',
+		'fields'     => $fields,
+		'meta_query' => array(
 			array(
 				'key'     => '_team_users',
 				'value'   => $user_id,
@@ -275,18 +275,18 @@ function hms_get_user_teams( $user_id = null, $fields = 'all' ) {
 
 /**
  * Get users
- * 
+ *
  * $args = array( 'role' => 'hackathon_mentor' ) // 'hackathon_participant'
  */
 function hms_get_users( $args = array(), $return = 'all' ) {
 	$defaults = array(
-		'role__in' => array( 'hackathon_mentor', 'hackathon_participant', 'hackathon_jury'),
+		'role__in' => array( 'hackathon_mentor', 'hackathon_participant', 'hackathon_jury' ),
 		'orderby'  => 'registered',
 		'order'    => 'DESC',
 	);
 
-	if( isset($args['search'] ) ) {
-		$args['search'] = '*' . $args['search'] . '*';
+	if ( isset( $args['search'] ) ) {
+		$args['search']         = '*' . $args['search'] . '*';
 		$args['search_columns'] = array( 'display_name', 'user_email', 'user_nicename', 'user_login', 'ID' );
 	}
 
@@ -305,7 +305,7 @@ function hms_get_users( $args = array(), $return = 'all' ) {
 
 /**
  * Get users email
- * 
+ *
  * $args = array( 'role' => 'hackathon_mentor' ) // 'hackathon_participant'
  */
 function hms_get_users_email( $role = '' ) {
@@ -385,7 +385,7 @@ function hms_user_gravatar( $user_id = null, $size = 200 ) {
 /**
  * Get user avatar
  */
-function hms_get_avatar( $size = 200 ){
+function hms_get_avatar( $size = 200 ) {
 	$user_id       = get_query_var( 'current_user_id' );
 	$custom_avatar = get_user_option( 'custom_avatar', $user_id );
 
@@ -400,7 +400,7 @@ function hms_get_avatar( $size = 200 ){
 /**
  * Display user avatar
  */
-function hms_avatar( $size = 200 ){
+function hms_avatar( $size = 200 ) {
 	$avatar = hms_get_avatar( $size );
 	echo wp_kses( $avatar, 'content' );
 }
@@ -408,7 +408,7 @@ function hms_avatar( $size = 200 ){
 /**
  * User ajax events
  */
-if( wp_doing_ajax() ){
+if ( wp_doing_ajax() ) {
 
 	// Register user.
 	require_once HMS_PATH . 'inc/ajax/register-user.php';
@@ -468,14 +468,13 @@ function hms_add_roles() {
 	hms_add_rewrite_rules();
 
 	flush_rewrite_rules();
-
 }
 register_activation_hook( HMS_FILE, 'hms_add_roles' );
 
 /**
  * On deactivate plugin
  */
-function hms_remove_roles(){
+function hms_remove_roles() {
 	remove_role( 'hackathon_mentor' );
 	remove_role( 'hackathon_participant' );
 	remove_role( 'hackathon_jury' );
@@ -485,9 +484,9 @@ register_deactivation_hook( HMS_FILE, 'hms_remove_roles' );
 /**
  * Add custom fields to login form
  */
-function hms_login_form_top( $form_top, $args ){
-	if( isset( $args['hackathon_fields'] ) && $args['hackathon_fields'] ) {
-		$additional_fields = "\n" . '<input type="hidden" name="action" value="hackathon_login">';
+function hms_login_form_top( $form_top, $args ) {
+	if ( isset( $args['hackathon_fields'] ) && $args['hackathon_fields'] ) {
+		$additional_fields  = "\n" . '<input type="hidden" name="action" value="hackathon_login">';
 		$additional_fields .= "\n" . wp_nonce_field( 'hackathon-nonce', 'nonce', false, false );
 		$additional_fields .= "\n" . $form_top;
 		return $additional_fields;
@@ -499,9 +498,9 @@ add_filter( 'login_form_top', 'hms_login_form_top', 10, 2 );
 /**
  * Redirect after login
  */
-function hms_wp_login( $user_login, $user ){
+function hms_wp_login( $user_login, $user ) {
 	if ( ! isset( $_REQUEST['action'] ) ) {
-		if ( ! user_can( $user, 'manage_options') && user_can( $user, 'hackathon' ) ) {
+		if ( ! user_can( $user, 'manage_options' ) && user_can( $user, 'hackathon' ) ) {
 			wp_redirect( hms_get_url() );
 			exit;
 		}
@@ -513,7 +512,7 @@ add_action( 'wp_login', 'hms_wp_login', 10, 2 );
  * Remove admin bar
  */
 function hms_remove_admin_bar() {
-	if ( ! current_user_can( 'manage_options') && current_user_can( 'hackathon' ) ) {
+	if ( ! current_user_can( 'manage_options' ) && current_user_can( 'hackathon' ) ) {
 		show_admin_bar( false );
 	}
 }
@@ -524,7 +523,7 @@ add_action( 'after_setup_theme', 'hms_remove_admin_bar' );
  */
 function hms_disable_admin_bar() {
 	if ( is_user_logged_in() && hms_is_page() ) {
-		add_filter('show_admin_bar', '__return_false');
+		add_filter( 'show_admin_bar', '__return_false' );
 	}
 }
 add_action( 'template_redirect', 'hms_disable_admin_bar' );
@@ -549,7 +548,7 @@ function hms_list_users( $args = array(), $status = true ) {
 		'echo' => 1,
 	);
 
-	$parsed_args = wp_parse_args( (array)$args, $defaults );
+	$parsed_args = wp_parse_args( (array) $args, $defaults );
 
 	$users = hms_get_users( $parsed_args );
 
@@ -565,7 +564,7 @@ function hms_list_users( $args = array(), $status = true ) {
 				</div>
 			</div>';
 
-			$star       = '';
+			$star        = '';
 			$user_teams  = hms_get_user_teams( $user->ID );
 			$user_status = hms_get_user_status( $user->ID );
 
@@ -583,7 +582,7 @@ function hms_list_users( $args = array(), $status = true ) {
 					</div>
 				</div>';
 			}
-			
+
 			$status_html = '';
 			if ( $status ) {
 				$status_html = '<div class="hms-list-line-item">
@@ -632,7 +631,6 @@ function hms_list_users( $args = array(), $status = true ) {
 	} else {
 		return $html;
 	}
-
 }
 
 /**
@@ -645,7 +643,7 @@ function hms_card_users( $args = array() ) {
 
 	$page = get_query_var( 'hms_subpage' );
 
-	$parsed_args = wp_parse_args( (array)$args, $defaults );
+	$parsed_args = wp_parse_args( (array) $args, $defaults );
 
 	$users = hms_get_users( $parsed_args );
 
@@ -677,7 +675,7 @@ function hms_card_users( $args = array() ) {
 
 	if ( $exclude ) {
 		$parsed_args['exclude'] = $exclude;
-		$users = hms_get_users( $parsed_args );
+		$users                  = hms_get_users( $parsed_args );
 	}
 
 	$output = '';
@@ -690,7 +688,6 @@ function hms_card_users( $args = array() ) {
 			$user_status = hms_get_user_status( $user_id );
 			$star        = '';
 			$team_html   = '';
-			
 
 			if ( ! hms_is_jury( $user->ID ) ) {
 				$team_html .= '<div class="hms-card-line-item">
@@ -739,7 +736,7 @@ function hms_card_users( $args = array() ) {
 					$action_login = '';
 				}
 
-				$actions = $action_edit . $action_login . $action_request.  $action_delete;
+				$actions = $action_edit . $action_login . $action_request . $action_delete;
 			}
 
 			$actions_html = '
@@ -813,7 +810,7 @@ function hms_card_users( $args = array() ) {
 /**
  * Users menu
  */
-function hms_users_menu(){
+function hms_users_menu() {
 	$page    = get_query_var( 'hms_subpage' );
 	$subpage = get_query_var( 'hms_subsubpage' );
 
@@ -842,10 +839,10 @@ function hms_users_menu(){
 	<ul class="hms-submenu">
 		<?php
 		$count = count( $filter_items );
-		$i = 0;
+		$i     = 0;
 		foreach ( $filter_items as $item ) {
 			$item_class = 'hms-submenu-item';
-			$slug = 'users';
+			$slug       = 'users';
 			if ( $item['slug'] ) {
 				$slug .= '/' . $item['slug'];
 			}
@@ -866,13 +863,13 @@ function hms_users_menu(){
 /**
  * Users Filter
  */
-function hms_users_filter(){
+function hms_users_filter() {
 
-	$order   = isset( $_GET['order'] ) ? $_GET['order'] : 'desc';
-	$orderby = isset( $_GET['orderby'] ) ? $_GET['orderby'] : '';
-	$search  = isset( $_GET['search'] ) ? $_GET['search'] : '';
-	$status  = isset( $_GET['status'] ) ? $_GET['status'] : '';
-	$team    = isset( $_GET['team'] ) ? $_GET['team'] : '';
+	$order         = isset( $_GET['order'] ) ? $_GET['order'] : 'desc';
+	$orderby       = isset( $_GET['orderby'] ) ? $_GET['orderby'] : '';
+	$search        = isset( $_GET['search'] ) ? $_GET['search'] : '';
+	$status        = isset( $_GET['status'] ) ? $_GET['status'] : '';
+	$team          = isset( $_GET['team'] ) ? $_GET['team'] : '';
 	$filter_active = '';
 	if ( $status || $team ) {
 		$filter_active = ' active';
@@ -882,21 +879,21 @@ function hms_users_filter(){
 		<input type="hidden" name="order" value="<?php echo esc_attr( $order ); ?>">
 		<div class="hms-filter-top">
 			<div class="hms-filter-item hms-filter-item-search">
-				<input name="search" type="seach" class="hms-filter-field hms-filter-search" value="<?php echo esc_attr( $search );?>" placeholder="<?php esc_attr_e( 'User name or email', 'hackathon' ); ?>">
+				<input name="search" type="seach" class="hms-filter-field hms-filter-search" value="<?php echo esc_attr( $search ); ?>" placeholder="<?php esc_attr_e( 'User name or email', 'hackathon' ); ?>">
 				<button class="hms-filter-search-button" type="submit">
-					<?php hms_icon( 'search' );?>
+					<?php hms_icon( 'search' ); ?>
 				</button>
 			</div>
 			<div class="hms-filter-item">
 				<a href="#" class="hms-filter-button">
-					<?php hms_icon( 'filter' );?>
+					<?php hms_icon( 'filter' ); ?>
 				</a>
 			</div>
 
 			<div class="hms-filter-item hms-filter-item-order">
 				<a href="#" class="hms-filter-order order-<?php echo esc_attr( $order ); ?>">
-					<?php hms_icon( 'down' );?>
-					<?php hms_icon( 'down' );?>
+					<?php hms_icon( 'down' ); ?>
+					<?php hms_icon( 'down' ); ?>
 				</a>
 				<select name="orderby" class="hms-filter-field hms-filter-select">
 					<option value="registered" <?php selected( $orderby, 'registered' ); ?>><?php esc_html_e( 'By Date', 'hackathon' ); ?></option>
@@ -910,7 +907,7 @@ function hms_users_filter(){
 				<div class="hms-filter-item">
 					<select name="status" class="hms-filter-field hms-filter-select">
 						<option value=""><?php esc_html_e( 'All status types', 'hackathon' ); ?></option>
-						<?php foreach( hms_request_statuses() as $value => $item ) { ?>
+						<?php foreach ( hms_request_statuses() as $value => $item ) { ?>
 							<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $status, $value ); ?> ><?php echo esc_html( $item['label'] ); ?></option>
 						<?php } ?>
 					</select>
@@ -927,5 +924,4 @@ function hms_users_filter(){
 
 	</form>
 	<?php
-
 }

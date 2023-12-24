@@ -27,7 +27,8 @@ $notifications = hms_email_notifications();
 </header>
 
 <ul class="hms-submenu">
-	<?php foreach( $option_pages as $slug => $page ) {
+	<?php
+	foreach ( $option_pages as $slug => $page ) {
 		$item_class = 'hms-submenu-item';
 		$parent     = '';
 
@@ -35,12 +36,12 @@ $notifications = hms_email_notifications();
 			$parent = $page['parent'] . '/';
 		}
 
-		if ( $slug === $subpage_slug || ( !$subpage_slug && $page_slug === $slug ) ) {
+		if ( $slug === $subpage_slug || ( ! $subpage_slug && $page_slug === $slug ) ) {
 			$item_class .= ' active';
 		}
 		?>
 		<li class="<?php echo esc_attr( $item_class ); ?>">
-			<a href="<?php hms_url( $parent . $slug ); ?>"><?php echo esc_html( $page['menu_title'] );?></a>
+			<a href="<?php hms_url( $parent . $slug ); ?>"><?php echo esc_html( $page['menu_title'] ); ?></a>
 		</li>
 	<?php } ?>
 </ul>

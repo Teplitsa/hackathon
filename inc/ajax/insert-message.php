@@ -2,7 +2,6 @@
 /**
  * Insert Message
  */
-
 function hms_ajax_insert_message() {
 
 	check_ajax_referer( 'hackathon-nonce', 'nonce' );
@@ -24,6 +23,5 @@ function hms_ajax_insert_message() {
 		$data['message'] = esc_html__( 'Title can\'t be empty', 'hackathon' );
 		wp_send_json_error( $data );
 	}
-
 }
 add_action( 'wp_ajax_hms_insert_message', 'hms_ajax_insert_message' );

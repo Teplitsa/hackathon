@@ -2,7 +2,6 @@
 /**
  * Login User
  */
-
 function hms_delete_user() {
 
 	check_ajax_referer( 'hackathon-nonce', 'nonce' );
@@ -11,7 +10,7 @@ function hms_delete_user() {
 
 	$data = array(
 		'request'     => $request,
-		'redirect_to' => hms_get_url('users'),
+		'redirect_to' => hms_get_url( 'users' ),
 	);
 
 	$user_id = isset( $_POST['user_id'] ) ? sanitize_text_field( $_POST['user_id'] ) : false;

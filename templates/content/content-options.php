@@ -8,6 +8,6 @@ if ( get_query_var( 'hms_subsubpage' ) ) {
 	$subpage = get_query_var( 'hms_subsubpage' );
 }
 
-$teamplate_name = 'content/options/options-' . $subpage .'.php';
+$teamplate_name = 'content/options/options-' . $subpage . '.php';
 
 hms_load_template( $teamplate_name );

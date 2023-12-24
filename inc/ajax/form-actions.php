@@ -2,7 +2,6 @@
 /**
  * Form Actions
  */
-
 function hms_ajax_new_form() {
 
 	check_ajax_referer( 'hms-nonce', 'nonce' );
@@ -12,8 +11,8 @@ function hms_ajax_new_form() {
 	if ( isset( $_POST['name'] ) && $_POST['name'] ) {
 
 		if ( isset( $_POST['slug'] ) && $_POST['slug'] ) {
-            
-            $form_type = $_POST['form_type'];
+
+			$form_type = $_POST['form_type'];
 
 			$forms_args = array(
 				'post_type'      => 'hms_form',
@@ -41,8 +40,8 @@ function hms_ajax_new_form() {
 				'post_type'   => 'hms_form',
 				'post_title'  => sanitize_text_field( $_POST['name'] ),
 				'post_status' => 'publish',
-				'meta_input' => array(
-					'_form_slug' => sanitize_title( trim($_POST['slug']) ),
+				'meta_input'  => array(
+					'_form_slug' => sanitize_title( trim( $_POST['slug'] ) ),
 					'_form_type' => sanitize_title( $_POST['form_type'] ),
 				),
 			);
@@ -64,7 +63,6 @@ function hms_ajax_new_form() {
 		$data['message'] = esc_html__( 'Form name cannot be empty', 'hackathon' );
 		wp_send_json_error( $data );
 	}
-
 }
 add_action( 'wp_ajax_hms_new_form', 'hms_ajax_new_form' );
 
@@ -86,7 +84,6 @@ function hms_ajax_delete_form() {
 
 	$data['message'] = esc_html__( 'Unknown error, write to the site admin', 'hackathon' );
 	wp_send_json_error( $data );
-
 }
 add_action( 'wp_ajax_hms_delete_form', 'hms_ajax_delete_form' );
 
@@ -102,13 +99,13 @@ function hms_ajax_update_form() {
 	if ( isset( $_POST['form_id'] ) && $_POST['form_id'] ) {
 
 		$data['validate'] = false;
-        $form_id     = $_POST['form_id'];
-		$form_title  = isset( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : '';
-		$form_slug   = isset( $_POST['slug'] ) ? sanitize_text_field( $_POST['slug'] ) : '';
-		$form_role   = isset( $_POST['role'] ) ? sanitize_text_field( $_POST['role'] ) : 'hackathon_participant';
-		$form_fields = isset( $_POST['field'] ) ? $_POST['field'] : array();
-        $form_type   = get_post_meta( $form_id, '_form_type', true );
-        
+		$form_id          = $_POST['form_id'];
+		$form_title       = isset( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : '';
+		$form_slug        = isset( $_POST['slug'] ) ? sanitize_text_field( $_POST['slug'] ) : '';
+		$form_role        = isset( $_POST['role'] ) ? sanitize_text_field( $_POST['role'] ) : 'hackathon_participant';
+		$form_fields      = isset( $_POST['field'] ) ? $_POST['field'] : array();
+		$form_type        = get_post_meta( $form_id, '_form_type', true );
+
 		foreach ( $form_fields as $field ) {
 			if ( isset( $field['label'] ) && empty( trim( $field['label'] ) ) ) {
 				$data['message']  = esc_html__( 'Please fill in the required fields.', 'hackathon' );
@@ -118,44 +115,43 @@ function hms_ajax_update_form() {
 		}
 
 		if ( isset( $form_fields['custom'] ) && is_array( $form_fields['custom'] ) ) {
-			foreach( $form_fields['custom'] as $key => $field ) {
+			foreach ( $form_fields['custom'] as $key => $field ) {
 				if ( empty( $field['label'] ) ) {
 					unset( $form_fields['custom'][ $key ] );
 				}
 			}
 		}
 
-		
 		$form_arr = array(
-			'ID'           => $form_id,
-			'post_title'   => $form_title,
+			'ID'         => $form_id,
+			'post_title' => $form_title,
 			'meta_input' => array(
 				'_form_slug'   => $form_slug,
 				'_form_role'   => $form_role,
 				'_form_fields' => $form_fields,
-			)
+			),
 		);
 
-        if ( $form_type !== 'intrasystem' ) {
-  
-            $forms_args = array(
-                'post_type'      => 'hms_form',
-                'posts_per_page' => -1,
-                'post_status'    => 'any',
-                'meta_key'       => '_form_slug',
-                'meta_value'     => $form_slug,
-                'post__not_in'   => array( $form_id ),
-            );
+		if ( $form_type !== 'intrasystem' ) {
 
-            $forms_query = new WP_Query( $forms_args );
+			$forms_args = array(
+				'post_type'      => 'hms_form',
+				'posts_per_page' => -1,
+				'post_status'    => 'any',
+				'meta_key'       => '_form_slug',
+				'meta_value'     => $form_slug,
+				'post__not_in'   => array( $form_id ),
+			);
 
-            if ( $forms_query->have_posts() ) {
-                $data['message'] = esc_html__( 'A form with this url already exists!' , 'hackathon' );
-                wp_send_json_error( $data );
-            }
-        } else {
-            unset( $form_arr['meta_input']['_form_slug'] );
-        }
+			$forms_query = new WP_Query( $forms_args );
+
+			if ( $forms_query->have_posts() ) {
+				$data['message'] = esc_html__( 'A form with this url already exists!', 'hackathon' );
+				wp_send_json_error( $data );
+			}
+		} else {
+			unset( $form_arr['meta_input']['_form_slug'] );
+		}
 
 		wp_update_post( wp_slash( $form_arr ) );
 
@@ -164,7 +160,6 @@ function hms_ajax_update_form() {
 
 	$data['message'] = esc_html__( 'Unknown error, write to the site admin', 'hackathon' );
 	wp_send_json_error( $data );
-
 }
 add_action( 'wp_ajax_hms_update_form', 'hms_ajax_update_form' );
 
@@ -177,7 +172,7 @@ function hms_ajax_add_new_field() {
 
 	$data = map_deep( $_REQUEST, 'sanitize_text_field' );
 
-	$order = isset( $_POST['order'] ) && ! empty( $_POST['order'] ) ? $_POST['order'] : 0;
+	$order   = isset( $_POST['order'] ) && ! empty( $_POST['order'] ) ? $_POST['order'] : 0;
 	$form_id = isset( $_POST['form_id'] ) && ! empty( $_POST['form_id'] ) ? $_POST['form_id'] : '';
 
 	ob_start();
@@ -188,7 +183,6 @@ function hms_ajax_add_new_field() {
 
 	$data['html'] = $html;
 	wp_send_json_success( $data );
-
 }
 add_action( 'wp_ajax_hms_add_new_field', 'hms_ajax_add_new_field' );
 
@@ -201,8 +195,8 @@ function hms_ajax_replace_field() {
 
 	$data = map_deep( $_REQUEST, 'sanitize_text_field' );
 
-	$order  = isset( $_POST['order'] ) && ! empty( $_POST['order'] ) ? $_POST['order'] : 0;
-	$field  = isset( $_POST['field'] ) ? $_POST['field'] : array();
+	$order = isset( $_POST['order'] ) && ! empty( $_POST['order'] ) ? $_POST['order'] : 0;
+	$field = isset( $_POST['field'] ) ? $_POST['field'] : array();
 
 	ob_start();
 
@@ -212,14 +206,13 @@ function hms_ajax_replace_field() {
 
 	$data['html'] = $html;
 	wp_send_json_success( $data );
-
 }
 add_action( 'wp_ajax_hms_replace_field', 'hms_ajax_replace_field' );
 
 /**
  * Add Option
  */
-function hms_ajax_add_option(){
+function hms_ajax_add_option() {
 	check_ajax_referer( 'hackathon-nonce', 'nonce' );
 
 	$data = map_deep( $_REQUEST, 'sanitize_text_field' );
@@ -262,8 +255,8 @@ function hms_ajax_new_intrasystem_form() {
 			'post_type'   => 'hms_form',
 			'post_title'  => sanitize_text_field( $_POST['name'] ),
 			'post_status' => 'publish',
-			'meta_input' => array(
-				'_form_type'   => sanitize_title( $_POST['form_type'] ),
+			'meta_input'  => array(
+				'_form_type' => sanitize_title( $_POST['form_type'] ),
 			),
 		);
 
@@ -276,6 +269,5 @@ function hms_ajax_new_intrasystem_form() {
 		$data['message'] = esc_html__( 'Form name cannot be empty', 'hackathon' );
 		wp_send_json_error( $data );
 	}
-
 }
 add_action( 'wp_ajax_hms_new_intrasystem_form', 'hms_ajax_new_intrasystem_form' );

@@ -25,11 +25,11 @@ function hms_send_email( $email_data, $user_id = '' ) {
 
 	$user = get_userdata( $user_id );
 
-	$key          = '';
+	$key        = '';
 	$user_login = '';
 
 	if ( $user ) {
-		$key = get_password_reset_key( $user );
+		$key        = get_password_reset_key( $user );
 		$user_login = $user->user_login;
 	}
 
@@ -51,9 +51,12 @@ function hms_send_email( $email_data, $user_id = '' ) {
 
 	$data = apply_filters( 'hms_email_data', $data );
 
-	add_filter( 'wp_mail_content_type', function(){
-		return 'text/html';
-	} );
+	add_filter(
+		'wp_mail_content_type',
+		function () {
+			return 'text/html';
+		}
+	);
 
 	wp_mail(
 		$data['to'],
@@ -61,17 +64,16 @@ function hms_send_email( $email_data, $user_id = '' ) {
 		$data['message'],
 		$data['headers']
 	);
-
 }
 
 /**
  * Send Email new user
  */
-function hms_send_email_new_user( $user_id ){
+function hms_send_email_new_user( $user_id ) {
 
 	if ( apply_filters( 'hms_disable_send_email_new_user', false ) === true ) {
 		return false;
-	};
+	}
 
 	$title = hms_option( 'event_name', get_bloginfo() );
 
@@ -79,7 +81,7 @@ function hms_send_email_new_user( $user_id ){
 		$message = hms_option( 'mail_register' );
 	} else {
 		$notifications = hms_email_notifications();
-		$message = $notifications['mail_register']['body'];
+		$message       = $notifications['mail_register']['body'];
 	}
 
 	$email_data = array(
@@ -97,7 +99,7 @@ function hms_send_email_new_user( $user_id ){
 /**
  * Send Email reset
  */
-function hms_send_email_reset( $user_id ){
+function hms_send_email_reset( $user_id ) {
 
 	$title = hms_option( 'event_name', get_bloginfo() );
 
@@ -105,7 +107,7 @@ function hms_send_email_reset( $user_id ){
 		$message = hms_option( 'mail_reset' );
 	} else {
 		$notifications = hms_email_notifications();
-		$message = $notifications['mail_reset']['body'];
+		$message       = $notifications['mail_reset']['body'];
 	}
 
 	$email_data = array(
@@ -123,15 +125,15 @@ function hms_send_email_reset( $user_id ){
 /**
  * Send Email status
  */
-function hms_send_email_status( $user_id, $status = '' ){
+function hms_send_email_status( $user_id, $status = '' ) {
 
 	$title = hms_option( 'event_name', get_bloginfo() );
 
 	if ( hms_option( 'mail_status_' . $status ) ) {
-		$message = hms_option( 'mail_status_' .$status );
+		$message = hms_option( 'mail_status_' . $status );
 	} else {
 		$notifications = hms_email_notifications();
-		$message = $notifications['mail_status_' . $status]['body'];
+		$message       = $notifications[ 'mail_status_' . $status ]['body'];
 	}
 
 	$email_data = array(
@@ -149,7 +151,7 @@ function hms_send_email_status( $user_id, $status = '' ){
 /**
  * Send Email new team
  */
-function hms_send_email_new_team( $team_id ){
+function hms_send_email_new_team( $team_id ) {
 
 	$title = hms_option( 'event_name', get_bloginfo() );
 
@@ -157,7 +159,7 @@ function hms_send_email_new_team( $team_id ){
 		$message = hms_option( 'mail_new_team' );
 	} else {
 		$notifications = hms_email_notifications();
-		$message = $notifications['mail_new_team']['body'];
+		$message       = $notifications['mail_new_team']['body'];
 	}
 
 	$search = array(
@@ -187,7 +189,7 @@ function hms_send_email_new_team( $team_id ){
 /**
  * Send Email team form
  */
-function hms_send_email_team_form( $team_id, $post_id ){
+function hms_send_email_team_form( $team_id, $post_id ) {
 
 	$title = hms_option( 'event_name', get_bloginfo() );
 
@@ -195,7 +197,7 @@ function hms_send_email_team_form( $team_id, $post_id ){
 		$message = hms_option( 'mail_team_form' );
 	} else {
 		$notifications = hms_email_notifications();
-		$message = $notifications['mail_team_form']['body'];
+		$message       = $notifications['mail_team_form']['body'];
 	}
 
 	$search = array(
@@ -234,7 +236,7 @@ function hms_send_email_final_solution( $team_id, $post_id ) {
 		$message = hms_option( 'mail_team_form' );
 	} else {
 		$notifications = hms_email_notifications();
-		$message = $notifications['mail_team_form']['body'];
+		$message       = $notifications['mail_team_form']['body'];
 	}
 
 	$search = array(
@@ -253,7 +255,7 @@ function hms_send_email_final_solution( $team_id, $post_id ) {
 
 	$email_data = array(
 		'to'      => get_option( 'admin_email' ),
-		'subject' => sprintf( __( '[%s]: Team <%s> successfully submitted all forms', 'hackathon' ), $title, get_the_title( $team_id ) ),
+		'subject' => sprintf( __( '[%1$s]: Team <%2$s> successfully submitted all forms', 'hackathon' ), $title, get_the_title( $team_id ) ),
 		'message' => $message,
 		'headers' => '',
 	);
@@ -263,16 +265,16 @@ function hms_send_email_final_solution( $team_id, $post_id ) {
 	hms_send_email( $email_data );
 }
 
-function hms_email_notifications(){
+function hms_email_notifications() {
 
 	$notifications = array(
-		'mail_register' => array(
+		'mail_register'          => array(
 			'body' => '{site_name}' . "\r\n\r\n" .
 				__( 'Your login:', 'hackathon' ) . ' {user_login}' . "\r\n\r\n" .
 				__( 'To set your password, visit the following address:', 'hackathon' ) . "\r\n\r\n" .
 				'{password_reset_link}' . "\r\n\r\n",
 		),
-		'mail_reset' => array(
+		'mail_reset'             => array(
 			'body' => '{site_name}' . "\r\n\r\n" .
 				__( 'Your login:', 'hackathon' ) . ' {user_login}' . "\r\n\r\n" .
 				__( 'To set your password, visit the following address:', 'hackathon' ) . "\r\n\r\n" .
@@ -282,24 +284,24 @@ function hms_email_notifications(){
 			'body' => '{site_name}' . "\r\n\r\n" .
 				__( 'Your status successfully changed to:', 'hackathon' ) . ' {user_status}',
 		),
-		'mail_status_approved' => array(
+		'mail_status_approved'   => array(
 			'body' => '{site_name}' . "\r\n\r\n" .
 				__( 'Your status successfully changed to:', 'hackathon' ) . ' {user_status}',
 		),
-		'mail_status_rejected' => array(
+		'mail_status_rejected'   => array(
 			'body' => '{site_name}' . "\r\n\r\n" .
 				__( 'Your status successfully changed to:', 'hackathon' ) . ' {user_status}',
 		),
-		'mail_status_cancelled' => array(
+		'mail_status_cancelled'  => array(
 			'body' => '{site_name}' . "\r\n\r\n" .
 				__( 'Your status successfully changed to:', 'hackathon' ) . ' {user_status}',
 		),
-		'mail_new_team' => array(
+		'mail_new_team'          => array(
 			'body' => '{site_name}' . "\r\n\r\n" .
 				__( 'New created team:', 'hackathon' ) . ' {team_name}' . "\r\n\r\n" .
 				'{team_url}',
 		),
-		'mail_team_form' => array(
+		'mail_team_form'         => array(
 			'body' => '{site_name}' . "\r\n\r\n" .
 				sprintf( __( 'Team %s successfully submitted all forms.', 'hackathon' ), '{team_name}' ) . "\r\n\r\n" .
 				'{team_url}',
@@ -307,7 +309,6 @@ function hms_email_notifications(){
 	);
 
 	return $notifications;
-
 }
 
 function hms_retrieve_password_message( $message, $key, $user_login, $user ) {
@@ -320,12 +321,15 @@ function hms_retrieve_password_message( $message, $key, $user_login, $user ) {
 			$message = hms_option( 'mail_reset' );
 		} else {
 			$notifications = hms_email_notifications();
-			$message = $notifications['mail_reset']['body'];
+			$message       = $notifications['mail_reset']['body'];
 		}
 
-		add_filter( 'wp_mail_content_type', function(){
-			return 'text/html';
-		} );
+		add_filter(
+			'wp_mail_content_type',
+			function () {
+				return 'text/html';
+			}
+		);
 
 		$search = array(
 			'{site_name}',
@@ -349,9 +353,12 @@ add_filter( 'retrieve_password_message', 'hms_retrieve_password_message', 10, 4 
 
 function hms_lostpassword_post( $errors, $user ) {
 	if ( user_can( $user, 'hackathon' ) ) {
-		add_filter( 'wp_mail_content_type', function(){
-			return 'text/html';
-		} );
+		add_filter(
+			'wp_mail_content_type',
+			function () {
+				return 'text/html';
+			}
+		);
 	}
 }
 add_action( 'lostpassword_post', 'hms_lostpassword_post', 10, 2 );

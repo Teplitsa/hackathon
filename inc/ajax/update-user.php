@@ -2,7 +2,6 @@
 /**
  * Update User
  */
-
 function hms_update_user() {
 
 	check_ajax_referer( 'hackathon-nonce', 'nonce' );
@@ -73,6 +72,5 @@ function hms_update_user() {
 	);
 
 	wp_send_json_success( $data );
-
 }
 add_action( 'wp_ajax_hackathon_update_user', 'hms_update_user' );

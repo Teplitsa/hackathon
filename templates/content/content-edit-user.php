@@ -9,12 +9,12 @@ if ( get_query_var( 'hms_subsubpage' ) ) {
 	$user_id = (int) get_query_var( 'hms_subsubpage' );
 }
 
-$user_meta  = get_userdata( $user_id );
+$user_meta = get_userdata( $user_id );
 if ( $user_meta ) {
 	$user_roles = $user_meta->roles;
 	$role       = $user_roles[0];
 }
-$request_id = hms_get_user_request_id( $user_id  );
+$request_id = hms_get_user_request_id( $user_id );
 
 ?>
 
@@ -62,10 +62,11 @@ $request_id = hms_get_user_request_id( $user_id  );
 
 					<div class="hms-table">
 
-						<?php if ( ! hms_is_administrator( $user_id ) ) {
+						<?php
+						if ( ! hms_is_administrator( $user_id ) ) {
 							$user_status = hms_get_user_status( $user_id );
 							if ( hms_is_administrator() && hms_is_participant( $user_id ) ) {
-							?>
+								?>
 							<div class="hms-table-row">
 								<div class="hms-table-col">
 									<label class="hms-table-label"><?php esc_html_e( 'Status', 'hackathon' ); ?></label>
@@ -79,7 +80,7 @@ $request_id = hms_get_user_request_id( $user_id  );
 												<?php echo hms_get_request_status( $user_status ); ?>
 											</div>
 											<span class="hms-card-status-toggle">
-												<?php hms_icon('down'); ?>
+												<?php hms_icon( 'down' ); ?>
 											</span>
 										</div>
 										<div class="hms-card-status-popover">
@@ -97,12 +98,15 @@ $request_id = hms_get_user_request_id( $user_id  );
 									</div>
 
 									<?php if ( hms_is_administrator() ) { ?>
-										<a href="<?php hms_url('request/' . $request_id ); ?>" class="hms-button hms-button-outline"><?php esc_html_e( 'View request', 'hackathon' ); ?></a>
+										<a href="<?php hms_url( 'request/' . $request_id ); ?>" class="hms-button hms-button-outline"><?php esc_html_e( 'View request', 'hackathon' ); ?></a>
 									<?php } ?>
 
 								</div>
 							</div>
-						<?php } } ?>
+								<?php
+							}
+						}
+						?>
 
 						<div class="hms-table-row">
 							<div class="hms-table-col">
@@ -128,29 +132,29 @@ $request_id = hms_get_user_request_id( $user_id  );
 								</div>
 								<div class="hms-table-col">
 									<?php
-										if ( 'hackathon_participant' === hms_get_user_role( $current_user_id ) || $current_user_id == $user_id ) {
-											echo '<select id="role" class="select" ' . disabled( true, true, false ) . '>';
+									if ( 'hackathon_participant' === hms_get_user_role( $current_user_id ) || $current_user_id == $user_id ) {
+										echo '<select id="role" class="select" ' . disabled( true, true, false ) . '>';
+										echo '<option>' . hms_get_user_role_name( $user_id ) . '</option>';
+										echo '</select>';
+									} else {
+										$all_roles = wp_roles()->roles;
+										echo '<select id="role" class="select" name="role" ' . disabled( hms_get_user_role( $user_id ), 'administrator', false ) . '>';
+
+										if ( 'administrator' === hms_get_user_role( $user_id ) ) {
 											echo '<option>' . hms_get_user_role_name( $user_id ) . '</option>';
-											echo '</select>';
 										} else {
-											$all_roles = wp_roles()->roles;
-											echo '<select id="role" class="select" name="role" ' . disabled( hms_get_user_role( $user_id ), 'administrator', false ) . '>';
 
-											if ( 'administrator' === hms_get_user_role( $user_id ) ) {
-												echo '<option>' . hms_get_user_role_name( $user_id ) . '</option>';
-											} else {
-
-												foreach ( $all_roles as $role_slug => $role_obj ) {
-													if ( array_key_exists( 'hackathon', $role_obj['capabilities'] ) ) {
-														if ( 'administrator' === $role_slug ) {
-															continue;
-														}
-														echo '<option value="' . $role_slug . '" ' . selected( $role, $role_slug, false ) . '>' . translate( translate_user_role( $role_obj['name'] ), 'hackathon' ) . '</option>';
+											foreach ( $all_roles as $role_slug => $role_obj ) {
+												if ( array_key_exists( 'hackathon', $role_obj['capabilities'] ) ) {
+													if ( 'administrator' === $role_slug ) {
+														continue;
 													}
+													echo '<option value="' . $role_slug . '" ' . selected( $role, $role_slug, false ) . '>' . translate( translate_user_role( $role_obj['name'] ), 'hackathon' ) . '</option>';
 												}
 											}
-											echo '</select>';
 										}
+										echo '</select>';
+									}
 									?>
 								</div>
 							</div>
@@ -237,7 +241,7 @@ $request_id = hms_get_user_request_id( $user_id  );
 								</div>
 								<div class="hms-table-col">
 									<button class="hms-button hms-button-outline hms-button-small" type="button" id="hackathon-send-reset-link"><?php esc_html_e( 'Send Reset Link', 'hackathon' ); ?></button>
-									<p class="description"><?php echo sprintf( esc_html__( 'Send %s a link to reset their password. This will not change their password, nor will it force a change.', 'hackathon' ), esc_html( $user_meta->data->display_name ) ); ?></p>
+									<p class="description"><?php printf( esc_html__( 'Send %s a link to reset their password. This will not change their password, nor will it force a change.', 'hackathon' ), esc_html( $user_meta->data->display_name ) ); ?></p>
 								</div>
 							</div>
 
@@ -277,10 +281,12 @@ $request_id = hms_get_user_request_id( $user_id  );
 
 					<?php
 						$teams = hms_get_user_teams( $user_id );
-						if ( $teams ) { ?>
+					if ( $teams ) {
+						?>
 							<div class="hms-cards">
-							<?php foreach( $teams as $team ) {
-								$team_id = $team->ID;
+							<?php
+							foreach ( $teams as $team ) {
+								$team_id     = $team->ID;
 								$users_count = hms_get_team_users_count( $team_id );
 								?>
 
@@ -306,13 +312,15 @@ $request_id = hms_get_user_request_id( $user_id  );
 									<div class="hms-card-info">
 										<div class="hms-card-info-item">
 											<div class="hms-card-info-icon">
-												<?php hms_icon('team'); ?>
+												<?php hms_icon( 'team' ); ?>
 											</div>
 											<div class="hms-card-label">
-												<?php echo sprintf(
+												<?php
+												printf(
 													esc_html( _n( '%s User', '%s Users', $users_count, 'hackathon' ) ),
 													esc_html( $users_count )
-												); ?>
+												);
+												?>
 											</div>
 										</div>
 
@@ -342,13 +350,13 @@ $request_id = hms_get_user_request_id( $user_id  );
 
 					<?php
 						$hiddenClass = '';
-						$max_count = hms_max_teams();
-						if ( 'hackathon_participant' === hms_get_user_role( $user_id ) ) {
-							$max_count = 1;
-						}
-						if ( count( $teams ) === $max_count ) {
-							$hiddenClass = ' hidden';
-						}
+						$max_count   = hms_max_teams();
+					if ( 'hackathon_participant' === hms_get_user_role( $user_id ) ) {
+						$max_count = 1;
+					}
+					if ( count( $teams ) === $max_count ) {
+						$hiddenClass = ' hidden';
+					}
 					?>
 
 					<?php if ( hms_is_administrator() || hms_is_mentor() ) { ?>
@@ -380,10 +388,12 @@ $request_id = hms_get_user_request_id( $user_id  );
 
 										<?php
 											$teams = hms_get_teams();
-											if ( $teams ) { ?>
+										if ( $teams ) {
+											?>
 												<div class="hms-cards">
-												<?php foreach( $teams as $team ) {
-													$team_id = $team->ID;
+												<?php
+												foreach ( $teams as $team ) {
+													$team_id     = $team->ID;
 													$users_count = hms_get_team_users_count( $team_id );
 
 													if ( in_array( $team_id, hms_get_user_teams( $user_id, 'ids' ) ) ) {
@@ -421,13 +431,15 @@ $request_id = hms_get_user_request_id( $user_id  );
 														<div class="hms-card-info">
 															<div class="hms-card-info-item">
 																<div class="hms-card-info-icon">
-																	<?php hms_icon('team'); ?>
+																	<?php hms_icon( 'team' ); ?>
 																</div>
 																<div class="hms-card-label">
-																	<?php echo sprintf(
+																	<?php
+																	printf(
 																		esc_html( _n( '%s User', '%s Users', $users_count, 'hackathon' ) ),
 																		esc_html( $users_count )
-																	); ?>
+																	);
+																	?>
 																</div>
 															</div>
 
@@ -439,11 +451,13 @@ $request_id = hms_get_user_request_id( $user_id  );
 														</div>
 													</div>
 
-												<?php
-											} ?>
+													<?php
+												}
+												?>
 											</div>
-										<?php
-										} else { ?>
+											<?php
+										} else {
+											?>
 											<h3><?php esc_html_e( 'No teams', 'hackathon' ); ?></h3>
 										<?php } ?>
 
@@ -456,10 +470,11 @@ $request_id = hms_get_user_request_id( $user_id  );
 
 				</div>
 			</div>
-		<?php }?>
+		<?php } ?>
 
 	</div>
 
 </div>
 
-<?php }
+	<?php
+}

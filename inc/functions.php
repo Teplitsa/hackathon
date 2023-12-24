@@ -2,25 +2,24 @@
 /**
  * Functions
  */
-
-function hms_global_vars( $vars = array() ){
+function hms_global_vars( $vars = array() ) {
 	$vars = array(
 		'user_id' => get_current_user_id(),
 	);
 	return apply_filters( 'hms_global_vars', $vars );
 }
 
-function hms_max_teams(){
+function hms_max_teams() {
 	$max_teams = (int) hms_option( 'max_teams', 5 );
 	return apply_filters( 'hms_max_teams', $max_teams );
 }
 
-function hms_max_participants(){
+function hms_max_participants() {
 	$max_participants = (int) hms_option( 'max_participants', 6 );
 	return apply_filters( 'hms_max_participants', $max_participants );
 }
 
-function hms_register_url(){
+function hms_register_url() {
 	return hms_get_url( 'register' );
 }
 add_filter( 'register_url', 'hms_register_url' );
@@ -28,13 +27,13 @@ add_filter( 'register_url', 'hms_register_url' );
 /**
  * Pages content
  */
-function hms_pages_content(){
+function hms_pages_content() {
 	$content = array(
 		'dashboard' => array(
 			'page_title' => esc_html__( 'Hackathon Dashboard', 'hackathon' ),
 			'menu_title' => esc_html__( 'Dashboard', 'hackathon' ),
-			'icon'  => 'dashboard',
-			'children' => array(
+			'icon'       => 'dashboard',
+			'children'   => array(
 				'dashboard' => array(
 					'page_title' => esc_html__( 'Hackathon Dashboard', 'hackathon' ),
 					'menu_title' => esc_html__( 'Main', 'hackathon' ),
@@ -42,21 +41,21 @@ function hms_pages_content(){
 						'administrator',
 					),
 				),
-				'logs' => array(
-					'page_title'     => esc_html__( 'Event log', 'hackathon' ),
-					'menu_title'     => esc_html__( 'Logs', 'hackathon' ),
-					'caps'           => array(
+				'logs'      => array(
+					'page_title' => esc_html__( 'Event log', 'hackathon' ),
+					'menu_title' => esc_html__( 'Logs', 'hackathon' ),
+					'caps'       => array(
 						'administrator',
 					),
 				),
 			),
 		),
-		'user' => array(
-			'page_title'    => esc_html__( 'Profile', 'hackathon' ),
-			'menu_title'    => esc_html__( 'Profile', 'hackathon' ),
-			'icon'          => 'profile',
+		'user'      => array(
+			'page_title' => esc_html__( 'Profile', 'hackathon' ),
+			'menu_title' => esc_html__( 'Profile', 'hackathon' ),
+			'icon'       => 'profile',
 		),
-		'users' => array(
+		'users'     => array(
 			'page_title'    => esc_html__( 'Users', 'hackathon' ),
 			'menu_title'    => esc_html__( 'Users', 'hackathon' ),
 			'page_subtitle' => 'default',
@@ -66,99 +65,99 @@ function hms_pages_content(){
 				'hackathon_mentor',
 			),
 		),
-		'requests' => array(
+		'requests'  => array(
 			'page_title' => esc_html__( 'Requests', 'hackathon' ),
 			'menu_title' => esc_html__( 'Requests', 'hackathon' ),
-			'icon' => 'applications',
-			'caps' => array(
+			'icon'       => 'applications',
+			'caps'       => array(
 				'administrator',
 			),
 		),
-		'teams' => array(
+		'teams'     => array(
 			'page_title' => esc_html__( 'Teams', 'hackathon' ),
 			'menu_title' => esc_html__( 'Teams', 'hackathon' ),
-			'icon'  => 'team',
-			'caps' => array(
+			'icon'       => 'team',
+			'caps'       => array(
 				'administrator',
 				'hackathon_mentor',
 			),
 		),
-		'team' => array(
+		'team'      => array(
 			'page_title' => esc_html__( 'My Team', 'hackathon' ),
 			'menu_title' => esc_html__( 'My Team', 'hackathon' ),
-			'icon'  => 'team',
-			'caps' => array(
+			'icon'       => 'team',
+			'caps'       => array(
 				'hackathon_participant',
 			),
 		),
-		'projects' => array(
+		'projects'  => array(
 			'page_title' => esc_html__( 'Projects', 'hackathon' ),
 			'menu_title' => esc_html__( 'Projects', 'hackathon' ),
-			'icon'  => 'project',
+			'icon'       => 'project',
 		),
 		'materials' => array(
 			'page_title' => esc_html__( 'Materials', 'hackathon' ),
 			'menu_title' => esc_html__( 'Materials', 'hackathon' ),
-			'icon'  => 'materials',
-			'caps' => array(
+			'icon'       => 'materials',
+			'caps'       => array(
 				'administrator',
 				'hackathon_mentor',
 				'hackathon_jury',
 			),
 		),
-		'messages' => array(
+		'messages'  => array(
 			'page_title' => esc_html__( 'Messages', 'hackathon' ),
 			'menu_title' => esc_html__( 'Messages', 'hackathon' ),
-			'icon'  => 'messages',
-			'caps' => array(
+			'icon'       => 'messages',
+			'caps'       => array(
 				'administrator',
 				'hackathon_mentor',
 				'hackathon_participant',
 			),
 		),
-		'forms' => array(
+		'forms'     => array(
 			'page_title' => esc_html__( 'Form List', 'hackathon' ),
 			'menu_title' => esc_html__( 'Form List', 'hackathon' ),
-			'icon'  => 'list-forms',
-			'caps' => array(
+			'icon'       => 'list-forms',
+			'caps'       => array(
 				'administrator',
 			),
-			'children' => array(
-				'forms' => array(
+			'children'   => array(
+				'forms'  => array(
 					'page_title' => esc_html__( 'Public Form List', 'hackathon' ),
 					'menu_title' => esc_html__( 'Public Form List', 'hackathon' ),
 				),
 				'inside' => array(
 					'page_title' => esc_html__( 'Intrasystem Form List', 'hackathon' ),
 					'menu_title' => esc_html__( 'Intrasystem Form List', 'hackathon' ),
-					'parent' => 'forms',
+					'parent'     => 'forms',
 				),
-			)
+			),
 		),
-		'options' => array(
+		'options'   => array(
 			'page_title' => esc_html__( 'Main Options', 'hackathon' ),
 			'menu_title' => esc_html__( 'Options', 'hackathon' ),
-			'icon'  => 'settings',
-			'separator' => true,
-			'caps'      => array(
+			'icon'       => 'settings',
+			'separator'  => true,
+			'caps'       => array(
 				'administrator',
 			),
-			'children' => array(
-				'options' => array(
+			'children'   => array(
+				'options'       => array(
 					'page_title' => esc_html__( 'Options', 'hackathon' ),
 					'menu_title' => esc_html__( 'Main Options', 'hackathon' ),
 				),
 				'mentors-teams' => array(
 					'page_title' => esc_html__( 'Mentors and Teams', 'hackathon' ),
 					'menu_title' => esc_html__( 'Mentors and Teams', 'hackathon' ),
-					'parent' => 'options',
+					'parent'     => 'options',
 				),
-				'mail' => array(
+				'mail'          => array(
 					'page_title' => esc_html__( 'Email templates', 'hackathon' ),
 					'menu_title' => esc_html__( 'Email templates', 'hackathon' ),
-					'parent' => 'options',
+					'parent'     => 'options',
 				),
-			)
+			),
 		),
 	);
 	return apply_filters( 'hms_pages_content', $content );
@@ -167,7 +166,7 @@ function hms_pages_content(){
 /**
  * Filter Menu items
  */
-function hms_filter_pages_content( $content ){
+function hms_filter_pages_content( $content ) {
 	if ( ! hms_get_user_teams( get_current_user_id() ) ) {
 		unset( $content['team'] );
 	}
@@ -186,7 +185,7 @@ add_filter( 'hms_pages_content', 'hms_filter_pages_content' );
 /**
  * Page title
  */
-function hms_page_title( $page = '', $echo = true ){
+function hms_page_title( $page = '', $echo = true ) {
 
 	$page_title = null;
 
@@ -198,7 +197,7 @@ function hms_page_title( $page = '', $echo = true ){
 	if ( ! $page ) {
 		if ( $subpage_slug ) {
 			$page = $subpage_slug;
-		} else if ( $page_slug ) {
+		} elseif ( $page_slug ) {
 			$page = $page_slug;
 		} else {
 			$page = 'dashboard';
@@ -212,7 +211,7 @@ function hms_page_title( $page = '', $echo = true ){
 			}
 		}
 		if ( isset( $item['children'] ) && is_array( $item['children'] ) && $item['children'] && ! $page_title ) {
-			foreach( $item['children'] as $childslug => $child ) {
+			foreach ( $item['children'] as $childslug => $child ) {
 
 				if ( $childslug === $page ) {
 					$page_title = $child['page_title'];
@@ -266,7 +265,7 @@ function hms_page_title( $page = '', $echo = true ){
 /**
  * Get page subtitle
  */
-function hms_get_page_subtitle( $page = '' ){
+function hms_get_page_subtitle( $page = '' ) {
 
 	$page_subtitle = null;
 
@@ -280,7 +279,7 @@ function hms_get_page_subtitle( $page = '' ){
 	if ( ! $page ) {
 		if ( $subpage_slug ) {
 			$page = $subpage_slug;
-		} else if ( $page_slug ) {
+		} elseif ( $page_slug ) {
 			$page = $page_slug;
 		} else {
 			$page = 'dashboard';
@@ -294,7 +293,7 @@ function hms_get_page_subtitle( $page = '' ){
 			}
 		}
 		if ( isset( $item['children'] ) && is_array( $item['children'] ) && $item['children'] && ! $page_subtitle ) {
-			foreach( $item['children'] as $childslug => $child ) {
+			foreach ( $item['children'] as $childslug => $child ) {
 
 				if ( $childslug === $page ) {
 					if ( isset( $child['page_subtitle'] ) ) {
@@ -328,7 +327,7 @@ function hms_get_page_subtitle( $page = '' ){
 /**
  * Page subtitle
  */
-function hms_page_subtitle(){
+function hms_page_subtitle() {
 	echo esc_html( hms_get_page_subtitle() );
 }
 
@@ -476,7 +475,7 @@ function hms_is_registration_closed() {
 	}
 
 	$time_zone             = wp_timezone_string();
-	$current_timestamp     = current_time('timestamp', $time_zone);
+	$current_timestamp     = current_time( 'timestamp', $time_zone );
 	$event_start_timestamp = strtotime( $deadline_request . ' ' . $time_zone );
 
 	if ( $event_start_timestamp <= $current_timestamp ) {
@@ -496,66 +495,66 @@ function hms_kses_allowed_html( $tags, $context ) {
 
 	if ( 'content' === $context ) {
 		$tags = array(
-			'div' => array(
+			'div'      => array(
 				'class'  => true,
 				'data-*' => true,
 			),
-			'span' => array(
+			'span'     => array(
 				'class' => true,
 			),
-			'p' => array(),
-			'br' => array(),
-			'a' => array(
+			'p'        => array(),
+			'br'       => array(),
+			'a'        => array(
 				'href'   => true,
 				'target' => true,
 				'class'  => true,
 				'data-*' => true,
 			),
-			'h4' => array(
+			'h4'       => array(
 				'class' => array(),
 			),
-			'svg'   => array(
+			'svg'      => array(
 				'class' => true,
 			),
-			'use' => array(
-				'xlink:href' => true
+			'use'      => array(
+				'xlink:href' => true,
 			),
-			'img' => array(
+			'img'      => array(
 				'src'   => true,
 				'class' => true,
 				'alt'   => true,
 			),
-			'button' => array(
+			'button'   => array(
 				'class'  => true,
 				'type'   => true,
 				'title'  => true,
 				'data-*' => true,
 			),
-			'label' => array(
-				'class'  => true,
+			'label'    => array(
+				'class' => true,
 				'for'   => true,
 			),
-			'select' => array(
+			'select'   => array(
 				'class'  => true,
 				'name'   => true,
 				'data-*' => true,
 			),
-			'input' => array(
-				'class'  => true,
-				'type'   => true,
-				'name'   => true,
-				'value'  => true,
+			'input'    => array(
+				'class'       => true,
+				'type'        => true,
+				'name'        => true,
+				'value'       => true,
 				'placeholder' => true,
-				'data-*' => true,
+				'data-*'      => true,
 			),
 			'textarea' => array(
-				'class'  => true,
-				'type'   => true,
-				'value'  => true,
+				'class'       => true,
+				'type'        => true,
+				'value'       => true,
 				'placeholder' => true,
-				'data-*' => true,
+				'data-*'      => true,
 			),
-			'option' => array(
+			'option'   => array(
 				'value'    => true,
 				'requred'  => true,
 				'selected' => true,

@@ -14,7 +14,7 @@
 		<li class="hms-adminbar-dashboard">
 			<?php if ( hms_is_administrator() ) { ?>
 				<a href="<?php hms_admin_url(); ?>">
-					<?php hms_icon( 'wordpress' ); ?>
+					<?php hms_icon( 'WordPress' ); ?>
 					<span class="hms-adminbar-label"><?php esc_html_e( 'WordPress Dashboard', 'hackathon' ); ?></span>
 				</a>
 			<?php } else { ?>

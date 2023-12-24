@@ -9,7 +9,7 @@ if ( get_query_var( 'hms_subsubpage' ) ) {
 
 $message = get_post( $message_id );
 
-if ( ! $message ) { 
+if ( ! $message ) {
 	?>
 
 <div class="hackathon-header">
@@ -17,12 +17,13 @@ if ( ! $message ) {
 	<a href="<?php echo esc_url( hms_get_url( 'messages' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Go to messages', 'hackathon' ); ?></a>
 </div>
 
-<?php } else {
+	<?php
+} else {
 
-$transport = get_post_meta( $message_id, '_transport', true ) ? get_post_meta( $message_id, '_transport', true ) : array();
-$role      = get_post_meta( $message_id, '_role', true ) ? get_post_meta( $message_id, '_role', true ) : array();
+	$transport = get_post_meta( $message_id, '_transport', true ) ? get_post_meta( $message_id, '_transport', true ) : array();
+	$role      = get_post_meta( $message_id, '_role', true ) ? get_post_meta( $message_id, '_role', true ) : array();
 
-?>
+	?>
 
 <header class="hms-header">
 	<div class="hms-header-content">
@@ -114,5 +115,5 @@ $role      = get_post_meta( $message_id, '_role', true ) ? get_post_meta( $messa
 
 </div>
 
-<?php
+	<?php
 }

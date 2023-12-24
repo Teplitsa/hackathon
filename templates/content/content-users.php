@@ -29,7 +29,7 @@ if ( isset( $_GET['search'] ) ) {
 }
 
 if ( isset( $_GET['status'] ) ) {
-	$args['status'] = $_GET['status'];
+	$args['status']     = $_GET['status'];
 	$csv_args['status'] = $_GET['status'];
 }
 

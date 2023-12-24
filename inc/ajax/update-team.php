@@ -2,7 +2,6 @@
 /**
  * Update team
  */
-
 function hms_ajax_update_team() {
 
 	check_ajax_referer( 'hackathon-nonce', 'nonce' );
@@ -16,7 +15,7 @@ function hms_ajax_update_team() {
 			'ID' => $team_id,
 		);
 
-		if ( isset( $_POST['team_name'] ) && $_POST['team_name'] && $_POST['team_name'] !== get_post_field( 'post_title', $team_id )  ) {
+		if ( isset( $_POST['team_name'] ) && $_POST['team_name'] && $_POST['team_name'] !== get_post_field( 'post_title', $team_id ) ) {
 			$team_data['post_title'] = sanitize_text_field( $_POST['team_name'] );
 			if ( get_the_title( $team_id ) !== $team_data['post_title'] ) {
 				add_post_meta( $team_id, '_team_titles', get_the_title( $team_id ) );
@@ -45,6 +44,5 @@ function hms_ajax_update_team() {
 	}
 
 	wp_send_json_error( $data );
-
 }
 add_action( 'wp_ajax_hackathon_update_team', 'hms_ajax_update_team' );

@@ -19,14 +19,13 @@ function hms_input_attributes( $attributes = array() ) {
 
 	$html_attributes = '';
 
-	foreach( $attributes as $attr => $value ) {
+	foreach ( $attributes as $attr => $value ) {
 		if ( $value ) {
 			$html_attributes .= ' ' . $attr . '="' . $value . '"';
 		}
 	}
 
 	return trim( $html_attributes );
-
 }
 
 /**
@@ -36,22 +35,22 @@ function hms_input( $attributes = array(), $options = array() ) {
 	$input = '<input ' . hms_input_attributes( $attributes ) . '>';
 	if ( 'textarea' === $attributes['type'] ) {
 		$value = '';
-		if ( isset( $attributes['value'] ) ){
+		if ( isset( $attributes['value'] ) ) {
 			$value = $attributes['value'];
 			unset( $attributes['value'] );
 		}
 		$input = '<textarea ' . hms_input_attributes( $attributes ) . '>' . $value . '</textarea>';
-	} else if ( 'select' === $attributes['type'] ) {
+	} elseif ( 'select' === $attributes['type'] ) {
 		$html_options = '';
 		if ( is_array( $options ) && $options ) {
-			foreach( $options as $option => $value ) {
+			foreach ( $options as $option => $value ) {
 				$html_options .= '<option value="' . $option . '">' . $value . '</option>';
 			}
 		}
 		$input = '<select ' . hms_input_attributes( $attributes ) . '>' . $html_options . '</select>';
-	} else if ( 'html' === $attributes['type'] ) {
+	} elseif ( 'html' === $attributes['type'] ) {
 		$value = '';
-		if ( isset( $attributes['html'] ) ){
+		if ( isset( $attributes['html'] ) ) {
 			$value = $attributes['html'];
 		}
 		$input = $value;
@@ -87,7 +86,7 @@ function hms_field( $args = array() ) {
 		'description' => '',
 	);
 
-	$args = wp_parse_args( (array) $args, $defaults );
+	$args                       = wp_parse_args( (array) $args, $defaults );
 	$args['attributes']['id']   = $args['name'];
 	$args['attributes']['name'] = $args['name'];
 
@@ -128,7 +127,7 @@ function hms_field( $args = array() ) {
  * Is Phone
  */
 function hms_is_phone( $phone ) {
-	return preg_match('/^[0-9]+$/', $phone );
+	return preg_match( '/^[0-9]+$/', $phone );
 }
 
 /**
@@ -145,7 +144,7 @@ function hms_default_strings() {
  * Get string
  */
 function hms_get_string( $slug ) {
-	$string = false;
+	$string  = false;
 	$strings = hms_default_strings();
 	if ( $slug && array_key_exists( $slug, hms_default_strings() ) ) {
 		$string = $strings[ $slug ];
@@ -156,13 +155,13 @@ function hms_get_string( $slug ) {
 /**
  * Editor
  */
-function hms_editor( $content = '', $name = '', $args = array(), $mailtags = array() ){
+function hms_editor( $content = '', $name = '', $args = array(), $mailtags = array() ) {
 	if ( ! $name ) {
 		return;
 	}
 
 	if ( $content === $name ) {
-		$default = '';
+		$default       = '';
 		$notifications = hms_email_notifications();
 		if ( isset( $notifications[ $name ] ) ) {
 			$default = $notifications[ $name ]['body'];
@@ -178,10 +177,10 @@ function hms_editor( $content = '', $name = '', $args = array(), $mailtags = arr
 		'block_formats' => esc_html__( 'Paragraph', 'hackathon' ) . '=p;' . esc_html__( 'Heading', 'hackathon' ) . '=h2',
 		'toolbar1'      => 'formatselect,bold,bullist,numlist,link,hmsmailtags',
 		'toolbar2'      => '',
-		'mailtags'      =>  implode( ',', apply_filters( 'hms_mailtags', $mailtags, $editor_id ) ),
+		'mailtags'      => implode( ',', apply_filters( 'hms_mailtags', $mailtags, $editor_id ) ),
 	);
 
-	$defaults  = array(
+	$defaults = array(
 		'wpautop'          => 1,
 		'media_buttons'    => false,
 		'textarea_name'    => $name,
@@ -196,7 +195,7 @@ function hms_editor( $content = '', $name = '', $args = array(), $mailtags = arr
 	wp_editor( $content, $editor_id, $settings );
 }
 
-function hms_add_mailtags( $mailtags, $editor_id ){
+function hms_add_mailtags( $mailtags, $editor_id ) {
 
 	if ( 'hackathon_mail_register' === $editor_id || 'hackathon_mail_reset' === $editor_id ) {
 		$mailtags = array(
@@ -237,7 +236,7 @@ function hms_add_mailtags( $mailtags, $editor_id ){
 
 	return $mailtags;
 }
-add_filter('hms_mailtags', 'hms_add_mailtags', 10, 2 );
+add_filter( 'hms_mailtags', 'hms_add_mailtags', 10, 2 );
 
 /* Create default form */
 function hms_create_default_forms() {
@@ -262,23 +261,23 @@ function hms_create_default_forms() {
 		$form_fields = array(
 			'custom_0' => array(
 				'label' => esc_html__( 'Problem being solved', 'hackathon' ),
-				'type' => 'textarea',
+				'type'  => 'textarea',
 			),
 			'custom_1' => array(
 				'label' => esc_html__( 'Solution that is proposed', 'hackathon' ),
-				'type' => 'textarea',
+				'type'  => 'textarea',
 			),
 			'custom_2' => array(
 				'label' => esc_html__( 'Technologies and project data', 'hackathon' ),
-				'type' => 'textarea',
+				'type'  => 'textarea',
 			),
 			'custom_3' => array(
 				'label' => esc_html__( 'What is already there?', 'hackathon' ),
-				'type' => 'textarea',
+				'type'  => 'textarea',
 			),
 			'custom_4' => array(
 				'label' => esc_html__( 'What is planned to be done during the hackathon', 'hackathon' ),
-				'type' => 'textarea',
+				'type'  => 'textarea',
 			),
 		);
 
@@ -303,19 +302,19 @@ function hms_create_default_forms() {
 		$form_fields = array(
 			'custom_0' => array(
 				'label' => esc_html__( 'Description of the final project', 'hackathon' ),
-				'type' => 'textarea',
+				'type'  => 'textarea',
 			),
 			'custom_1' => array(
 				'label' => esc_html__( 'Link to source code', 'hackathon' ),
-				'type' => 'text',
+				'type'  => 'text',
 			),
 			'custom_2' => array(
 				'label' => esc_html__( 'Link to other materials', 'hackathon' ),
-				'type' => 'textarea',
+				'type'  => 'textarea',
 			),
 			'custom_3' => array(
 				'label' => esc_html__( 'Presentation', 'hackathon' ),
-				'type' => 'image',
+				'type'  => 'image',
 			),
 		);
 
@@ -337,7 +336,7 @@ function hms_create_default_forms() {
 }
 
 /* Clear defaultform option */
-function hms_after_delete_form( $form_id, $form ){
+function hms_after_delete_form( $form_id, $form ) {
 	if ( $form->post_type == 'hms_form' && $form_id == hms_get_option( 'defaultform' ) ) {
 		hms_delete_option( 'defaultform' );
 		hms_delete_option( 'prezentationform' );

@@ -57,8 +57,8 @@ if ( ! $form_type ) {
 							</div>
 
 							<div class="hms-field-list-footer">
-								<?php hms_button( esc_html__( 'Cancel'), '#', 'link', array( 'class' => 'hms-modal-close' ) ); ?>
-								<?php hms_button( esc_html__( 'Create'), '#', 'primary', array( 'class' => 'hms-create-new-form' ) ); ?>
+								<?php hms_button( esc_html__( 'Cancel' ), '#', 'link', array( 'class' => 'hms-modal-close' ) ); ?>
+								<?php hms_button( esc_html__( 'Create' ), '#', 'primary', array( 'class' => 'hms-create-new-form' ) ); ?>
 							</div>
 
 						</div>
@@ -69,7 +69,8 @@ if ( ! $form_type ) {
 		</div>
 	</div>
 
-<?php } else {
+	<?php
+} else {
 
 	?>
 
@@ -114,8 +115,8 @@ if ( ! $form_type ) {
 							</div>
 
 							<div class="hms-field-list-footer">
-								<?php hms_button( esc_html__( 'Cancel'), '#', 'link', array( 'class' => 'hms-modal-close' ) ); ?>
-								<?php hms_button( esc_html__( 'Create'), '#', 'primary', array( 'class' => 'hms-create-new-form' ) ); ?>
+								<?php hms_button( esc_html__( 'Cancel' ), '#', 'link', array( 'class' => 'hms-modal-close' ) ); ?>
+								<?php hms_button( esc_html__( 'Create' ), '#', 'primary', array( 'class' => 'hms-create-new-form' ) ); ?>
 							</div>
 
 						</div>
@@ -126,5 +127,5 @@ if ( ! $form_type ) {
 		</div>
 	</div>
 
-<?php
+	<?php
 }

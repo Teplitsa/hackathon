@@ -8,28 +8,28 @@
  */
 function hms_register_post_type_message() {
 	$labels = array(
-		'name'                  => __( 'Messages', 'hackathon' ),
-		'singular_name'         => __( 'Message', 'hackathon' ),
-		'menu_name'             => __( 'Messages', 'hackathon' ),
-		'name_admin_bar'        => __( 'Message', 'hackathon' ),
-		'add_new'               => __( 'Add New', 'hackathon' ),
-		'add_new_item'          => __( 'Add New Message', 'hackathon' ),
-		'new_item'              => __( 'New Message', 'hackathon' ),
-		'edit_item'             => __( 'Edit Message', 'hackathon' ),
-		'view_item'             => __( 'View Message', 'hackathon' ),
-		'all_items'             => __( 'All Messages', 'hackathon' ),
-		'search_items'          => __( 'Search Messages', 'hackathon' ),
-		'not_found'             => __( 'No Message found.', 'hackathon' ),
-		'not_found_in_trash'    => __( 'No Message found in Trash.', 'hackathon' ),
+		'name'               => __( 'Messages', 'hackathon' ),
+		'singular_name'      => __( 'Message', 'hackathon' ),
+		'menu_name'          => __( 'Messages', 'hackathon' ),
+		'name_admin_bar'     => __( 'Message', 'hackathon' ),
+		'add_new'            => __( 'Add New', 'hackathon' ),
+		'add_new_item'       => __( 'Add New Message', 'hackathon' ),
+		'new_item'           => __( 'New Message', 'hackathon' ),
+		'edit_item'          => __( 'Edit Message', 'hackathon' ),
+		'view_item'          => __( 'View Message', 'hackathon' ),
+		'all_items'          => __( 'All Messages', 'hackathon' ),
+		'search_items'       => __( 'Search Messages', 'hackathon' ),
+		'not_found'          => __( 'No Message found.', 'hackathon' ),
+		'not_found_in_trash' => __( 'No Message found in Trash.', 'hackathon' ),
 	);
 
 	$args = array(
-		'labels'             => $labels,
-		'public'             => false,
-		'show_ui'            => true,
-		'show_in_menu'       => false,
-		'supports'           => array( 'title', 'editor' ),
-		'show_in_rest'       => true,
+		'labels'       => $labels,
+		'public'       => false,
+		'show_ui'      => true,
+		'show_in_menu' => false,
+		'supports'     => array( 'title', 'editor' ),
+		'show_in_rest' => true,
 	);
 
 	register_post_type( 'hms_message', $args );
@@ -39,17 +39,17 @@ add_action( 'init', 'hms_register_post_type_message' );
 /**
  * Ajax message actions
  */
-if( wp_doing_ajax() ){
+if ( wp_doing_ajax() ) {
 	require_once HMS_PATH . 'inc/ajax/insert-message.php';
 	require_once HMS_PATH . 'inc/ajax/update-message.php';
 }
 
 /**
  * Insert message
- * 
+ *
  * @example hms_insert_message( 'Title', 'Content', array('mail','message'), array('mentor') );
  */
-function hms_insert_message( $title = null, $content = null, $transport = array(), $role = array(), $data = array() ){
+function hms_insert_message( $title = null, $content = null, $transport = array(), $role = array(), $data = array() ) {
 
 	$post_data = array(
 		'post_type'    => 'hms_message',
@@ -66,7 +66,7 @@ function hms_insert_message( $title = null, $content = null, $transport = array(
 
 	$post_id = wp_insert_post( wp_slash( $post_data ) );
 
-	if ( is_wp_error( $post_id ) ){
+	if ( is_wp_error( $post_id ) ) {
 
 		$data['message'] = $post_id->get_error_message();
 		ob_start();
@@ -104,17 +104,17 @@ function hms_insert_message( $title = null, $content = null, $transport = array(
 				$subject = esc_html( $title );
 				$message = wp_strip_all_tags( $content );
 
-				foreach( $emails as $i => $to ) {
+				foreach ( $emails as $i => $to ) {
 					wp_mail( $to, $subject, $message );
-					if ($i > 0 && $i % 10 == 0) {
-						sleep(0.1);
+					if ( $i > 0 && $i % 10 == 0 ) {
+						sleep( 0.1 );
 					}
 				}
 			}
 		}
 
 		if ( in_array( 'message', $transport ) ) {
-			$messages = get_option( 'hackathon_messages' ) ? get_option( 'hackathon_messages' ) : array();
+			$messages             = get_option( 'hackathon_messages' ) ? get_option( 'hackathon_messages' ) : array();
 			$messages[ $post_id ] = $role;
 			update_option( 'hackathon_messages', $messages );
 		}
@@ -150,7 +150,7 @@ function hms_get_messages( $args = array() ) {
 /**
  * Get messages count
  */
-function hms_get_messages_count(){
+function hms_get_messages_count() {
 	$count = hms_get_messages();
 	return count( $count );
 }
@@ -167,22 +167,22 @@ function hms_list_messages( $args = '' ) {
 
 	$parsed_args = wp_parse_args( $args, $defaults );
 
-	$output       = '';
+	$output = '';
 
 	$query = new WP_Query( $parsed_args );
 
 	if ( $query->have_posts() ) {
 		$output .= '<div class="hms-list">';
-			while ( $query->have_posts() ) {
-				$query->the_post();
-				$users_count = hms_get_team_users_count( get_the_ID() );
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			$users_count = hms_get_team_users_count( get_the_ID() );
 
-				$output .= '<div class="hms-list-item">
+			$output .= '<div class="hms-list-item">
 					<div class="hms-list-content">
 						<div class="hms-list-line">
 							<div class="hms-list-line-item">
 								<div class="hms-list-label">
-									' . get_the_date( 'F j, Y - H:i:s') . '
+									' . get_the_date( 'F j, Y - H:i:s' ) . '
 								</div>
 							</div>
 						</div>
@@ -196,7 +196,7 @@ function hms_list_messages( $args = '' ) {
 						</div>
 					</div>
 				</div>';
-			}
+		}
 		$output .= '</div>';
 	} else {
 		$output .= esc_html__( 'No messages', 'hackathon' );
@@ -210,5 +210,4 @@ function hms_list_messages( $args = '' ) {
 	} else {
 		return $html;
 	}
-
 }

@@ -2,15 +2,14 @@
 /**
  * Insert Message
  */
-
 function hms_ajax_chat_message() {
 
 	check_ajax_referer( 'hms-nonce', 'nonce' );
 
 	$data = map_deep( $_REQUEST, 'sanitize_text_field' );
 
-	$checkpoint_id  = isset( $_POST['checkpoint_id'] ) ? $_POST['checkpoint_id'] : '';
-	$team_id        = isset( $_POST['team_id'] ) ? $_POST['team_id'] : '';
+	$checkpoint_id = isset( $_POST['checkpoint_id'] ) ? $_POST['checkpoint_id'] : '';
+	$team_id       = isset( $_POST['team_id'] ) ? $_POST['team_id'] : '';
 
 	if ( isset( $_POST['message'] ) && $_POST['message'] ) {
 		$message    = isset( $_POST['message'] ) ? $_POST['message'] : '';

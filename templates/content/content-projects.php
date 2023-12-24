@@ -34,17 +34,19 @@
 
 				$query = new WP_Query( $args );
 
-				if ( $query->have_posts() ) { ?>
+				if ( $query->have_posts() ) {
+					?>
 					
-						<?php while ( $query->have_posts() ) {
+						<?php
+						while ( $query->have_posts() ) {
 							$query->the_post();
 
-							$team_id = get_post_meta( get_the_ID(), 'team_id', true );
-							$type    = get_post_meta( get_the_ID(), 'type', true );
-							$fields  = get_post_meta( get_the_ID(), '_fields', true );
+							$team_id          = get_post_meta( get_the_ID(), 'team_id', true );
+							$type             = get_post_meta( get_the_ID(), 'type', true );
+							$fields           = get_post_meta( get_the_ID(), '_fields', true );
 							$accordion_status = '';
 
-							if ( 0 === $query->current_post) {
+							if ( 0 === $query->current_post ) {
 								$accordion_status = ' open';
 							}
 							?>
@@ -54,7 +56,7 @@
 									<div class="hms-card-line">
 										<div class="hms-card-line-item">
 											<div class="hms-card-label">
-												<?php echo get_the_date( 'F j, Y - H:i:s'); ?>
+												<?php echo get_the_date( 'F j, Y - H:i:s' ); ?>
 											</div>
 										</div>
 									</div>
@@ -86,7 +88,8 @@
 						
 				<?php } else { ?>
 					<?php esc_html_e( 'No projects', 'hackathon' ); ?>
-				<?php }
+					<?php
+				}
 				wp_reset_postdata();
 				?>
 

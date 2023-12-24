@@ -2,7 +2,6 @@
 /**
  * Update Options
  */
-
 function hms_update_options() {
 
 	check_ajax_referer( 'hackathon-nonce', 'nonce' );
@@ -24,7 +23,7 @@ function hms_update_options() {
 
 		if ( $options ) {
 			unset( $options['option_page'] );
-			foreach( $options as $name => $value ) {
+			foreach ( $options as $name => $value ) {
 				$type = 'text';
 				if ( 'mail' === $_POST['option_page'] ) {
 					$type = 'textarea';
@@ -43,6 +42,5 @@ function hms_update_options() {
 	}
 
 	wp_send_json_success( $data );
-
 }
 add_action( 'wp_ajax_hms_update_options', 'hms_update_options' );

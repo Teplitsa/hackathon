@@ -22,15 +22,15 @@ if ( 'hackathon_participant' === hms_get_user_role() && false === strpos( $team_
 
 if ( ! $team ) {
 
-	$args = array(
-		'meta_query' => array(
+	$args  = array(
+		'meta_query'     => array(
 			array(
-				'key' => '_team_nonce',
-				'value' => $team_id
-			)
+				'key'   => '_team_nonce',
+				'value' => $team_id,
+			),
 		),
-		'post_type' => 'hms_team',
-		'posts_per_page' => 1
+		'post_type'      => 'hms_team',
+		'posts_per_page' => 1,
 	);
 	$posts = get_posts( $args );
 
@@ -49,7 +49,7 @@ if ( ! $team ) {
 						<div class="hms-header-desc">
 							<a href="<?php echo esc_url( hms_get_teams_url() ); ?>" class="button"><?php esc_html_e( 'Go to teams', 'hackathon' ); ?></a>
 						</div>
-					<?php } else if ( $is_team_user ) { ?>
+					<?php } elseif ( $is_team_user ) { ?>
 						<h1 class="hms-header-title"><?php esc_html_e( 'You have been successfully added to the team:', 'hackathon' ); ?> <?php echo get_the_title( $team_id ); ?></h1>
 						<div class="hms-header-desc">
 							<a href="<?php echo esc_url( hms_get_team_url( $team_id ) ); ?>" class="button"><?php esc_html_e( 'Go to team', 'hackathon' ); ?></a>
@@ -121,7 +121,7 @@ if ( ! $team ) {
 					<a class="hms-widget-heading-messages" href="#" data-modal="#hms-modal-messages-0<?php echo esc_attr( $team_id ); ?>">
 						<?php esc_html_e( 'Messages', 'hackathon' ); ?>
 						<span><?php echo hms_get_point_messages_count( '0' . $team_id, $team_id ); ?></span>
-						<?php hms_icon('messages');?>
+						<?php hms_icon( 'messages' ); ?>
 					</a>
 
 					<?php hms_checkpoint_modal( '0' . $team_id, $team_id ); ?>
@@ -138,7 +138,7 @@ if ( ! $team ) {
 				$args = array(
 					'post_type'      => 'hms_material',
 					'posts_per_page' => 1,
-					'meta_query' => array(
+					'meta_query'     => array(
 						array(
 							'key'   => 'team_id',
 							'value' => $team_id,
@@ -153,9 +153,10 @@ if ( ! $team ) {
 				$query = new WP_Query( $args );
 
 				if ( $query->have_posts() ) {
-					while ( $query->have_posts() ) { $query->the_post();
-					$unlock_next = true;
-					?>
+					while ( $query->have_posts() ) {
+						$query->the_post();
+						$unlock_next = true;
+						?>
 
 					<div class="hms-material-results">
 						<div class="hms-material-item">
@@ -165,19 +166,22 @@ if ( ! $team ) {
 
 						<?php
 							$fields = get_post_meta( get_the_ID(), '_fields', true );
-							foreach( $fields as $key => $field ) { ?>
+						foreach ( $fields as $key => $field ) {
+							?>
 								<div class="hms-material-item">
 									<div class="hms-material-heading"><?php echo esc_html( $field['label'] ); ?></div>
 									<div class="hms-material-content"><?php echo wpautop( esc_html( $field['value'] ) ); ?></div>
 								</div>
-							<?php }
+							<?php
+						}
 						?>
 					</div>
 
 					<?php } ?>
-				<?php } else {
+					<?php
+				} else {
 					$unlock_next = false;
-				?>
+					?>
 
 				<form class="hms-form-materials hms-form">
 
@@ -188,16 +192,18 @@ if ( ! $team ) {
 
 					<?php
 					$project_name = esc_html__( 'Project name', 'hackathon' );
-					$form = get_posts(array(
-						'post_type'      => 'hms_form',
-						'meta_key'       => '_form_slug',
-						'meta_value'     => 'prezentation',
-						'post_status'    => 'private',
-						'posts_per_page' => 1,
-					));
+					$form         = get_posts(
+						array(
+							'post_type'      => 'hms_form',
+							'meta_key'       => '_form_slug',
+							'meta_value'     => 'prezentation',
+							'post_status'    => 'private',
+							'posts_per_page' => 1,
+						)
+					);
 					if ( $form ) {
-						$form_id = $form[0]->ID;
-						$project_name = get_post_field('post_title', $form_id );
+						$form_id      = $form[0]->ID;
+						$project_name = get_post_field( 'post_title', $form_id );
 					}
 					?>
 					<div class="hms-form-row">
@@ -207,19 +213,21 @@ if ( ! $team ) {
 
 					<?php
 					if ( $form ) {
-						$form_id = $form[0]->ID;
+						$form_id     = $form[0]->ID;
 						$form_fields = get_post_meta( $form[0]->ID, '_form_fields', true );
 
-						foreach( $form_fields as $key => $field ) { ?>
+						foreach ( $form_fields as $key => $field ) {
+							?>
 							<div class="hms-form-row">
 								<label class="hms-form-label"><?php echo esc_html( $field['label'] ); ?></label><br>
 								<?php if ( $field['type'] == 'textarea' ) { ?>
 									<textarea class="hms-form-input" name="<?php echo esc_attr( $key ); ?>" rows="5"></textarea>
-								<?php } else if ( $field['type'] == 'text' ) { ?>
+								<?php } elseif ( $field['type'] == 'text' ) { ?>
 									<input type="text" class="hms-form-input" name="<?php echo esc_attr( $key ); ?>">
 								<?php } ?>
 							</div>
-						<?php }
+							<?php
+						}
 					}
 					?>
 
@@ -228,7 +236,8 @@ if ( ! $team ) {
 					</div>
 				</form>
 
-				<?php }
+					<?php
+				}
 				wp_reset_postdata();
 
 				?>
@@ -249,10 +258,12 @@ if ( ! $team ) {
 		$forms_query = new WP_Query( $forms_args );
 
 		if ( $forms_query->have_posts() ) {
-			while ( $forms_query->have_posts() ) { $forms_query->the_post();
-				$post_id = get_the_ID();
+			while ( $forms_query->have_posts() ) {
+				$forms_query->the_post();
+				$post_id     = get_the_ID();
 				$form_fields = get_post_meta( $post_id, '_form_fields', true );
-				if ( $form_fields ) { ?>
+				if ( $form_fields ) {
+					?>
 					<div class="hms-widget">
 						<div class="hms-widget-heading">
 							<div class="hms-widget-icon">
@@ -264,7 +275,7 @@ if ( ! $team ) {
 								<a class="hms-widget-heading-messages" href="#" data-modal="#hms-modal-messages-<?php echo esc_attr( $post_id ); ?>">
 									<?php esc_html_e( 'Messages', 'hackathon' ); ?>
 									<span><?php echo hms_get_point_messages_count( $post_id, $team_id ); ?></span>
-									<?php hms_icon('messages');?>
+									<?php hms_icon( 'messages' ); ?>
 								</a>
 								<?php hms_checkpoint_modal( $post_id, $team_id ); ?>
 
@@ -278,7 +289,7 @@ if ( ! $team ) {
 							$material_args = array(
 								'post_type'      => 'hms_material',
 								'posts_per_page' => 1,
-								'meta_query' => array(
+								'meta_query'     => array(
 									array(
 										'key'   => 'team_id',
 										'value' => $team_id,
@@ -296,20 +307,22 @@ if ( ! $team ) {
 
 							$material_query = new WP_Query( $material_args );
 
-							$time_zone             = wp_timezone_string();
-							$current_timestamp     = current_time('timestamp', $time_zone);
-							$deadline_checkpoint   = strtotime( hms_get_option( 'deadline_checkpoint' ) . ' ' . $time_zone );
+							$time_zone           = wp_timezone_string();
+							$current_timestamp   = current_time( 'timestamp', $time_zone );
+							$deadline_checkpoint = strtotime( hms_get_option( 'deadline_checkpoint' ) . ' ' . $time_zone );
 
 							if ( $unlock_next ) {
 
 								if ( $material_query->have_posts() ) {
-									while ( $material_query->have_posts() ) { $material_query->the_post();
-									$unlock_next = true;
-									?>
+									while ( $material_query->have_posts() ) {
+										$material_query->the_post();
+										$unlock_next = true;
+										?>
 									<div class="hms-material-results">
 										<?php
 										$material_fields = get_post_meta( get_the_ID(), '_fields', true );
-										foreach( $material_fields as $key => $field ){ ?>
+										foreach ( $material_fields as $key => $field ) {
+											?>
 											<div class="hms-material-item">
 												<div class="hms-material-heading"><?php echo esc_html( $field['label'] ); ?></div>
 												<div class="hms-material-content"><?php echo wpautop( esc_html( $field['value'] ) ); ?></div>
@@ -320,7 +333,7 @@ if ( ! $team ) {
 									<?php } ?>
 								<?php } else { ?>
 
-									<?php 
+									<?php
 
 									if ( $deadline_checkpoint <= $current_timestamp ) {
 										esc_html_e( 'Сheckpoint submission time has expired', 'hackathon' );
@@ -336,16 +349,16 @@ if ( ! $team ) {
 											<input type="hidden" name="post_title" value="<?php the_title(); ?>">
 											<?php wp_nonce_field( 'hackathon-nonce', 'nonce' ); ?>
 
-											<?php foreach( $form_fields as $key => $field ) { ?>
+											<?php foreach ( $form_fields as $key => $field ) { ?>
 												<div class="hms-form-row">
 													<label class="hms-form-label"><?php echo esc_html( $field['label'] ); ?></label><br>
 													<?php if ( $field['type'] == 'textarea' ) { ?>
 														<textarea class="hms-form-input" name="<?php echo esc_attr( $key ); ?>" rows="5"></textarea>
-													<?php } else if ( $field['type'] == 'text' ) { ?>
+													<?php } elseif ( $field['type'] == 'text' ) { ?>
 														<input type="text" class="hms-form-input" name="<?php echo esc_attr( $key ); ?>">
-													<?php } else if ( $field['type'] == 'select') { ?>
+													<?php } elseif ( $field['type'] == 'select' ) { ?>
 														<select class="hms-form-input" name="<?php echo esc_attr( $key ); ?>">
-															<?php foreach( $field['options'] as $option ) { ?>
+															<?php foreach ( $field['options'] as $option ) { ?>
 																<option value="<?php echo esc_attr( $option ); ?>"><?php echo esc_attr( $option ); ?></option>
 															<?php } ?>
 														</select>
@@ -359,11 +372,11 @@ if ( ! $team ) {
 
 										</form>
 									<?php } ?>
-								<?php $unlock_next = false; ?>
+									<?php $unlock_next = false; ?>
 							<?php } ?>
-							<?php wp_reset_postdata(); ?>
+								<?php wp_reset_postdata(); ?>
 						<?php } else { ?>
-							<?php esc_html_e( 'To submit this step, please complete the previous step.', 'hackathon' ); ?>
+								<?php esc_html_e( 'To submit this step, please complete the previous step.', 'hackathon' ); ?>
 						<?php } ?>
 					</div>
 
@@ -372,7 +385,7 @@ if ( ! $team ) {
 					</div>
 
 				</div>
-				<?php
+					<?php
 				}
 			}
 		}
@@ -385,16 +398,18 @@ if ( ! $team ) {
 			<?php
 
 			$final_name = esc_html__( 'Final Solution', 'hackathon' );
-			$final_form = get_posts(array(
-				'post_type'      => 'hms_form',
-				'meta_key'       => '_form_slug',
-				'meta_value'     => 'final',
-				'post_status'    => 'private',
-				'posts_per_page' => 1,
-			));
+			$final_form = get_posts(
+				array(
+					'post_type'      => 'hms_form',
+					'meta_key'       => '_form_slug',
+					'meta_value'     => 'final',
+					'post_status'    => 'private',
+					'posts_per_page' => 1,
+				)
+			);
 			if ( $final_form ) {
-				$form_id = $final_form[0]->ID;
-				$final_name = get_post_field('post_title', $form_id );
+				$form_id    = $final_form[0]->ID;
+				$final_name = get_post_field( 'post_title', $form_id );
 			}
 			?>
 
@@ -408,7 +423,7 @@ if ( ! $team ) {
 					<a class="hms-widget-heading-messages" href="#" data-modal="#hms-modal-messages-00<?php echo esc_attr( $team_id ); ?>">
 						<?php esc_html_e( 'Messages', 'hackathon' ); ?>
 						<span><?php echo hms_get_point_messages_count( '00' . $team_id, $team_id ); ?></span>
-						<?php hms_icon('messages');?>
+						<?php hms_icon( 'messages' ); ?>
 					</a>
 
 					<?php hms_checkpoint_modal( '00' . $team_id, $team_id ); ?>
@@ -421,34 +436,35 @@ if ( ! $team ) {
 
 				<?php
 				if ( $unlock_next ) {
-					
-				$args = array(
-					'post_type'      => 'hms_material',
-					'posts_per_page' => 1,
-					'meta_query' => array(
-						array(
-							'key'   => 'team_id',
-							'value' => $team_id,
-						),
-						array(
-							'key'   => 'type',
-							'value' => 'final_presentation',
-						),
-					),
-				);
 
-				$query = new WP_Query( $args );
+					$args = array(
+						'post_type'      => 'hms_material',
+						'posts_per_page' => 1,
+						'meta_query'     => array(
+							array(
+								'key'   => 'team_id',
+								'value' => $team_id,
+							),
+							array(
+								'key'   => 'type',
+								'value' => 'final_presentation',
+							),
+						),
+					);
 
-				if ( $query->have_posts() ) {
-					while ( $query->have_posts() ) { $query->the_post();
-						$final_fields = get_post_meta( get_the_ID(), '_fields', true );
-						$final_files  = get_post_meta( get_the_ID(), 'final_fields', true );
+					$query = new WP_Query( $args );
+
+					if ( $query->have_posts() ) {
+						while ( $query->have_posts() ) {
+							$query->the_post();
+							$final_fields                        = get_post_meta( get_the_ID(), '_fields', true );
+							$final_files                         = get_post_meta( get_the_ID(), 'final_fields', true );
 													$unlock_next = true;
-					?>
+							?>
 
 					<div class="hms-material-results">
 
-						<?php foreach( $final_fields as $key => $field ) { ?>
+							<?php foreach ( $final_fields as $key => $field ) { ?>
 							<div class="hms-material-item">
 								<div class="hms-material-heading"><?php echo esc_html( $field['label'] ); ?></div>
 								<div class="hms-material-content"><?php echo wpautop( esc_html( $field['value'] ) ); ?></div>
@@ -460,44 +476,44 @@ if ( ! $team ) {
 							<div class="hms-list-files">
 								<?php
 									$files = explode( ',', get_post_meta( get_the_ID(), 'final_files', true ) );
-									foreach( $files as $file_id ) {
-										$file          = get_attached_file( $file_id );
-										$file_basename = wp_basename( $file );
-										$file_url      = wp_get_attachment_url( $file_id );
-										$filetype      = wp_check_filetype( $file_url );
-										$file_ext      = $filetype['ext'];
-										?>
+								foreach ( $files as $file_id ) {
+									$file          = get_attached_file( $file_id );
+									$file_basename = wp_basename( $file );
+									$file_url      = wp_get_attachment_url( $file_id );
+									$filetype      = wp_check_filetype( $file_url );
+									$file_ext      = $filetype['ext'];
+									?>
 										<div class="hms-file-item hms-file-id-<?php echo esc_attr( $file_id ); ?> hms-file-format-<?php echo esc_attr( $file_ext ); ?>">
 											<div class="hms-file-icon"><?php echo esc_html( $file_ext ); ?></div>
 											<a href="<?php echo esc_url( $file_url ); ?>" target="_blank">
-												<?php echo esc_html( $file_basename ); ?>
+											<?php echo esc_html( $file_basename ); ?>
 											</a>
 										</div>
 										<?php
-									}
+								}
 								?>
 							</div>
 						</div>
 					</div>
 
-					<?php } ?>
-				<?php } else { ?>
+						<?php } ?>
+					<?php } else { ?>
 
-					<?php
+						<?php
 
 
-					$time_zone             = wp_timezone_string();
-					$deadline_presentation = strtotime( hms_get_option( 'deadline_presentation' ) . ' ' . $time_zone );
+						$time_zone             = wp_timezone_string();
+						$deadline_presentation = strtotime( hms_get_option( 'deadline_presentation' ) . ' ' . $time_zone );
 
-					$deadline_access = hms_get_option( 'deadline_access' );
+						$deadline_access = hms_get_option( 'deadline_access' );
 
-					$current_timestamp     = current_time('timestamp', $time_zone);
+						$current_timestamp = current_time( 'timestamp', $time_zone );
 
-					if ( $deadline_presentation <= $current_timestamp && ! $deadline_access ) {
-						esc_html_e( 'The time for submitting the final soluition has expired', 'hackathon' );
-					} else {
+						if ( $deadline_presentation <= $current_timestamp && ! $deadline_access ) {
+							esc_html_e( 'The time for submitting the final soluition has expired', 'hackathon' );
+						} else {
 
-					?>
+							?>
 
 						<form class="hms-form-materials hms-form">
 
@@ -509,25 +525,26 @@ if ( ! $team ) {
 
 							<?php
 							if ( $final_form ) {
-								$form_id = $final_form[0]->ID;
+								$form_id     = $final_form[0]->ID;
 								$form_fields = get_post_meta( $final_form[0]->ID, '_form_fields', true );
-								foreach( $form_fields as $key => $field ) {
-									if ( isset( $field['type'] ) ) {?>
+								foreach ( $form_fields as $key => $field ) {
+									if ( isset( $field['type'] ) ) {
+										?>
 									<div class="hms-form-row">
 										<label class="hms-form-label"><?php echo esc_html( $field['label'] ); ?></label><br>
 										<?php if ( $field['type'] == 'textarea' ) { ?>
 											<textarea class="hms-form-input" name="<?php echo esc_attr( $key ); ?>" rows="5"></textarea>
-										<?php } else if ( $field['type'] == 'text' ) { ?>
+										<?php } elseif ( $field['type'] == 'text' ) { ?>
 											<input type="text" class="hms-form-input" name="<?php echo esc_attr( $key ); ?>">
-										<?php } else if ( $field['type'] == 'select') { ?>
+										<?php } elseif ( $field['type'] == 'select' ) { ?>
 											<select class="hms-form-input" name="<?php echo esc_attr( $key ); ?>">
-												<?php foreach( $field['options'] as $option ) { ?>
+												<?php foreach ( $field['options'] as $option ) { ?>
 													<option value="<?php echo esc_attr( $option ); ?>"><?php echo esc_attr( $option ); ?></option>
 												<?php } ?>
 											</select>
 										<?php } ?>
 									</div>
-								<?php
+										<?php
 									}
 								}
 							}
@@ -547,14 +564,15 @@ if ( ! $team ) {
 							</div>
 
 						</form>
-					<?php } ?>
-				<?php }
-				wp_reset_postdata();
+						<?php } ?>
+						<?php
+					}
+					wp_reset_postdata();
 
-				?>
+					?>
 
 			<?php } else { ?>
-				<?php esc_html_e( 'To submit this step, please complete the previous step.', 'hackathon' ); ?> 
+					<?php esc_html_e( 'To submit this step, please complete the previous step.', 'hackathon' ); ?> 
 			<?php } ?>
 			</div>
 		</div>
@@ -578,7 +596,7 @@ if ( ! $team ) {
 					<?php
 					$team_users = (array) hms_get_team_users( $team_id );
 					if ( $team_users ) {
-						$hms_args = array(
+						$hms_args  = array(
 							'include'  => $team_users,
 							'role__in' => array( 'hackathon_participant' ),
 							'orderby'  => 'include',
@@ -662,12 +680,12 @@ if ( ! $team ) {
 
 										$user_count = 0;
 										foreach ( $hms_users as $user ) {
-											$user_id = $user->ID;
+											$user_id        = $user->ID;
 											$has_user_teams = hms_get_user_teams( $user_id );
 											if ( $has_user_teams ) {
 												continue;
 											}
-											$user_count++;
+											++$user_count;
 											?>
 											<a href="#" class="hackathon-card hms-add-team-user" data-team="<?php echo esc_attr( $team_id ); ?>" data-user="<?php echo esc_attr( $user_id ); ?>">
 												<?php echo get_avatar( $user_id, 32, '', '', array( 'class' => 'hackathon-card-image' ) ); ?>
@@ -676,12 +694,13 @@ if ( ! $team ) {
 												</div>
 												
 											</a>
-									<?php }
+											<?php
+										}
 
-									if ( ! $user_count ) {
-										esc_html_e( 'No members available', 'hackathon' );
-									}
-									?>
+										if ( ! $user_count ) {
+											esc_html_e( 'No members available', 'hackathon' );
+										}
+										?>
 									</div>
 
 								</div>
@@ -720,7 +739,7 @@ if ( ! $team ) {
 
 						$hms_users = get_users( $hms_args );
 
-						if ( $hms_users) {
+						if ( $hms_users ) {
 							foreach ( $hms_users as $user ) {
 								$user_url = '#';
 								if ( hms_is_administrator() || hms_is_mentor() ) {
@@ -800,7 +819,7 @@ if ( ! $team ) {
 												continue;
 											}
 
-											$user_count++;
+											++$user_count;
 											?>
 											<a href="#" class="hackathon-card hms-add-team-user" data-team="<?php echo esc_attr( $team_id ); ?>" data-user="<?php echo esc_attr( $user_id ); ?>">
 												<?php echo get_avatar( $user_id, 32, '', '', array( 'class' => 'hackathon-card-image' ) ); ?>
@@ -808,12 +827,13 @@ if ( ! $team ) {
 													<h4 class="hackathon-card-title"><?php echo esc_html( $user->display_name ); ?> <small>( <?php echo esc_html( $user->user_login ); ?> )</small></h4>
 												</div>
 											</a>
-									<?php }
+											<?php
+										}
 
-									if ( ! $user_count ) {
-										esc_html_e( 'No mentors available', 'hackathon' );
-									}
-									?>
+										if ( ! $user_count ) {
+											esc_html_e( 'No mentors available', 'hackathon' );
+										}
+										?>
 									</div>
 
 								</div>
@@ -830,7 +850,7 @@ if ( ! $team ) {
 
 </div>
 
-<?php
+	<?php
 }
 
 function hms_checkpoint_modal( $checkpoint_id = null, $team_id = null ) {
@@ -845,7 +865,7 @@ function hms_checkpoint_modal( $checkpoint_id = null, $team_id = null ) {
 
 				<div class="hms-widget-heading">
 					<div class="hms-widget-icon">
-						<?php hms_icon('messages');?>
+						<?php hms_icon( 'messages' ); ?>
 					</div>
 					<h3 class="hms-widget-title"><?php esc_html_e( 'Messages', 'hackathon' ); ?></h3>
 					<div class="hms-widget-actions">

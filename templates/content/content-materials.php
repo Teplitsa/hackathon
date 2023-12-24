@@ -10,7 +10,7 @@ $csv_args = array( 'get_csv' => $page );
 
 $args = array();
 if ( hms_is_mentor( get_current_user_id() ) ) {
-	$post_ids = hms_get_user_teams( get_current_user_id(), 'ids');
+	$post_ids = hms_get_user_teams( get_current_user_id(), 'ids' );
 	if ( ! $post_ids ) {
 		$post_ids = 0;
 	}

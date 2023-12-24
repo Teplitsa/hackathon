@@ -1,6 +1,8 @@
 <?php
 /**
  * Admin Forms
+ *
+ * @package hackathon
  */
 
 /**
@@ -45,34 +47,37 @@ add_action( 'init', 'hms_register_post_type_form' );
 /**
  * Forms menu
  */
-function hms_forms_menu(){
+function hms_forms_menu() {
 	$page    = get_query_var( 'hms_subpage' );
 	$subpage = get_query_var( 'hms_subsubpage' );
 
-	$public_forms = get_posts( array(
-		'post_type'      => 'hms_form',
-		'posts_per_page' => -1,
-		'post_status'    => 'eny',
-		'meta_query'	=> array(
-			array(
-				'key'     => '_form_type',
-				'value'   => 'default',
+	$public_forms = get_posts(
+		array(
+			'post_type'      => 'hms_form',
+			'posts_per_page' => -1,
+			'post_status'    => 'eny',
+			'meta_query'     => array(
+				array(
+					'key'   => '_form_type',
+					'value' => 'default',
+				),
 			),
-		),
-	) );
+		)
+	);
 
-	$intrasystem_forms = get_posts( array(
-		'post_type'      => 'hms_form',
-		'posts_per_page' => -1,
-		'post_status'    => 'eny',
-		'meta_query'	=> array(
-			array(
-				'key'     => '_form_type',
-				'value'   => 'intrasystem',
+	$intrasystem_forms = get_posts(
+		array(
+			'post_type'      => 'hms_form',
+			'posts_per_page' => -1,
+			'post_status'    => 'eny',
+			'meta_query'     => array(
+				array(
+					'key'   => '_form_type',
+					'value' => 'intrasystem',
+				),
 			),
-		),
-	) );
-
+		)
+	);
 
 	$filter_items = array(
 		array(
@@ -81,8 +86,8 @@ function hms_forms_menu(){
 			'count' => count( $public_forms ),
 		),
 		array(
-			'name' => __( 'Intrasystem', 'hackathon' ),
-			'slug' => 'inside',
+			'name'  => __( 'Intrasystem', 'hackathon' ),
+			'slug'  => 'inside',
 			'count' => count( $intrasystem_forms ),
 		),
 	);
@@ -91,10 +96,9 @@ function hms_forms_menu(){
 	<ul class="hms-submenu">
 		<?php
 		$count = count( $filter_items );
-		$i = 0;
 		foreach ( $filter_items as $item ) {
 			$item_class = 'hms-submenu-item';
-			$slug = 'forms';
+			$slug       = 'forms';
 			if ( $item['slug'] ) {
 				$slug .= '/' . $item['slug'];
 			}
@@ -114,6 +118,8 @@ function hms_forms_menu(){
 
 /**
  * Forms Card
+ *
+ * @param array $args form args.
  */
 function hms_card_forms( $args = '' ) {
 
@@ -122,11 +128,12 @@ function hms_card_forms( $args = '' ) {
 		'type' => 'default',
 	);
 
-	$parsed_args = wp_parse_args( (array)$args, $defaults );
+	$parsed_args = wp_parse_args( (array) $args, $defaults );
 
 	ob_start();
 
-	if ( $parsed_args['type'] === 'intrasystem' ) { ?>
+	if ( 'intrasystem' === $parsed_args['type'] ) {
+		?>
 
 		<div class="hms-cards hms-cards-form">
 
@@ -136,20 +143,21 @@ function hms_card_forms( $args = '' ) {
 				'posts_per_page' => 1,
 				'post_status'    => 'private',
 				'meta_key'       => '_form_slug',
-				'meta_value'     => 'prezentation'
+				'meta_value'     => 'prezentation',
 			);
 
 			$forms_query = new WP_Query( $forms_args );
 
 			if ( $forms_query->have_posts() ) {
-				while ( $forms_query->have_posts() ) { $forms_query->the_post();
+				while ( $forms_query->have_posts() ) {
+					$forms_query->the_post();
 					$form_slug = get_post_meta( get_the_ID(), '_form_slug', true );
 					?>
 					<div class="hms-card hms-form-<?php echo esc_attr( $form_slug ); ?>">
 
 						<div class="hms-card-content">
 							<h4 class="hms-card-title">
-								<a href="<?php hms_url( 'form/'. get_the_ID() . '/' ); ?>"><?php esc_html_e( 'Kick-off presentation', 'hackathon' ); ?> <?php hms_icon( 'sticky' ); ?></a>
+								<a href="<?php hms_url( 'form/' . get_the_ID() . '/' ); ?>"><?php esc_html_e( 'Kick-off presentation', 'hackathon' ); ?> <?php hms_icon( 'sticky' ); ?></a>
 							</h4>
 						</div>
 
@@ -159,7 +167,7 @@ function hms_card_forms( $args = '' ) {
 							</button>
 							<div class="hms-card-action-popover">
 								<div class="hms-card-action-menu">
-									<a href="<?php hms_url( 'form/'. get_the_ID() . '/' ); ?>"><?php esc_html_e( 'Edit', 'hackathon' ); ?></a>
+									<a href="<?php hms_url( 'form/' . get_the_ID() . '/' ); ?>"><?php esc_html_e( 'Edit', 'hackathon' ); ?></a>
 								</div>
 							</div>
 						</div>
@@ -183,14 +191,15 @@ function hms_card_forms( $args = '' ) {
 			$forms_query = new WP_Query( $forms_args );
 
 			if ( $forms_query->have_posts() ) {
-				while ( $forms_query->have_posts() ) { $forms_query->the_post();
+				while ( $forms_query->have_posts() ) {
+					$forms_query->the_post();
 					$form_slug = get_post_meta( get_the_ID(), '_form_slug', true );
 					?>
 					<div class="hms-card hms-form-<?php echo esc_attr( $form_slug ); ?>">
 
 						<div class="hms-card-content">
 							<h4 class="hms-card-title">
-								<a href="<?php hms_url( 'form/'. get_the_ID() . '/' ); ?>"><?php echo esc_html( get_post_field('post_title') ); ?> <?php hms_icon( 'sticky' ); ?></a>
+								<a href="<?php hms_url( 'form/' . get_the_ID() . '/' ); ?>"><?php echo esc_html( get_post_field( 'post_title' ) ); ?> <?php hms_icon( 'sticky' ); ?></a>
 							</h4>
 						</div>
 
@@ -200,7 +209,7 @@ function hms_card_forms( $args = '' ) {
 							</button>
 							<div class="hms-card-action-popover">
 								<div class="hms-card-action-menu">
-									<a href="<?php hms_url( 'form/'. get_the_ID() . '/' ); ?>"><?php esc_html_e( 'Edit', 'hackathon' ); ?></a>
+									<a href="<?php hms_url( 'form/' . get_the_ID() . '/' ); ?>"><?php esc_html_e( 'Edit', 'hackathon' ); ?></a>
 								</div>
 							</div>
 						</div>
@@ -231,13 +240,14 @@ function hms_card_forms( $args = '' ) {
 			$forms_query = new WP_Query( $forms_args );
 
 			if ( $forms_query->have_posts() ) {
-				while ( $forms_query->have_posts() ) { $forms_query->the_post();
+				while ( $forms_query->have_posts() ) {
+					$forms_query->the_post();
 					$form_slug = get_post_meta( get_the_ID(), '_form_slug', true );
 					?>
 					<div class="hms-card hms-form-<?php echo esc_attr( $form_slug ); ?>">
 						<div class="hms-card-content">
 							<h4 class="hms-card-title">
-								<a href="<?php hms_url( 'form/'. get_the_ID() ); ?>"><?php the_title(); ?></a>
+								<a href="<?php hms_url( 'form/' . get_the_ID() ); ?>"><?php the_title(); ?></a>
 							</h4>
 						</div>
 
@@ -247,7 +257,7 @@ function hms_card_forms( $args = '' ) {
 							</button>
 							<div class="hms-card-action-popover">
 								<div class="hms-card-action-menu">
-									<a href="<?php hms_url( 'form/'. get_the_ID() ); ?>"><?php esc_html_e( 'Edit', 'hackathon' ); ?></a>
+									<a href="<?php hms_url( 'form/' . get_the_ID() ); ?>"><?php esc_html_e( 'Edit', 'hackathon' ); ?></a>
 									<a href="#" class="hms-form-delete" data-id="<?php the_ID(); ?>"><?php esc_html_e( 'Delete', 'hackathon' ); ?></a>
 								</div>
 							</div>
@@ -298,13 +308,14 @@ function hms_card_forms( $args = '' ) {
 			$forms_query = new WP_Query( $forms_args );
 
 			if ( $forms_query->have_posts() ) {
-				while ( $forms_query->have_posts() ) { $forms_query->the_post();
+				while ( $forms_query->have_posts() ) {
+					$forms_query->the_post();
 					$form_slug = get_post_meta( get_the_ID(), '_form_slug', true );
 					?>
 					<div class="hms-card hms-form-<?php echo esc_attr( $form_slug ); ?>">
 						<div class="hms-card-content">
 							<h4 class="hms-card-title">
-								<a href="<?php hms_url( 'form/'. get_the_ID() ); ?>"><?php the_title(); ?></a>
+								<a href="<?php hms_url( 'form/' . get_the_ID() ); ?>"><?php the_title(); ?></a>
 							</h4>
 						</div>
 
@@ -314,7 +325,7 @@ function hms_card_forms( $args = '' ) {
 							</button>
 							<div class="hms-card-action-popover">
 								<div class="hms-card-action-menu">
-									<a href="<?php hms_url( 'form/'. get_the_ID() ); ?>"><?php esc_html_e( 'Edit', 'hackathon' ); ?></a>
+									<a href="<?php hms_url( 'form/' . get_the_ID() ); ?>"><?php esc_html_e( 'Edit', 'hackathon' ); ?></a>
 									<a href="<?php hms_url( $form_slug, array( 'preview' => 'true' ) ); ?>" target="_blank"><?php esc_html_e( 'Preview', 'hackathon' ); ?></a>
 									<?php /* <a href="">Duplicate</a> */ ?>
 									<a href="#" class="hms-form-delete" data-id="<?php the_ID(); ?>"><?php esc_html_e( 'Delete', 'hackathon' ); ?></a>
@@ -330,7 +341,7 @@ function hms_card_forms( $args = '' ) {
 			?>
 
 		</div>
-	<?php
+		<?php
 	}
 
 	$output = ob_get_clean();
@@ -347,7 +358,7 @@ function hms_card_forms( $args = '' ) {
 /**
  * Hms field
  */
-function hms_field_object( $key = 0, $field = array(), $form_id = null ){
+function hms_field_object( $key = 0, $field = array(), $form_id = null ) {
 	$name_label            = 'field[' . $key . '][label]';
 	$name_description      = 'field[' . $key . '][description]';
 	$name_required         = 'field[' . $key . '][required]';
@@ -397,7 +408,7 @@ function hms_field_object( $key = 0, $field = array(), $form_id = null ){
 	}
 
 	$field_conditional_option = '';
-	foreach( $form_fields as $name => $field ) {
+	foreach ( $form_fields as $name => $field ) {
 		if ( isset( $field['label'] ) && $field['label'] && $value_label != $field['label'] ) {
 			$field_conditional_option .= '<option value="' . esc_attr( $name ) . '" ' . selected( $name, $value_rule_field, false ) . '>' . esc_html( $field['label'] ) . '</option>';
 		}
@@ -413,14 +424,15 @@ function hms_field_object( $key = 0, $field = array(), $form_id = null ){
 				<span class="hms-field-label">' . esc_html__( 'equal', 'hackathon' ) . '</span>
 				<input type="text" name="' . esc_attr( $name_rule_value ) . '" data-type="rule_value" class="hms-field-input" value="' . esc_attr( $value_rule_value ) . '">
 			</div>
-			' . /* <div class="hms-field">
+			' . /*
+	<div class="hms-field">
 				<a href="#" class="hms-field-add-rule">' . esc_html__( 'Add rule +', 'hackathon' ) . '</a>
 			</div> */ '
 		</div>
 	</div>';
 
 	if ( $value_type === 'phone' ) {
-	?>
+		?>
 		<div class="hms-field-object">
 			<div class="hms-field-drag">
 				<?php hms_icon( 'drag' ); ?>
@@ -452,9 +464,9 @@ function hms_field_object( $key = 0, $field = array(), $form_id = null ){
 				</div>
 			</div>
 		</div>
-	<?php
-	} else if ( $value_type === 'telegram' ) {
-	?>
+		<?php
+	} elseif ( $value_type === 'telegram' ) {
+		?>
 		<div class="hms-field-object">
 			<div class="hms-field-drag">
 				<?php hms_icon( 'drag' ); ?>
@@ -486,9 +498,9 @@ function hms_field_object( $key = 0, $field = array(), $form_id = null ){
 				</div>
 			</div>
 		</div>
-	<?php
-	} else if ( $value_type === 'city' ) {
-	?>
+		<?php
+	} elseif ( $value_type === 'city' ) {
+		?>
 		<div class="hms-field-object">
 			<div class="hms-field-drag">
 				<?php hms_icon( 'drag' ); ?>
@@ -520,9 +532,9 @@ function hms_field_object( $key = 0, $field = array(), $form_id = null ){
 				</div>
 			</div>
 		</div>
-	<?php
-	} else if ( $value_type === 'project_name' ) {
-	?>
+		<?php
+	} elseif ( $value_type === 'project_name' ) {
+		?>
 		<div class="hms-field-object">
 			<div class="hms-field-drag">
 				<?php hms_icon( 'drag' ); ?>
@@ -561,9 +573,9 @@ function hms_field_object( $key = 0, $field = array(), $form_id = null ){
 				</div>
 			</div>
 		</div>
-	<?php
-	} else if ( $value_type === 'textarea' || $value_type === 'text' ) {
-	?>
+		<?php
+	} elseif ( $value_type === 'textarea' || $value_type === 'text' ) {
+		?>
 		<div class="hms-field-object hms-is-sortable">
 			<div class="hms-field-drag">
 				<?php hms_icon( 'drag' ); ?>
@@ -602,15 +614,15 @@ function hms_field_object( $key = 0, $field = array(), $form_id = null ){
 				</div>
 			</div>
 		</div>
-	<?php
-	} else if ( $value_type === 'select' ) {
-		$placeholder_visible = ' hms-field-hidden';
+		<?php
+	} elseif ( $value_type === 'select' ) {
+		$placeholder_visible  = ' hms-field-hidden';
 		$placeholder_disabled = true;
 		if ( $value_placeholder ) {
-			$placeholder_visible = '';
+			$placeholder_visible  = '';
 			$placeholder_disabled = false;
 		}
-	?>
+		?>
 		<div class="hms-field-object hms-is-sortable">
 			<div class="hms-field-drag">
 				<?php hms_icon( 'drag' ); ?>
@@ -672,9 +684,9 @@ function hms_field_object( $key = 0, $field = array(), $form_id = null ){
 				</div>
 			</div>
 		</div>
-	<?php
+		<?php
 	} else {
-	?>
+		?>
 		<div class="hms-field-object hms-is-sortable">
 			<div class="hms-field hms-field-flex">
 				<input type="hidden" name="<?php echo esc_attr( $name_label ); ?>" data-type="label" data-name="<?php echo esc_attr( $key ); ?>" class="hms-field-input" value="<?php echo esc_attr( $value_label ); ?>">
@@ -687,8 +699,11 @@ function hms_field_object( $key = 0, $field = array(), $form_id = null ){
 					<option value="telegram"><?php esc_html_e( 'Telegram', 'hackathon' ); ?></option>
 					<option value="city"><?php esc_html_e( 'City', 'hackathon' ); ?></option>
 					<option value="project_name"><?php esc_html_e( 'Project Name', 'hackathon' ); ?></option>
-					<?php /* <option value="checkbox"><?php esc_html_e( 'Checkbox', 'hackathon' ); ?></option>
-					<option value="file" <?php selected( 'file', $value_type ); ?>><?php esc_html_e( 'File', 'hackathon' ); ?></option>  */ ?>
+					<?php
+					/*
+					<option value="checkbox"><?php esc_html_e( 'Checkbox', 'hackathon' ); ?></option>
+					<option value="file" <?php selected( 'file', $value_type ); ?>><?php esc_html_e( 'File', 'hackathon' ); ?></option>  */
+					?>
 				</select>
 			</div>
 
@@ -698,7 +713,7 @@ function hms_field_object( $key = 0, $field = array(), $form_id = null ){
 				</div>
 			</div>
 		</div>
-	<?php
+		<?php
 	}
 }
 
@@ -720,7 +735,7 @@ function hms_fields_object( $form_id = null ) {
 	);
 
 	if ( $form_fields && is_array( $form_fields ) ) {
-		foreach( $unset_fields as $field ) {
+		foreach ( $unset_fields as $field ) {
 			if ( isset( $form_fields[ $field ] ) ) {
 				unset( $form_fields[ $field ] );
 			}
@@ -747,7 +762,8 @@ function hms_get_forms_slugs() {
 	$forms_query = new WP_Query( $forms_args );
 
 	if ( $forms_query->have_posts() ) {
-		while ( $forms_query->have_posts() ) { $forms_query->the_post();
+		while ( $forms_query->have_posts() ) {
+			$forms_query->the_post();
 			$form_slug = get_post_meta( get_the_ID(), '_form_slug', true );
 			$form_id   = get_the_ID();
 			if ( $form_slug ) {
@@ -763,7 +779,7 @@ function hms_get_forms_slugs() {
 /**
  * Hms fron field
  */
-function hms_front_field( $key = 0, $field = array() ){
+function hms_front_field( $key = 0, $field = array() ) {
 	$type             = isset( $field['type'] ) ? $field['type'] : 'text';
 	$label            = isset( $field['label'] ) ? $field['label'] : '';
 	$description      = isset( $field['description'] ) ? $field['description'] : '';
@@ -775,8 +791,8 @@ function hms_front_field( $key = 0, $field = array() ){
 	$rule_field       = isset( $field['rule_field'] ) ? $field['rule_field'] : '';
 	$rule_value       = isset( $field['rule_value'] ) ? $field['rule_value'] : '';
 
-	$form_row_class  = 'hms-form-row';
-	$disabled        = false;
+	$form_row_class = 'hms-form-row';
+	$disabled       = false;
 
 	if ( $dependency && $rule_value ) {
 		$disabled        = true;
@@ -793,16 +809,16 @@ function hms_front_field( $key = 0, $field = array() ){
 	}
 
 	if ( in_array( $type, array( 'text', 'project_name' ) ) ) {
-	?>
+		?>
 		<div class="<?php echo esc_attr( $form_row_class ); ?>">
 			<label class="hms-form-label" for="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?> <?php echo wp_kses_post( $required_star ); ?></label><input type="text" name="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $key ); ?>" class="input" <?php echo wp_kses_post( $required ); ?> <?php disabled( true, $disabled ); ?>>
 			<?php if ( $description ) { ?>
 				<div class="hms-form-text"><?php echo esc_html( $description ); ?></div>
 			<?php } ?>
 		</div>
-	<?php
-	} else if ( $type === 'textarea' ) {
-	?>
+		<?php
+	} elseif ( $type === 'textarea' ) {
+		?>
 		<div class="<?php echo esc_attr( $form_row_class ); ?>">
 			<label class="hms-form-label" for="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?> <?php echo wp_kses_post( $required_star ); ?></label>
 			<textarea name="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $key ); ?>" class="input" <?php echo wp_kses_post( $required ); ?> rows="5" <?php disabled( true, $disabled ); ?>></textarea>
@@ -810,43 +826,43 @@ function hms_front_field( $key = 0, $field = array() ){
 				<div class="hms-form-text"><?php echo esc_html( $description ); ?></div>
 			<?php } ?>
 		</div>
-	<?php
-	} else if ( $type === 'phone' ) {
-	?>
+		<?php
+	} elseif ( $type === 'phone' ) {
+		?>
 		<div class="hms-form-row">
 			<label class="hms-form-label" for="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?> <?php echo wp_kses_post( $required_star ); ?></label><input type="text" name="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $key ); ?>" class="input" <?php echo wp_kses_post( $required ); ?>>
 			<?php if ( $description ) { ?>
 				<div class="hms-form-text"><?php echo esc_html( $description ); ?></div>
 			<?php } ?>
 		</div>
-	<?php
-	} else if ( $type === 'telegram' ) {
-	?>
+		<?php
+	} elseif ( $type === 'telegram' ) {
+		?>
 		<div class="hms-form-row">
 			<label class="hms-form-label" for="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?> <?php echo wp_kses_post( $required_star ); ?></label><input type="text" name="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $key ); ?>" class="input" <?php echo wp_kses_post( $required ); ?>>
 			<?php if ( $description ) { ?>
 				<div class="hms-form-text"><?php echo esc_html( $description ); ?></div>
 			<?php } ?>
 		</div>
-	<?php
-	} else if ( $type === 'city' ) {
-	?>
+		<?php
+	} elseif ( $type === 'city' ) {
+		?>
 		<div class="hms-form-row">
 			<label class="hms-form-label" for="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?> <?php echo wp_kses_post( $required_star ); ?></label><input type="text" name="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $key ); ?>" class="input" <?php echo wp_kses_post( $required ); ?>>
 			<?php if ( $description ) { ?>
 				<div class="hms-form-text"><?php echo esc_html( $description ); ?></div>
 			<?php } ?>
 		</div>
-	<?php
-	} else if ( $type === 'select' ) {
-	?>
+		<?php
+	} elseif ( $type === 'select' ) {
+		?>
 		<div class="<?php echo esc_attr( $form_row_class ); ?>">
 			<label class="hms-form-label" for="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?> <?php echo wp_kses_post( $required_star ); ?></label>
 			<select type="select" name="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $key ); ?>" class="select" <?php echo wp_kses_post( $required ); ?> <?php disabled( true, $disabled ); ?>>
 				<?php if ( $placeholder ) { ?>
-					<option value=""><?php echo esc_html( $placeholder_text); ?></option>
+					<option value=""><?php echo esc_html( $placeholder_text ); ?></option>
 				<?php } ?>
-				<?php foreach( $options as $option ) { ?>
+				<?php foreach ( $options as $option ) { ?>
 					<option value="<?php echo esc_attr( $option ); ?>"><?php echo esc_html( $option ); ?></option>
 				<?php } ?>
 			</select>
@@ -854,12 +870,12 @@ function hms_front_field( $key = 0, $field = array() ){
 				<div class="hms-form-text"><?php echo esc_html( $description ); ?></div>
 			<?php } ?>
 		</div>
-	<?php
+		<?php
 	}}
 
 /**
  * Ajax request actions
  */
-if( wp_doing_ajax() ){
+if ( wp_doing_ajax() ) {
 	require_once HMS_PATH . 'inc/ajax/form-actions.php';
 }

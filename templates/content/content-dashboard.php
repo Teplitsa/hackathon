@@ -18,7 +18,7 @@
 	</div>
 
 	<h1 class="hms-hero-title">
-		<?php echo hms_option( 'event_name', get_bloginfo() );?>
+		<?php echo hms_option( 'event_name', get_bloginfo() ); ?>
 	</h1>
 
 	<div class="hms-hero-desc">
@@ -45,7 +45,7 @@
 
 </header>
 
-<?php } else if ( hms_is_mentor() && ! hms_get_user_teams( get_current_user_id() ) ) { ?>
+<?php } elseif ( hms_is_mentor() && ! hms_get_user_teams( get_current_user_id() ) ) { ?>
 
 <header class="hms-hero">
 
@@ -59,7 +59,7 @@
 
 	<div class="hms-hero-desc">
 		<p><?php esc_html_e( 'It\'s time to join and invite participants to work on interesting projects', 'hackathon' ); ?></p>
-		<p><a href="<?php hms_url('teams'); ?>" class="hms-button"><?php esc_html_e( 'Go to teams', 'hackathon' ); ?></a></p>
+		<p><a href="<?php hms_url( 'teams' ); ?>" class="hms-button"><?php esc_html_e( 'Go to teams', 'hackathon' ); ?></a></p>
 	</div>
 
 </header>
@@ -73,7 +73,7 @@
 					<?php hms_logo(); ?>
 				</div>
 				<h1 class="hms-header-title">
-					<?php echo sprintf( esc_html__( 'Welcome to %s', 'hackathon' ), hms_option( 'event_name', get_bloginfo() ) ); ?>
+					<?php printf( esc_html__( 'Welcome to %s', 'hackathon' ), hms_option( 'event_name', get_bloginfo() ) ); ?>
 				</h1>
 				<?php if ( hms_get_option( 'event_desc' ) ) { ?>
 					<div class="hms-header-desc">
@@ -114,4 +114,5 @@
 
 	</div>
 
-<?php }
+	<?php
+}

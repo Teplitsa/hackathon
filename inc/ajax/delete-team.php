@@ -2,7 +2,6 @@
 /**
  * Delete Team
  */
-
 function hms_delete_team() {
 
 	check_ajax_referer( 'hackathon-nonce', 'nonce' );
@@ -17,7 +16,7 @@ function hms_delete_team() {
 
 	if ( $data['confirm'] ) {
 		$data['message'] = esc_html__( 'Do you really want to delete this?', 'hackathon' );
-		$data['str'] = array(
+		$data['str']     = array(
 			'yes' => esc_html__( 'Yes', 'hackathon' ),
 			'no'  => esc_html__( 'No', 'hackathon' ),
 		);
@@ -31,6 +30,5 @@ function hms_delete_team() {
 	} else {
 		wp_send_json_error( $data );
 	}
-
 }
 add_action( 'wp_ajax_hackathon_delete-team', 'hms_delete_team' );

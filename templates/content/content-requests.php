@@ -10,9 +10,9 @@ $csv_args = array( 'get_csv' => $page );
 
 $args = array();
 if ( $subpage && array_key_exists( $subpage, hms_request_statuses() ) ) {
-	$args = array(
-		'meta_key'       => 'status',
-		'meta_value'     => $subpage,
+	$args                   = array(
+		'meta_key'   => 'status',
+		'meta_value' => $subpage,
 	);
 	$csv_args['meta_key']   = 'status';
 	$csv_args['meta_value'] = $subpage;

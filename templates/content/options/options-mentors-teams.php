@@ -26,7 +26,8 @@ $option_pages = $pages['options']['children'];
 </header>
 
 <ul class="hms-submenu">
-	<?php foreach( $option_pages as $slug => $page ) {
+	<?php
+	foreach ( $option_pages as $slug => $page ) {
 		$item_class = 'hms-submenu-item';
 		$parent     = '';
 
@@ -34,12 +35,12 @@ $option_pages = $pages['options']['children'];
 			$parent = $page['parent'] . '/';
 		}
 
-		if ( $slug === $subpage_slug || ( !$subpage_slug && $page_slug === $slug ) ) {
+		if ( $slug === $subpage_slug || ( ! $subpage_slug && $page_slug === $slug ) ) {
 			$item_class .= ' active';
 		}
 		?>
 		<li class="<?php echo esc_attr( $item_class ); ?>">
-			<a href="<?php hms_url( $parent . $slug ); ?>"><?php echo esc_html( $page['menu_title'] );?></a>
+			<a href="<?php hms_url( $parent . $slug ); ?>"><?php echo esc_html( $page['menu_title'] ); ?></a>
 		</li>
 	<?php } ?>
 </ul>

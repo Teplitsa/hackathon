@@ -26,7 +26,8 @@ $option_pages = $pages['options']['children'];
 </header>
 
 <ul class="hms-submenu">
-	<?php foreach( $option_pages as $slug => $page ) {
+	<?php
+	foreach ( $option_pages as $slug => $page ) {
 		$item_class = 'hms-submenu-item';
 		$parent     = '';
 
@@ -34,12 +35,12 @@ $option_pages = $pages['options']['children'];
 			$parent = $page['parent'] . '/';
 		}
 
-		if ( $slug === $subpage_slug || ( !$subpage_slug && $page_slug === $slug ) ) {
+		if ( $slug === $subpage_slug || ( ! $subpage_slug && $page_slug === $slug ) ) {
 			$item_class .= ' active';
 		}
 		?>
 		<li class="<?php echo esc_attr( $item_class ); ?>">
-			<a href="<?php hms_url( $parent . $slug ); ?>"><?php echo esc_html( $page['menu_title'] );?></a>
+			<a href="<?php hms_url( $parent . $slug ); ?>"><?php echo esc_html( $page['menu_title'] ); ?></a>
 		</li>
 	<?php } ?>
 </ul>
@@ -105,11 +106,11 @@ $option_pages = $pages['options']['children'];
 										<?php
 											$upload_class = '';
 											$remove_class = '';
-											if ( wp_get_attachment_image( hms_option( 'event_logo' ) ) ) {
-												$upload_class = ' hidden';
-											} else {
-												$remove_class = ' hidden';
-											}
+										if ( wp_get_attachment_image( hms_option( 'event_logo' ) ) ) {
+											$upload_class = ' hidden';
+										} else {
+											$remove_class = ' hidden';
+										}
 										?>
 									</div>
 									<button type="button" class="button hackathon-remove-image<?php echo esc_attr( $remove_class ); ?> hms-set-default-image" data-input="event_logo"><?php esc_html_e( 'Set default logo', 'hackathon' ); ?></button>

@@ -28,11 +28,11 @@ if ( get_query_var( 'hms_subsubpage' ) ) {
 			<h1 class="hms-header-title">
 				<?php hms_page_title(); ?>
 				<?php if ( hms_is_administrator() ) { ?>
-					<a href="<?php echo esc_url( hms_get_url('edit-user/' . $user_id . '/') );?>" class="hms-header-edit" title="<?php esc_attr_e( 'Edit profile', 'hackathon' ); ?>">
+					<a href="<?php echo esc_url( hms_get_url( 'edit-user/' . $user_id . '/' ) ); ?>" class="hms-header-edit" title="<?php esc_attr_e( 'Edit profile', 'hackathon' ); ?>">
 						<?php hms_icon( 'pencil' ); ?>
 					</a>
-				<?php } else if ( ! current_user_can( 'jury' ) && $user_id == get_current_user_id() ) { ?>
-					<a href="<?php echo esc_url( hms_get_url('edit-user') );?>" class="hms-header-edit" title="<?php esc_attr_e( 'Edit profile', 'hackathon' ); ?>">
+				<?php } elseif ( ! current_user_can( 'jury' ) && $user_id == get_current_user_id() ) { ?>
+					<a href="<?php echo esc_url( hms_get_url( 'edit-user' ) ); ?>" class="hms-header-edit" title="<?php esc_attr_e( 'Edit profile', 'hackathon' ); ?>">
 						<?php hms_icon( 'pencil' ); ?>
 					</a>
 				<?php } ?>
@@ -56,7 +56,8 @@ if ( get_query_var( 'hms_subsubpage' ) ) {
 
 				<div class="hms-table">
 
-					<?php if ( ! hms_is_administrator( $user_id ) ) {
+					<?php
+					if ( ! hms_is_administrator( $user_id ) ) {
 						$user_status = hms_get_user_status( $user_id );
 						$request_id  = hms_get_user_request_id( $user_id );
 						?>
@@ -201,11 +202,12 @@ if ( get_query_var( 'hms_subsubpage' ) ) {
 
 					<?php
 						$teams = hms_get_user_teams( $user_id );
-						if ( $teams ) { ?>
+					if ( $teams ) {
+						?>
 							<div class="hms-cards">
 							<?php
-							foreach( $teams as $team ) {
-								$team_id = $team->ID;
+							foreach ( $teams as $team ) {
+								$team_id     = $team->ID;
 								$users_count = hms_get_team_users_count( $team_id );
 								?>
 
@@ -232,13 +234,15 @@ if ( get_query_var( 'hms_subsubpage' ) ) {
 									<div class="hms-card-info">
 										<div class="hms-card-info-item">
 											<div class="hms-card-info-icon">
-												<?php hms_icon('team'); ?>
+												<?php hms_icon( 'team' ); ?>
 											</div>
 											<div class="hms-card-label">
-												<?php echo sprintf(
+												<?php
+												printf(
 													esc_html( _n( '%s User', '%s Users', $users_count, 'hackathon' ) ),
 													esc_html( $users_count )
-												); ?>
+												);
+												?>
 											</div>
 										</div>
 									</div>
@@ -264,4 +268,5 @@ if ( get_query_var( 'hms_subsubpage' ) ) {
 
 </div>
 
-<?php }
+	<?php
+}

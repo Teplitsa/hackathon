@@ -80,7 +80,7 @@ function hms_get_user_request_url( $user_id = null ) {
 	$args = array(
 		'post_type'      => 'hms_request',
 		'author'         => $user_id,
-		'posts_per_page' => 1
+		'posts_per_page' => 1,
 	);
 
 	$user_requests = get_posts( $args );
@@ -245,14 +245,13 @@ function hms_is_page() {
 function hms_add_rewrite_rules() {
 	$slug = hms_dashboard_slug();
 
-	add_rewrite_rule( $slug . '/?$', 'index.php?' . $slug . '_page=1','top' );
-	add_rewrite_rule( '^' . $slug . '/([^/]*)/([^/]*)?', 'index.php?' . $slug . '_page=1&' . $slug . '_subpage=$matches[1]&' . $slug . '_subsubpage=$matches[2]','top' );
-	add_rewrite_rule( '^' . $slug . '/([^/]*)/?', 'index.php?' . $slug . '_page=1&' . $slug . '_subpage=$matches[1]','top' );
+	add_rewrite_rule( $slug . '/?$', 'index.php?' . $slug . '_page=1', 'top' );
+	add_rewrite_rule( '^' . $slug . '/([^/]*)/([^/]*)?', 'index.php?' . $slug . '_page=1&' . $slug . '_subpage=$matches[1]&' . $slug . '_subsubpage=$matches[2]', 'top' );
+	add_rewrite_rule( '^' . $slug . '/([^/]*)/?', 'index.php?' . $slug . '_page=1&' . $slug . '_subpage=$matches[1]', 'top' );
 
 	add_rewrite_tag( '%' . $slug . '_page%', '([^&]+)' );
 	add_rewrite_tag( '%' . $slug . '_subpage%', '([^&]+)' );
 	add_rewrite_tag( '%' . $slug . '_subsubpage%', '([^&]+)' );
-
 }
 add_action( 'init', 'hms_add_rewrite_rules' );
 
@@ -269,7 +268,7 @@ add_action( 'template_redirect', 'hms_set_query_vars' );
 /**
  * Get support url
  */
-function hms_get_support_url(){
+function hms_get_support_url() {
 	$support_url = 'https://t.me/hmsdev';
 	return apply_filters( 'hms_support_url', $support_url );
 }
@@ -277,7 +276,7 @@ function hms_get_support_url(){
 /**
  * Get documentation url
  */
-function hms_get_docs_url(){
+function hms_get_docs_url() {
 	$docs_url = 'https://hms.te-st.org/docs/';
 	return apply_filters( 'hms_docs_url', $docs_url );
 }
@@ -285,7 +284,7 @@ function hms_get_docs_url(){
 /**
  * Get teplitsa url
  */
-function hms_get_teplitsa_url(){
+function hms_get_teplitsa_url() {
 	$teplitsa_url = 'https://te-st.org';
 	return apply_filters( 'hms_teplitsa_url', $teplitsa_url );
 }

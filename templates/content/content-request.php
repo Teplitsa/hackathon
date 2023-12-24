@@ -15,7 +15,7 @@ if ( $request_id ) {
 
 if ( ! $request || 'hms_request' !== $request->post_type ) {
 
-?>
+	?>
 
 <header class="hms-header">
 	<div class="hms-header-content">
@@ -32,9 +32,10 @@ if ( ! $request || 'hms_request' !== $request->post_type ) {
 	</div>
 </header>
 
-<?php } else {
+	<?php
+} else {
 
-?>
+	?>
 
 <header class="hms-header">
 	<div class="hms-header-content">
@@ -72,7 +73,7 @@ if ( ! $request || 'hms_request' !== $request->post_type ) {
 						</div>
 						<div class="hms-table-col">
 
-							<?php $request_status = get_post_meta( $request_id, 'status', true );?>
+							<?php $request_status = get_post_meta( $request_id, 'status', true ); ?>
 
 							<?php if ( hms_is_administrator() && hms_is_participant( $request->post_author ) ) { ?>
 								<div class="hms-card-status-dropdown">
@@ -82,7 +83,7 @@ if ( ! $request || 'hms_request' !== $request->post_type ) {
 											<?php echo hms_get_request_status( $request_status ); ?>
 										</div>
 										<span class="hms-card-status-toggle">
-											<?php hms_icon('down'); ?>
+											<?php hms_icon( 'down' ); ?>
 										</span>
 									</div>
 									<div class="hms-card-status-popover">
@@ -99,7 +100,7 @@ if ( ! $request || 'hms_request' !== $request->post_type ) {
 									</div>
 								</div>
 
-								<a href="<?php hms_url('user/' . $request->post_author ); ?>" class="hms-button hms-button-outline"><?php esc_html_e( 'View user', 'hackathon' ); ?></a>
+								<a href="<?php hms_url( 'user/' . $request->post_author ); ?>" class="hms-button hms-button-outline"><?php esc_html_e( 'View user', 'hackathon' ); ?></a>
 
 							<?php } else { ?>
 
@@ -111,7 +112,7 @@ if ( ! $request || 'hms_request' !== $request->post_type ) {
 								</div>
 
 								<?php if ( hms_is_administrator() ) { ?>
-									<a href="<?php hms_url('user/' . $request->post_author ); ?>" class="hms-button hms-button-outline"><?php esc_html_e( 'View user', 'hackathon' ); ?></a>
+									<a href="<?php hms_url( 'user/' . $request->post_author ); ?>" class="hms-button hms-button-outline"><?php esc_html_e( 'View user', 'hackathon' ); ?></a>
 								<?php } ?>
 
 							<?php } ?>
@@ -211,7 +212,8 @@ if ( ! $request || 'hms_request' !== $request->post_type ) {
 
 					<?php
 					$project_name = get_post_meta( $request_id, 'project_name', true );
-					if ( $project_name ) { ?>
+					if ( $project_name ) {
+						?>
 						<div class="hms-table-row">
 							<div class="hms-table-col">
 								<label class="hms-table-label"><?php esc_html_e( 'Project name', 'hackathon' ); ?></label>
@@ -225,7 +227,7 @@ if ( ! $request || 'hms_request' !== $request->post_type ) {
 					<?php } ?>
 
 					<?php if ( get_post_meta( $request_id, 'custom', true ) ) { ?>
-						<?php foreach( get_post_meta( $request_id, 'custom', true ) as $field ) { ?>
+						<?php foreach ( get_post_meta( $request_id, 'custom', true ) as $field ) { ?>
 							<div class="hms-table-row">
 								<div class="hms-table-col">
 									<label class="hms-table-label"><?php echo esc_html( $field['label'] ); ?></label>
@@ -245,5 +247,5 @@ if ( ! $request || 'hms_request' !== $request->post_type ) {
 	</div>
 </div>
 
-<?php
+	<?php
 }

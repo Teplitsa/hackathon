@@ -2,7 +2,6 @@
 /**
  * Update request
  */
-
 function hms_ajax_request_status() {
 
 	check_ajax_referer( 'hackathon-nonce', 'nonce' );
@@ -30,8 +29,8 @@ function hms_ajax_request_status() {
 		$team_id = get_post_meta( $request_id, '_team_id', true );
 		if ( $team_id && 'approved' === $request_status ) {
 			$team_data = array(
-				'ID' => $team_id,
-				'post_status' => 'publish'
+				'ID'          => $team_id,
+				'post_status' => 'publish',
 			);
 			wp_update_post( $team_data );
 		}
@@ -42,6 +41,5 @@ function hms_ajax_request_status() {
 	}
 
 	wp_send_json_error( $data );
-
 }
 add_action( 'wp_ajax_hms_request_status', 'hms_ajax_request_status' );

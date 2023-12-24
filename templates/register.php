@@ -5,7 +5,7 @@
 
 $sub_page       = get_query_var( 'hms_subpage' );
 $forms_slugs    = hms_get_forms_slugs();
-$form_id        = array_search( $sub_page , $forms_slugs );
+$form_id        = array_search( $sub_page, $forms_slugs );
 $form_role      = get_post_meta( $form_id, '_form_role', true );
 $form_fields    = get_post_meta( $form_id, '_form_fields', true );
 $disable_button = isset( $_GET['preview'] );
@@ -27,10 +27,18 @@ hms_load_template( 'header.php' );
 		</div>
 
 			<?php if ( isset( $_GET['checkemail'] ) && 'registered' === $_GET['checkemail'] ) { ?>
-				<p class="message"><?php echo apply_filters( 'hms_checkemail_registered_message', sprintf(
+				<p class="message">
+				<?php
+				echo apply_filters(
+					'hms_checkemail_registered_message',
+					sprintf(
 					/* translators: %s: Link to the login page. */
-					__( 'Registration complete. Please check your email, then visit the <a href="%s">login page</a>.' ),
-					hms_get_url() )	);?></p>
+						__( 'Registration complete. Please check your email, then visit the <a href="%s">login page</a>.' ),
+						hms_get_url()
+					)
+				);
+				?>
+					</p>
 			<?php } else { ?>
 
 				<div class="hms-login-desc"><span class="hms-error-color">*</span> <?php esc_html_e( 'All fields are required.', 'hackathon' ); ?></div>
@@ -39,9 +47,9 @@ hms_load_template( 'header.php' );
 
 					<?php
 						$user_type = 'hackathon_participant';
-						if ( $form_role ) {
-							$user_type = $form_role;
-						}
+					if ( $form_role ) {
+						$user_type = $form_role;
+					}
 
 						echo hms_input_hidden( 'action', 'hackathon_register_user' );
 						echo hms_input_hidden( 'redirect_to', esc_attr( hms_get_url( $sub_page, array( 'checkemail' => 'registered' ) ) ) );
@@ -99,7 +107,7 @@ hms_load_template( 'header.php' );
 						);
 
 						if ( $form_fields && is_array( $form_fields ) ) {
-							foreach( $unset_fields as $field ) {
+							foreach ( $unset_fields as $field ) {
 								if ( isset( $form_fields[ $field ] ) ) {
 									unset( $form_fields[ $field ] );
 								}
@@ -109,7 +117,7 @@ hms_load_template( 'header.php' );
 							}
 						}
 
-					?>
+						?>
 					<div class="hms-form-row">
 						<fieldset>
 							<label for="event_privacy_agreement" class="hms-form-label-agreement"><input name="event_privacy_agreement" type="checkbox" id="event_privacy_agreement" value="true" required="required"> <span><?php echo esc_html( $agree_description ); ?></span></label>

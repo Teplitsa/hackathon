@@ -6,7 +6,7 @@
 /**
  * Get default logo url
  */
-function hms_get_default_logo_url(){
+function hms_get_default_logo_url() {
 	$logo_url = HMS_URL . 'assets/images/logo.svg';
 	return apply_filters( 'hms_get_default_logo_url', $logo_url );
 }
@@ -14,7 +14,7 @@ function hms_get_default_logo_url(){
 /**
  * Get logo url
  */
-function hms_get_logo_url(){
+function hms_get_logo_url() {
 	$logo_url = hms_get_default_logo_url();
 	if ( wp_get_attachment_image_url( hms_option( 'event_logo' ) ) ) {
 		$logo_url = wp_get_attachment_image_url( hms_option( 'event_logo' ), 'large' );
@@ -25,7 +25,7 @@ function hms_get_logo_url(){
 /**
  * Get logo img
  */
-function hms_get_logo(){
+function hms_get_logo() {
 	$logo_url = hms_get_logo_url();
 	$logo     = '<img src="' . esc_url( $logo_url ) . '" class="hms-logo" alt="' . esc_attr( get_bloginfo() ) . '">';
 	return apply_filters( 'hms_get_logo', $logo, $logo_url );
@@ -34,17 +34,17 @@ function hms_get_logo(){
 /**
  * Logo img
  */
-function hms_logo(){
+function hms_logo() {
 	echo hms_kses( hms_get_logo() );
 }
 
 /**
  * Button
- * 
+ *
  * @param string $type outline.
  */
 function hms_button( $text = null, $url = null, $type = '', $attr = array(), $args = array() ) {
-	$classes          = array( 'hms-button' );
+	$classes = array( 'hms-button' );
 	if ( $type ) {
 		$classes[] = 'hms-button-' . $type;
 	}
@@ -70,7 +70,7 @@ function hms_button( $text = null, $url = null, $type = '', $attr = array(), $ar
 /**
  * Page Header
  */
-function hms_page_header( $title = '' ){
+function hms_page_header( $title = '' ) {
 	if ( ! $title ) {
 		$title = hms_page_title( '', false );
 	}

@@ -6,7 +6,7 @@
 /**
  * All SVG images in one.
  */
-function hms_include_svg(){
+function hms_include_svg() {
 	include_once HMS_PATH . 'assets/svg/icons.svg';
 }
 add_action( 'hms_body_open', 'hms_include_svg' );

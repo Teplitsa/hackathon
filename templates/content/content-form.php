@@ -5,17 +5,17 @@
 
 $subpage = get_query_var( 'hms_subsubpage' );
 
-$form_id     = $subpage;
+$form_id = $subpage;
 if ( ! $form_id ) {
 	$form_id = hms_get_option( 'defaultform' );
 }
-$form        = get_post( $form_id );
-$form_type   = get_post_meta( $form_id, '_form_type', true );
+$form      = get_post( $form_id );
+$form_type = get_post_meta( $form_id, '_form_type', true );
 
 if ( $form_type !== 'intrasystem' ) {
 
-	$form_name   = $form->post_title;
-	$form_slug   = get_post_meta( $form_id, '_form_slug', true );
+	$form_name = $form->post_title;
+	$form_slug = get_post_meta( $form_id, '_form_slug', true );
 	if ( ! $form_slug ) {
 		$form_slug = 'register';
 	}
@@ -52,7 +52,7 @@ if ( $form_type !== 'intrasystem' ) {
 				<input type="hidden" name="form_id" value="<?php echo esc_attr( $form_id ); ?>">
 
 				<div class="hms-field-list-wrap">
-    
+	
 					<div class="hms-field-object">
 						<div class="hms-field">
 							<input type="text" name="name" class="hms-field-input" value="<?php echo esc_attr( $form_name ); ?>" placeholder="<?php esc_attr_e( 'Form name', 'hackathon' ); ?>">
@@ -141,7 +141,7 @@ if ( $form_type !== 'intrasystem' ) {
 
 					<div class="hms-field-list-footer">
 						<?php hms_button( esc_html__( 'Add field', 'hackathon' ), '#', 'outline', array( 'class' => 'hms-field-add-new' ) ); ?>
-						<?php hms_button( esc_html__( 'Cancel', 'hackathon' ), hms_get_url('forms'), 'link' ); ?>
+						<?php hms_button( esc_html__( 'Cancel', 'hackathon' ), hms_get_url( 'forms' ), 'link' ); ?>
 						<?php hms_button( esc_html__( 'Save', 'hackathon' ), '#', 'primary', array( 'class' => 'hms-update-form' ) ); ?>
 					</div>
 
@@ -152,7 +152,8 @@ if ( $form_type !== 'intrasystem' ) {
 
 	</div>
 
-<?php } else {
+	<?php
+} else {
 
 	hms_load_template( 'content/content-form-inside.php' );
 

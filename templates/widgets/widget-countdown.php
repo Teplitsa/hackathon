@@ -4,7 +4,7 @@
  */
 
 $time_zone             = wp_timezone_string();
-$current_timestamp     = current_time('timestamp', $time_zone);
+$current_timestamp     = current_time( 'timestamp', $time_zone );
 $event_start_timestamp = strtotime( hms_get_option( 'event_start_timestamp' ) . ' ' . $time_zone );
 $event_end_timestamp   = strtotime( hms_get_option( 'event_end_timestamp' ) . ' ' . $time_zone );
 $deadline_checkpoint   = strtotime( hms_get_option( 'deadline_checkpoint' ) . ' ' . $time_zone );
@@ -18,7 +18,7 @@ $checkpoint_expired_text   = '';
 $widget_status_class = '';
 
 if ( $deadline_checkpoint <= $current_timestamp ) {
-	$checkpoint_timestamp = $deadline_presentation;
+	$checkpoint_timestamp      = $deadline_presentation;
 	$checkpoint_expired_action = 'message';
 	$checkpoint_expired_text   = __( 'time is up', 'hackathon' );
 }
@@ -28,12 +28,11 @@ if ( $event_start_timestamp <= $current_timestamp ) {
 
 	$even_end_left = $event_end_timestamp - $current_timestamp;
 
-	if ( $even_end_left < ( 60 * 60 * 10 ) && $even_end_left > ( 60 * 60 * 3 )  ) {
+	if ( $even_end_left < ( 60 * 60 * 10 ) && $even_end_left > ( 60 * 60 * 3 ) ) {
 		$widget_status_class = ' hms-widget-warning';
-	} else if ( $even_end_left <= ( 60 * 60 * 3 ) ) {
+	} elseif ( $even_end_left <= ( 60 * 60 * 3 ) ) {
 		$widget_status_class = ' hms-widget-danger';
 	}
-
 } else {
 	$star_end_widget_title = __( 'Until the beginning of the hackathon left', 'hackathon' );
 }
@@ -64,7 +63,7 @@ if ( $event_start_timestamp <= $current_timestamp ) {
 			<?php } ?>
 		</div>
 		<div class="hms-widget-info-timezone">
-			<?php echo esc_html( hms_get_gtm() );?>
+			<?php echo esc_html( hms_get_gtm() ); ?>
 		</div>
 	</div>
 </div>
@@ -80,10 +79,10 @@ if ( $event_start_timestamp <= $current_timestamp ) {
 		</div>
 		<div class="hms-widget-content">
 			<div class="hms-widget-info-datetime">
-				<span class="hms-countdown" data-until="<?php echo esc_attr( $checkpoint_timestamp ); ?>" data-expiry="<?php echo esc_attr( $checkpoint_expired_action ); ?>" data-expiry-text="<?php echo esc_attr( $checkpoint_expired_text ) ; ?>"></span>
+				<span class="hms-countdown" data-until="<?php echo esc_attr( $checkpoint_timestamp ); ?>" data-expiry="<?php echo esc_attr( $checkpoint_expired_action ); ?>" data-expiry-text="<?php echo esc_attr( $checkpoint_expired_text ); ?>"></span>
 			</div>
 			<div class="hms-widget-info-timezone">
-				<?php echo esc_html( hms_get_gtm() );?>
+				<?php echo esc_html( hms_get_gtm() ); ?>
 			</div>
 		</div>
 	</div>
