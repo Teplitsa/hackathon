@@ -182,6 +182,9 @@ gulp.task('zip', function(){
 		'!composer.json',
 		'!composer.lock',
 		'!phpcs.xml',
+		'!security.xml',
+		'!phpcs-result.txt',
+		'!phpcs-security-result.txt',
 		'!**.zip'
 	];
 
