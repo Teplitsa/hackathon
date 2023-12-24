@@ -135,40 +135,9 @@ gulp.task( 'css-admin', function() {
 		.on( 'error', console.log ); // Log
 });
 
-// Svg - combine and clear svg assets
-gulp.task( 'svg', function() {
-
-	var icons = gulp.src( [ basePaths.src + 'svg/icon-*.svg' ] ).pipe( plugins.svgmin( {
-			plugins: [
-				{
-					removeTitle: true,
-					removeDesc: { removeAny: true },
-					removeEditorsNSData: true,
-					removeComments: true
-				}
-			]
-		} ) ) // Minification
-		.pipe( plugins.cheerio( {
-			run: function( $ ) { //remove fill from icons
-				$( '[fill]' ).removeAttr( 'fill' );
-			}, parserOptions: { xmlMode: true }
-		} ) );
-
-	// Combine for inline usage
-	return es.concat( icons ).pipe( plugins.svgstore( { inlineSvg: true } ) )
-		.pipe( plugins.cheerio({
-			run: ($) => {
-				$('svg').addClass('hms-icons-file');
-			},
-		}))
-
-		.pipe( plugins.concat( 'icons.svg' ) )//className: '.icon.icon--%s:hover',
-		.pipe( gulp.dest( basePaths.dest + 'svg' ) );
-});
-
 // Builds
 gulp.task( 'full-build',
-	gulp.series( 'css', 'css-editor', 'css-admin', 'js', 'svg' )
+	gulp.series( 'css', 'css-editor', 'css-admin', 'js' )
 );
 
 // Watchers

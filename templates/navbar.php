@@ -9,12 +9,15 @@
 
 	<ul class="hms-adminbar-menu">
 		<li class="hms-adminbar-toggle">
-			<a href="#"><?php hms_icon( 'menu' ); ?></a>
+			<a href="#">
+				<?php hms_icon( 'menu' ); ?>
+				<?php hms_icon( 'close' ); ?>
+			</a>
 		</li>
 		<li class="hms-adminbar-dashboard">
 			<?php if ( hms_is_administrator() ) { ?>
 				<a href="<?php hms_admin_url(); ?>">
-					<?php hms_icon( 'WordPress' ); ?>
+					<?php hms_icon( 'wordpress' ); ?>
 					<span class="hms-adminbar-label"><?php esc_html_e( 'WordPress Dashboard', 'hackathon' ); ?></span>
 				</a>
 			<?php } else { ?>

@@ -514,10 +514,26 @@ function hms_kses_allowed_html( $tags, $context ) {
 				'class' => array(),
 			),
 			'svg'      => array(
-				'class' => true,
+				'class'       => true,
+				'width'       => true,
+				'height'      => true,
+				'viewbox'     => true,
+				'xmlns'       => true,
+				'fill'        => true,
+				'aria-hidden' => true,
+				'focusable'   => true,
 			),
 			'use'      => array(
 				'xlink:href' => true,
+			),
+			'path'      => array(
+				'd'         => true,
+				'fill-rule' => true,
+				'clip-rule' => true,
+				'stroke-width' => true,
+				'stroke-linecap' => true,
+				'stroke-linejoin' => true,
+				'stroke'      => true,
 			),
 			'img'      => array(
 				'src'   => true,

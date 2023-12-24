@@ -59,6 +59,15 @@
 		@media (min-width: 992px) {
 			display: none;
 		}
+
+		> a {
+			&.active .hms-icon-menu {
+				display: none;
+			}
+			&:not(.active) .hms-icon-close {
+				display: none;
+			}
+		}
 	}
 
 	&-label {
