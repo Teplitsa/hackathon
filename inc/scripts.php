@@ -291,6 +291,7 @@ add_action( 'hms_head', 'hms_enqueue_styles' );
  * Enqueue scripts
  */
 function hms_enqueue_scripts() {
+	remove_action( 'wp_footer', 'the_block_template_skip_link' );
 	wp_footer();
 	wp_print_scripts( 'hms-scripts' );
 }
