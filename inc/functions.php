@@ -493,7 +493,7 @@ function hms_is_registration_closed() {
  */
 function hms_kses_allowed_html( $tags, $context ) {
 
-	if ( 'content' === $context ) {
+	if ( 'hms_content' === $context ) {
 		$tags = array(
 			'div'      => array(
 				'class'  => true,
@@ -590,7 +590,7 @@ add_filter( 'wp_kses_allowed_html', 'hms_kses_allowed_html', 10, 2 );
  * HMS Kses
  */
 function hms_kses( $content ) {
-	return wp_kses( $content, 'content' );
+	return wp_kses( $content, 'hms_content' );
 }
 
 /**

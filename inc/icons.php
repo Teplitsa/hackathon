@@ -32,7 +32,7 @@ function hms_icon( $name ) {
 
 	$icon = hms_get_icon( $name );
 
-	echo wp_kses( $icon, 'content' );
+	echo wp_kses( $icon, 'hms_content' );
 }
 
 /**

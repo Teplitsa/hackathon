@@ -402,7 +402,7 @@ function hms_get_avatar( $size = 200 ) {
  */
 function hms_avatar( $size = 200 ) {
 	$avatar = hms_get_avatar( $size );
-	echo wp_kses( $avatar, 'content' );
+	echo wp_kses( $avatar, 'hms_content' );
 }
 
 /**
