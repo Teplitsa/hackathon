@@ -587,6 +587,19 @@ function hms_kses_allowed_html( $tags, $context ) {
 add_filter( 'wp_kses_allowed_html', 'hms_kses_allowed_html', 10, 2 );
 
 /**
+ * Admin bar header styles
+ */
+function hms_enqueue_admin_bar_header_styles(){
+	$styles = '
+	#wpadminbar > #wp-toolbar #wp-admin-bar-hms .ab-icon { padding-top: 5px; }
+	#wp-admin-bar-hms .hms-icon-hms { width: 16px; height: 17px; }
+	#wp-admin-bar-hms:not(:hover) .hms-icon-hms { fill: #a7aaad; }
+	';
+	wp_add_inline_style( 'admin-bar', $styles );
+}
+add_action( 'wp_enqueue_scripts', 'hms_enqueue_admin_bar_header_styles' );
+
+/**
  * HMS Kses
  */
 function hms_kses( $content ) {
