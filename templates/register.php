@@ -3,12 +3,13 @@
  * Template Login
  */
 
-$sub_page       = get_query_var( 'hms_subpage' );
+$form_slug      = get_query_var( 'hms_subpage' );
 $forms_slugs    = hms_get_forms_slugs();
-$form_id        = array_search( $sub_page, $forms_slugs );
+$form_id        = array_search( $form_slug, $forms_slugs );
 $form_role      = get_post_meta( $form_id, '_form_role', true );
 $form_fields    = get_post_meta( $form_id, '_form_fields', true );
 $disable_button = isset( $_GET['preview'] );
+$form_title     = apply_filters( 'hms_register_form_title', __( 'Sign up for the hackathon', 'hackathon' ), $form_slug );
 
 hms_load_template( 'header.php' );
 
@@ -23,7 +24,7 @@ hms_load_template( 'header.php' );
 		</div>
 
 		<div class="hms-login-title">
-			<h1><?php esc_html_e( 'Sign up for the hackathon', 'hackathon' ); ?></h1>
+			<h1><?php echo esc_html( $form_title ); ?></h1>
 		</div>
 
 			<?php if ( isset( $_GET['checkemail'] ) && 'registered' === $_GET['checkemail'] ) { ?>
@@ -35,7 +36,8 @@ hms_load_template( 'header.php' );
 					/* translators: %s: Link to the login page. */
 						__( 'Registration complete. Please check your email, then visit the <a href="%s">login page</a>.' ),
 						hms_get_url()
-					)
+					),
+					$form_slug
 				);
 				?>
 					</p>
@@ -47,12 +49,12 @@ hms_load_template( 'header.php' );
 
 					<?php
 						$user_type = 'hackathon_participant';
-					if ( $form_role ) {
-						$user_type = $form_role;
-					}
+						if ( $form_role ) {
+							$user_type = $form_role;
+						}
 
 						echo hms_input_hidden( 'action', 'hackathon_register_user' );
-						echo hms_input_hidden( 'redirect_to', esc_attr( hms_get_url( $sub_page, array( 'checkemail' => 'registered' ) ) ) );
+						echo hms_input_hidden( 'redirect_to', esc_attr( hms_get_url( $form_slug, array( 'checkemail' => 'registered' ) ) ) );
 						echo hms_input_hidden( 'user_type', $user_type );
 						echo hms_input_hidden( 'form_id', $form_id );
 
@@ -123,6 +125,8 @@ hms_load_template( 'header.php' );
 							<label for="event_privacy_agreement" class="hms-form-label-agreement"><input name="event_privacy_agreement" type="checkbox" id="event_privacy_agreement" value="true" required="required"> <span><?php echo esc_html( $agree_description ); ?></span></label>
 						</fieldset>
 					</div>
+
+					<?php do_action( 'hms_register_form_before_submit', $form_slug ); ?>
 
 					<div class="hms-form-row">
 						<input type="submit" name="wp-submit" id="wp-submit" class="hms-form-button" value="<?php esc_attr_e( 'Register', 'hackathon' ); ?>" <?php disabled( true, $disable_button ); ?>>
