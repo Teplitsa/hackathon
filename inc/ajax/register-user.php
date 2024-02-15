@@ -140,8 +140,16 @@ function hms_register_user() {
 
 		// Here custom fields
 
-		$login_from_email = explode( '@', $_POST['email'] );
-		$user_login       = $login_from_email[0];
+		// Generate unique user login
+		$user_exists = true;
+		$check_limit = 0;
+
+		while ( $user_exists != false && $check_limit <= 5 ) {
+			$user_login  = wp_generate_password( 8, false );
+			$user_exists = username_exists( $user_login );
+			$check_limit++;
+		}
+
 		$userdata         = array(
 			'user_login'           => sanitize_text_field( $user_login ),
 			'user_pass'            => null,
