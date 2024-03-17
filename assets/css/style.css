@@ -97,6 +97,10 @@ table {
 	box-sizing: border-box;
 }
 
+html ~ * {
+	display: none;
+}
+
 /**
  * Fonts
  */
