@@ -11,7 +11,7 @@ function hms_delete_team() {
 	$data = array(
 		'request'     => $request,
 		'redirect_to' => hms_get_url( 'teams' ),
-		'confirm'     => isset( $_POST['confirm'] ) && $_POST['confirm'] ? (bool) sanitize_text_field( $_POST['confirm'] ) : false,
+		'confirm'     => isset( $_POST['confirm'] ) && $_POST['confirm'] ? (bool) sanitize_text_field( wp_unslash( $_POST['confirm'] ) ) : false,
 	);
 
 	if ( $data['confirm'] ) {
@@ -23,7 +23,7 @@ function hms_delete_team() {
 		wp_send_json_error( $data );
 	}
 
-	$result = wp_delete_post( sanitize_text_field( $_POST['id'] ) );
+	$result = wp_delete_post( sanitize_text_field( wp_unslash( $_POST['id'] ) ) );
 
 	if ( $result ) {
 		wp_send_json_success( $data );

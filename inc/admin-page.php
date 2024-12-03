@@ -32,7 +32,7 @@ function hms_admin_page_callback() {
 	?>
 
 <div class="wrap">
-	<h1><?php echo get_admin_page_title(); ?></h1>
+	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 	<h2><?php esc_html_e( 'Auxiliary links', 'hackathon' ); ?></h2>
 	<p>
 		<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=hms_log' ) ); ?>"><?php esc_html_e( 'Edit Logs', 'hackathon' ); ?></a>

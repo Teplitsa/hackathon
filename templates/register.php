@@ -34,7 +34,7 @@ hms_load_template( 'header.php' );
 					'hms_checkemail_registered_message',
 					sprintf(
 					/* translators: %s: Link to the login page. */
-						__( 'Registration complete. Please check your email, then visit the <a href="%s">login page</a>.' ),
+						__( 'Registration complete. Please check your email, then visit the <a href="%s">login page</a>.', 'hackathon' ),
 						hms_get_url()
 					),
 					$form_slug
@@ -136,7 +136,7 @@ hms_load_template( 'header.php' );
 				</form>
 
 				<p id="nav">
-					<a href="<?php echo esc_url( wp_login_url( hms_get_url() ) ); ?>"><?php _e( 'Log in', 'hackathon' ); ?></a>
+					<a href="<?php echo esc_url( wp_login_url( hms_get_url() ) ); ?>"><?php esc_html_e( 'Log in', 'hackathon' ); ?></a>
 					|
 					<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Lost your password?', 'hackathon' ); ?></a>
 				</p>

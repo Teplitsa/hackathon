@@ -24,7 +24,7 @@
 @import './src/js/import/request.js'
 @import './src/js/import/data-action.js'
 @import './src/js/import/filter.js'
-@import './src/js/import/clipboard.js'
+@import './src/js/import/hms-clipboard.js'
 @import './src/js/import/custom.js'
 
 })( jQuery );

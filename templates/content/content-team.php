@@ -165,14 +165,16 @@ if ( ! $team ) {
 						</div>
 
 						<?php
-							$fields = get_post_meta( get_the_ID(), '_fields', true );
-						foreach ( $fields as $key => $field ) {
+						$fields = get_post_meta( get_the_ID(), '_fields', true );
+						if ( $fields ) {
+							foreach ( $fields as $key => $field ) {
 							?>
 								<div class="hms-material-item">
 									<div class="hms-material-heading"><?php echo esc_html( $field['label'] ); ?></div>
 									<div class="hms-material-content"><?php echo wpautop( esc_html( $field['value'] ) ); ?></div>
 								</div>
 							<?php
+							}
 						}
 						?>
 					</div>

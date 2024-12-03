@@ -401,7 +401,7 @@ function hms_before_load_content() {
 			}
 		}
 
-		$file_name = 'hms-' . $content_type . '-' . date( 'd.m.Y-' ) . time() . '.csv';
+		$file_name = 'hms-' . $content_type . '-' . gmdate( 'd.m.Y-' ) . time() . '.csv';
 
 		header( 'Content-Type: text/csv; charset=utf-8' );
 		header( 'Content-Disposition: attachment; filename="' . $file_name . '"' );

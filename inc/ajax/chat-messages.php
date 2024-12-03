@@ -8,11 +8,11 @@ function hms_ajax_chat_message() {
 
 	$data = map_deep( $_REQUEST, 'sanitize_text_field' );
 
-	$checkpoint_id = isset( $_POST['checkpoint_id'] ) ? $_POST['checkpoint_id'] : '';
-	$team_id       = isset( $_POST['team_id'] ) ? $_POST['team_id'] : '';
+	$checkpoint_id = isset( $_POST['checkpoint_id'] ) ? wp_unslash( $_POST['checkpoint_id'] ) : '';
+	$team_id       = isset( $_POST['team_id'] ) ? wp_unslash( $_POST['team_id'] ) : '';
 
 	if ( isset( $_POST['message'] ) && $_POST['message'] ) {
-		$message    = isset( $_POST['message'] ) ? $_POST['message'] : '';
+		$message    = isset( $_POST['message'] ) ? wp_unslash( $_POST['message'] ) : '';
 		$message_id = hms_insert_point_message( $checkpoint_id, $team_id, $message );
 
 		hms_insert_point_email( $checkpoint_id, $team_id, $message, $message_id );

@@ -55,7 +55,7 @@ if ( ! $message ) {
 							<tr>
 								<th><label for="post_title"><?php esc_html_e( 'Message title', 'hackathon' ); ?></label></th>
 								<td>
-									<input type="text" name="post_title" class="regular-text" id="post_title" value="<?php echo get_the_title( $message_id ); ?>">
+									<input type="text" name="post_title" class="regular-text" id="post_title" value="<?php echo esc_attr( get_the_title( $message_id ) ); ?>">
 								</td>
 							</tr>
 							<tr>

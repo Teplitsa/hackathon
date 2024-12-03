@@ -65,7 +65,7 @@ if ( ! $team ) {
 								<th><label><?php esc_html_e( 'Team logo', 'hackathon' ); ?></label></th>
 								<td>
 									<div class="hackathon-image-field">
-										<input type="hidden" name="team_logo" value="<?php echo get_post_meta( $team_id, '_team_logo', true ); ?>">
+										<input type="hidden" name="team_logo" value="<?php echo esc_attr( get_post_meta( $team_id, '_team_logo', true ) ); ?>">
 										<div class="hackathon-image-figure">
 										<?php
 											$upload_class = '';
@@ -105,7 +105,7 @@ if ( ! $team ) {
 
 							<tr>
 								<th><label form="team_chat"><?php esc_html_e( 'Link to the team\'s chat', 'hackathon' ); ?></label></th>
-								<td><input type="text" name="team_chat" class="regular-text" id="team_chat" value="<?php echo get_post_meta( $team_id, '_team_chat', true ); ?>"></td>
+								<td><input type="text" name="team_chat" class="regular-text" id="team_chat" value="<?php echo esc_attr( get_post_meta( $team_id, '_team_chat', true ) ); ?>"></td>
 							</tr>
 						</tbody>
 					</table>

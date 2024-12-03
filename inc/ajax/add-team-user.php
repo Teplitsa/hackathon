@@ -8,8 +8,8 @@ function hms_ajax_add_team_user() {
 
 	$request = map_deep( $_REQUEST, 'sanitize_text_field' );
 
-	$user_id = isset( $_POST['user_id'] ) ? sanitize_text_field( $_POST['user_id'] ) : '';
-	$team_id = isset( $_POST['team_id'] ) ? sanitize_text_field( $_POST['team_id'] ) : '';
+	$user_id = isset( $_POST['user_id'] ) ? sanitize_text_field( wp_unslash( $_POST['user_id'] ) ) : '';
+	$team_id = isset( $_POST['team_id'] ) ? sanitize_text_field( wp_unslash( $_POST['team_id'] ) ) : '';
 
 	$max_participants = hms_max_participants();
 	$user_count       = hms_get_team_users_count( $team_id );

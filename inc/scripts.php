@@ -169,12 +169,14 @@ function hms_register_styles() {
 
 	}
 
-	wp_register_style( 'hms-common', HMS_URL . 'assets/css/common.min.css' );
-	wp_register_style( 'hms-dashicons', includes_url( 'css' ) . '/dashicons.min.css' );
-	wp_register_style( 'hms-forms', HMS_URL . 'assets/css/forms.min.css' );
-	wp_register_style( 'hms-buttons', includes_url( 'css' ) . '/buttons.min.css' );
-	wp_register_style( 'hms-login', HMS_URL . 'assets/css/login.min.css' );
-	wp_register_style( 'hms-jquery-ui', HMS_URL . 'assets/css/jquery-ui.css', array(), '1.0.0' );
+	$hms_wp_version = get_bloginfo('version');
+
+	wp_register_style( 'hms-common', HMS_URL . 'assets/css/common.min.css', array(), $hms_wp_version );
+	wp_register_style( 'hms-dashicons', includes_url( 'css' ) . '/dashicons.min.css', array(), $hms_wp_version );
+	wp_register_style( 'hms-forms', HMS_URL . 'assets/css/forms.min.css', array(), $hms_wp_version );
+	wp_register_style( 'hms-buttons', includes_url( 'css' ) . '/buttons.min.css', array(), $hms_wp_version );
+	wp_register_style( 'hms-login', HMS_URL . 'assets/css/login.min.css', array(), $hms_wp_version );
+	wp_register_style( 'hms-jquery-ui', HMS_URL . 'assets/css/jquery-ui.css', array(), $hms_wp_version );
 	wp_register_style( 'hms-style', HMS_URL . 'assets/css/style.css', $dependencies, HMS_VER );
 
 	if ( wp_get_attachment_image_url( hms_option( 'event_logo' ) ) ) {

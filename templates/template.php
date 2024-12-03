@@ -31,7 +31,7 @@ if ( is_user_logged_in() && ! isset( $_GET['preview'] ) ) {
 
 	if ( hms_is_administrator() ) {
 		if ( isset( $_GET['login_as'] ) && get_current_user_id() != $_GET['login_as'] ) {
-			$user_id = sanitize_text_field( $_GET['login_as'] );
+			$user_id = sanitize_text_field( wp_unslash( $_GET['login_as'] ) );
 			$user    = get_user_by( 'id', $user_id );
 			if ( $user ) {
 				wp_set_current_user( $user_id, $user->user_login );
