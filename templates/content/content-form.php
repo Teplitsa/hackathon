@@ -62,7 +62,7 @@ if ( $form_type !== 'intrasystem' ) {
 						</div>
 						<div class="hms-field">
 							<div class="hms-field-description">
-								<span class="hms-form-slug hms-clipboard" data-msg="<?php esc_attr_e( 'URL successfully copied to clipboard!', 'hackathon' ); ?>"><?php hms_url(); ?><span class="hms-form-slug-js"><?php echo esc_html( $form_slug ); ?></span>/</span> – <?php esc_html_e( 'the form will be available at this address.', 'hackathon' ); ?> | <a href="<?php hms_url( $form_slug, array( 'preview' => 'true' ) ); ?>" target="_blnk" class="hms-form-url-js"><?php esc_html_e( 'Preview', 'hackathon' ); ?></a></div>
+								<span class="hms-form-slug hms-clipboard" data-msg="<?php esc_attr_e( 'URL successfully copied to clipboard!', 'hackathon' ); ?>"><?php hms_url(); ?><span class="hms-form-slug-js"><?php echo esc_html( $form_slug ); ?></span>/</span> – <?php esc_html_e( 'the form will be available at this address.', 'hackathon' ); ?> | <a href="<?php hms_url( $form_slug, array( 'preview-form' => 'true' ) ); ?>" target="_blnk" class="hms-form-url-js"><?php esc_html_e( 'Preview', 'hackathon' ); ?></a></div>
 						</div>
 						<div class="hms-field">
 							<select name="role" class="hms-field-input">

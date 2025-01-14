@@ -114,7 +114,7 @@ function hms_register_styles() {
 		'hms-jquery-ui',
 	);
 
-	if ( is_user_logged_in() && ! isset( $_GET['preview'] ) ) {
+	if ( is_user_logged_in() && ! isset( $_GET['preview-form'] ) ) {
 		$load_url = admin_url() . 'load-styles.php';
 
 		$admin_styles = array(
@@ -260,7 +260,7 @@ function hms_register_scripts() {
 
 	}
 
-	if ( ! is_user_logged_in() || isset( $_GET['preview'] ) ) {
+	if ( ! is_user_logged_in() || isset( $_GET['preview-form'] ) ) {
 		$form_slug = get_query_var( 'hms_subpage' );
 		$form_args = array(
 			'meta_key'       => '_form_slug',

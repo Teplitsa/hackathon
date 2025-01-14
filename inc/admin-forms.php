@@ -289,7 +289,7 @@ function hms_card_forms( $args = '' ) {
 					<div class="hms-card-action-popover">
 						<div class="hms-card-action-menu">
 							<a href="<?php hms_url( 'form' ); ?>"><?php esc_html_e( 'Edit', 'hackathon' ); ?></a>
-							<a href="<?php hms_url( 'register', array( 'preview' => 'true' ) ); ?>" target="_blank"><?php esc_html_e( 'Preview', 'hackathon' ); ?></a>
+							<a href="<?php hms_url( 'register', array( 'preview-form' => 'true' ) ); ?>" target="_blank"><?php esc_html_e( 'Preview', 'hackathon' ); ?></a>
 						</div>
 					</div>
 				</div>
@@ -326,7 +326,7 @@ function hms_card_forms( $args = '' ) {
 							<div class="hms-card-action-popover">
 								<div class="hms-card-action-menu">
 									<a href="<?php hms_url( 'form/' . get_the_ID() ); ?>"><?php esc_html_e( 'Edit', 'hackathon' ); ?></a>
-									<a href="<?php hms_url( $form_slug, array( 'preview' => 'true' ) ); ?>" target="_blank"><?php esc_html_e( 'Preview', 'hackathon' ); ?></a>
+									<a href="<?php hms_url( $form_slug, array( 'preview-form' => 'true' ) ); ?>" target="_blank"><?php esc_html_e( 'Preview', 'hackathon' ); ?></a>
 									<?php /* <a href="">Duplicate</a> */ ?>
 									<a href="#" class="hms-form-delete" data-id="<?php the_ID(); ?>"><?php esc_html_e( 'Delete', 'hackathon' ); ?></a>
 								</div>

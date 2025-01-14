@@ -8,7 +8,7 @@ $body_class = 'wp-core-ui login hackathon-page';
 if ( is_user_logged_in() ) {
 	$body_class = 'wp-admin wp-core-ui admin-bar admin-color-fresh no-customize-support hackathon-page hms-page';
 
-	if ( isset( $_GET['preview'] ) ) {
+	if ( isset( $_GET['preview-form'] ) ) {
 		$body_class .= ' login';
 	}
 }

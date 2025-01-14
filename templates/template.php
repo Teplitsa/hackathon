@@ -10,7 +10,7 @@ if ( ! is_user_logged_in() && ! in_array( $is_subpage, hms_get_forms_slugs() ) )
 	exit;
 }
 
-if ( is_user_logged_in() && ! isset( $_GET['preview'] ) ) {
+if ( is_user_logged_in() && ! isset( $_GET['preview-form'] ) ) {
 
 	$exclude_pages = array();
 

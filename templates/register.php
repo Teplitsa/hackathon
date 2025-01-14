@@ -8,7 +8,7 @@ $forms_slugs    = hms_get_forms_slugs();
 $form_id        = array_search( $form_slug, $forms_slugs );
 $form_role      = get_post_meta( $form_id, '_form_role', true );
 $form_fields    = get_post_meta( $form_id, '_form_fields', true );
-$disable_button = isset( $_GET['preview'] );
+$disable_button = isset( $_GET['preview-form'] );
 $form_title     = apply_filters( 'hms_register_form_title', __( 'Sign up for the hackathon', 'hackathon' ), $form_slug );
 
 hms_load_template( 'header.php' );
