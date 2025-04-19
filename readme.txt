@@ -4,9 +4,9 @@ Author URI: https://te-st.org/
 Plugin URI: 
 Tags:
 Requires at least: 6.0
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 License: GPL v3
 
 Hackathon Management System
@@ -16,6 +16,9 @@ Hackathon Management System
 Hackathon Management System – a plugin that simplifies organization of online hackathons: create teams, invite members, set demonstration deadlines, upload presentations and check-ins, communicate with participants.
 
 == Changelog ==
+
+= 1.2.6 =
+* Improve support WordPress 6.8
 
 = 1.2.5 =
 * Improve support WordPress 6.7
